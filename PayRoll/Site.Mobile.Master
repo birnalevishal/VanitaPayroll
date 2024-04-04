@@ -1,0 +1,312 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.Mobile.master.cs" Inherits="PayRoll.Site_Mobile" %>
+
+<%@ Register Src="~/ViewSwitcher.ascx" TagPrefix="friendlyUrls" TagName="ViewSwitcher" %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title><%: Page.Title %> - PayRoll System </title>
+
+    <%-- <asp:PlaceHolder runat="server">
+        <%: Scripts.Render("~/bundles/modernizr") %>
+    </asp:PlaceHolder>--%>
+
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+    <%--        <!-- Vendor styles -->
+    <webopt:BundleReference runat="server" Path="~/Content/vendor" />
+    <!-- App styles -->
+    <webopt:BundleReference runat="server" Path="~/Content/app" />--%>
+
+    <%--    <!-- Vendor styles -->
+    <%: Styles.Render("~/Content/vendor") %>
+    <!-- App styles -->
+    <%: Styles.Render("~/Content/app") %>--%>
+
+    <!-- Vendor styles -->
+    <link rel="stylesheet" href="vendor/fontawesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="vendor/metisMenu/dist/metisMenu.css" />
+    <link rel="stylesheet" href="vendor/animate.css/animate.css" />
+    <link rel="stylesheet" href="vendor/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="vendor/sweetalert/lib/sweet-alert.css" />
+    <link rel="stylesheet" href="vendor/datatables.net-bs/css/dataTables.bootstrap.min.css" />
+    <link rel="stylesheet" href="vendor/bootstrap-datepicker-master/dist/css/bootstrap-datepicker3.min.css" />
+    <link rel="stylesheet" href="vendor/xeditable/bootstrap3-editable/css/bootstrap-editable.css" />
+    <link rel="stylesheet" href="vendor/select2-3.5.2/select2.css" />
+    <link rel="stylesheet" href="vendor/select2-bootstrap/select2-bootstrap.css" />
+
+    <!-- App styles -->
+    <link rel="stylesheet" href="fonts/pe-icon-7-stroke/css/pe-icon-7-stroke.css" />
+    <link rel="stylesheet" href="fonts/pe-icon-7-stroke/css/helper.css" />
+    <link rel="stylesheet" href="styles/style.css" />
+    <link rel="stylesheet" href="styles/static_custom.css" />
+
+    <style type="text/css">
+        .GridPager a {
+            display: block;
+            height: 20px;
+            width: 20px;
+            background-color: #3AC0F2;
+            color: #fff;
+            font-weight: bold;
+            border: 1px solid #3AC0F2;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .GridPager span {
+            display: block;
+            height: 20px;
+            width: 20px;
+            background-color: #fff;
+            color: #3AC0F2;
+            font-weight: bold;
+            border: 1px solid #3AC0F2;
+            text-align: center;
+            text-decoration: none;
+        }
+    </style>
+
+    <link href="styles/Custom.css" rel="stylesheet" />
+
+</head>
+
+<body class="fixed-navbar sidebar-scroll">
+    <form runat="server" >
+        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+
+        <!-- Header -->
+        <div id="header">
+            <div class="color-line">
+            </div>
+            <div id="logo" class="light-version">
+                <span><%=Session["OrgName"].ToString() %>
+                </span>
+            </div>
+            <nav role="navigation">
+                <div class="header-link hide-menu"><i class="fa fa-bars"></i></div>
+
+                <div class="small-logo">
+                    <span class="text-primary" style="text-emphasis-color: white"><%=Session["OrgName"].ToString() %></span>
+                </div>
+                <%-- <form role="search" class="navbar-form-custom" method="post" action="#">
+                    <div class="form-group">
+                        <input type="text" placeholder="Search something special" class="form-control" name="search">
+                    </div>
+                </form>--%>
+                <div class="mobile-menu">
+                    <button type="button" class="navbar-toggle mobile-menu-toggle" data-toggle="collapse" data-target="#mobile-collapse">
+                        <i class="fa fa-chevron-down"></i>
+                    </button>
+                    <div class="collapse mobile-navbar" id="mobile-collapse">
+                        <ul class="nav navbar-nav">
+                            <li>
+                                <asp:LinkButton ID="lbtnLogOut1" runat="server" OnClick="lbtnLogOut_Click">Logout</asp:LinkButton>
+                            </li>
+                            <%-- <li>
+                                <a class="" href="#">Login</a>
+                            </li>
+                            <li>
+                                <a class="" href="#">Profile</a>
+                            </li>--%>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="navbar-right">
+                    <ul class="nav navbar-nav no-borders">
+                        <%--Masters--%>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                                <h5><i class="pe-7s-disk"></i>&nbsp;
+                                    Masters
+                                </h5>
+                            </a>
+
+                            <div class="dropdown-menu hdropdown bigmenu animated flipInX" style="background-color:#b4eaff;">
+                                <table>
+                                    <tbody>
+                                        <asp:PlaceHolder ID="masterMenuPlaceHolder" runat="server"></asp:PlaceHolder>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </li>
+                        <%-- Reports--%>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                                <h5><i class="pe-7s-note2"></i>&nbsp;
+                                    Reports
+                                </h5>
+                            </a>
+
+                            <div class="dropdown-menu hdropdown bigmenu animated flipInX" style="background-color:#b4eaff;">
+                                <table>
+                                    <tbody>
+                                        <asp:PlaceHolder ID="rptMenuPlaceHolder" runat="server"></asp:PlaceHolder>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </li>
+
+                        <li>
+                            <a>
+                                <h5><i class="fa fa-calendar"></i>&nbsp;
+                                    <% =DateTime.Now.ToString("dd-MM-yyyy") %>
+                                </h5>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a>
+                                <h5>
+                                    <i class="fa fa-key"></i>&nbsp;
+                                    <% =Session["RoleName"].ToString() %>
+                                </h5>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a>
+                                <h5>
+                                    <i class="pe-7s-user"></i>&nbsp;Welcome, <% =Session["EmpName"].ToString() %> 
+                                </h5>
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                            <asp:LinkButton ID="lbtnLogOut" runat="server" OnClick="lbtnLogOut_Click" ToolTip="LogOut"><i class="pe-7s-upload pe-rotate-90"></i></asp:LinkButton>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+
+        <!-- Navigation -->
+        <aside id="menu">
+            <div id="navigation">
+                <%--<div class="profile-picture">
+                    <a href="#">
+                        <asp:Image ID="imgOrg" runat="server" alt="logo" ImageUrl="~/images/12.jpg" />
+                    </a>
+                </div>--%>
+
+                <ul class="nav" id="side-menu">
+                    <asp:PlaceHolder ID="mnuPlaceHolder" runat="server"></asp:PlaceHolder>
+
+                </ul>
+            </div>
+
+        </aside>
+
+
+        <!-- Main Wrapper -->
+        <div id="wrapper">
+            <%--<div class="content">--%>
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+            <%--</div>--%>
+
+
+            <!-- Footer-->
+            <footer class="footer">
+                <%--<span class="pull-right">Developed By <a href="http:\\shreemitsolutions.com" target="_blank">Shreem IT Solutions </a>
+                </span>
+                <%=Session["OrgName"].ToString() %> <%: DateTime.Now.Year %>--%>
+                <strong>HR APP</strong> - Maintained By Rubicon Systems
+            </footer>
+
+        </div>
+
+
+    </form>
+
+
+    <!-- Vendor scripts -->
+    <%: Scripts.Render("~/bundles/vendor1") %>
+    <%: Scripts.Render("~/bundles/vendor2") %>
+    <%: Scripts.Render("~/bundles/vendor3") %>
+    <%: Scripts.Render("~/bundles/vendor4") %>
+    <%: Scripts.Render("~/bundles/vendor5") %>
+    <%: Scripts.Render("~/bundles/vendor8") %>
+
+    <%--    <%: Scripts.Render("~/bundles/vendor6") %>
+    <%: Scripts.Render("~/bundles/vendor7") %>--%>
+
+    <!-- App scripts -->
+    <%: Scripts.Render("~/bundles/app") %>
+
+
+    <script>
+        $(document).ready(function () {
+            $("input:text").focus(function () {
+                $(this).css("background-color", "#F0F8FF");
+            });
+            $("input:text").blur(function () {
+                $(this).css("background-color", "#ffffff");
+            });
+            $("select").focus(function () {
+                $(this).css("background-color", "#F0F8FF");
+            });
+            $("select").blur(function () {
+                $(this).css("background-color", "#ffffff");
+            });
+        });
+    </script>
+
+    <script>
+        //Re-Create for on page postbacks
+        var prm = Sys.WebForms.PageRequestManager.getInstance();
+        prm.add_endRequest(function () {
+
+            // Initialize iCheck plugin
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green'
+            });
+
+
+            // Function for collapse hpanel
+            $('.showhide').on('click', function (event) {
+                event.preventDefault();
+                var hpanel = $(this).closest('div.hpanel');
+                var icon = $(this).find('i:first');
+                var body = hpanel.find('div.panel-body');
+                var footer = hpanel.find('div.panel-footer');
+                body.slideToggle(300);
+                footer.slideToggle(200);
+
+                // Toggle icon from up to down
+                icon.toggleClass('fa-chevron-up').toggleClass('fa-chevron-down');
+                hpanel.toggleClass('').toggleClass('panel-collapse');
+                setTimeout(function () {
+                    hpanel.resize();
+                    hpanel.find('[id^=map-]').resize();
+                }, 50);
+            });
+
+            $("input:text").focus(function () {
+                $(this).css("background-color", "#F0F8FF");
+            });
+            $("input:text").blur(function () {
+                $(this).css("background-color", "#ffffff");
+            });
+            $("select").focus(function () {
+                $(this).css("background-color", "#F0F8FF");
+            });
+            $("select").blur(function () {
+                $(this).css("background-color", "#ffffff");
+            });
+
+            $(".js-source-states").select2();
+
+        });
+
+    </script>
+
+    
+
+</body>
+</html>

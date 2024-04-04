@@ -1,0 +1,329 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site1.Master.cs" Inherits="PayRoll.Site1" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title><%: Page.Title %> - PayRoll System </title>
+
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css' />
+
+    <!-- Vendor styles -->
+    <link rel="stylesheet" href="Vendor/fontawesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="Vendor/animate.css/animate.min.css" />
+    <link rel="stylesheet" href="Vendor/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="Icons/pe-icon-7-stroke/css/pe-icon-7-stroke.css" />
+
+    <!-- Primary HOMER style -->
+    <link rel="stylesheet" href="Content/style.css" />
+
+    <style type="text/css">
+        .GridPager a {
+            display: block;
+            height: 20px;
+            width: 20px;
+            background-color: #3AC0F2;
+            color: #fff;
+            font-weight: bold;
+            border: 1px solid #3AC0F2;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .GridPager span {
+            display: block;
+            height: 20px;
+            width: 20px;
+            background-color: #fff;
+            color: #3AC0F2;
+            font-weight: bold;
+            border: 1px solid #3AC0F2;
+            text-align: center;
+            text-decoration: none;
+        }
+    </style>
+
+</head>
+<body>
+    <form runat="server">
+        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+        <!-- Header -->
+        <div id="header">
+            <div class="color-line">
+            </div>
+            <div id="logo" class="light-version">
+                <span>
+                    <img src="/Images/shreem_logo.png" alt="logo" />
+                </span>
+            </div>
+            <nav role="navigation">
+                <div class="header-link hide-menu"><i class="fa fa-bars"></i></div>
+                <div class="small-logo">
+                    <span class="text-primary">HOMER APP</span>
+                </div>
+
+                <div class="mobile-menu">
+                    <button type="button" class="navbar-toggle mobile-menu-toggle" data-toggle="collapse" data-target="#mobile-collapse">
+                        <i class="fa fa-chevron-down"></i>
+                    </button>
+                    <div class="collapse mobile-navbar" id="mobile-collapse">
+                        <ul class="nav navbar-nav">
+                            <li>
+                                <a class="" href="#">Login</a>
+                            </li>
+                            <li>
+                                <a class="" href="#">Logout</a>
+                            </li>
+                            <li>
+                                <a class="" href="#">Profile</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="navbar-right">
+                    <ul class="nav navbar-nav no-borders">
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                                <center>
+                        <i class="fa fa-barcode"></i><br><span class="font-icon-name" style="font-size: 13px !important; font-weight:700 !important"> Masters</span>
+                    </center>
+                            </a>
+                            <ul class="dropdown-menu hdropdown notification animated flipInX">
+                                <li>
+                                    <a>
+                                        <span class="label label-success">NEW</span> It is a long established.
+                                    </a>
+                                </li>
+                                <li>
+                                    <a>
+                                        <span class="label label-warning">WAR</span> There are many variations.
+                                    </a>
+                                </li>
+                                <li>
+                                    <a>
+                                        <span class="label label-danger">ERR</span> Contrary to popular belief.
+                                    </a>
+                                </li>
+                                <li class="summary"><a href="#">See all notifications</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                                <center>
+                        <i class="fa fa-rupee"></i><br><span class="font-icon-name" style="font-size: 13px !important; font-weight:700 !important"> Account</span>
+                    </center>
+                            </a>
+                            <ul class="dropdown-menu hdropdown notification animated flipInX">
+                                <li>
+                                    <a>
+                                        <span class="label label-success">NEW</span> It is a long established.
+                                    </a>
+                                </li>
+                                <li>
+                                    <a>
+                                        <span class="label label-warning">WAR</span> There are many variations.
+                                    </a>
+                                </li>
+                                <li>
+                                    <a>
+                                        <span class="label label-danger">ERR</span> Contrary to popular belief.
+                                    </a>
+                                </li>
+                                <li class="summary"><a href="#">See all notifications</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                                <center>
+                        <i class="fa fa-line-chart"></i><br><span class="font-icon-name" style="font-size: 13px !important; font-weight:700 !important "> Reports</span>
+                    </center>
+                            </a>
+                            <ul class="dropdown-menu hdropdown notification animated flipInX">
+                                <li>
+                                    <a>
+                                        <span class="label label-success">NEW</span> It is a long established.
+                                    </a>
+                                </li>
+                                <li>
+                                    <a>
+                                        <span class="label label-warning">WAR</span> There are many variations.
+                                    </a>
+                                </li>
+                                <li>
+                                    <a>
+                                        <span class="label label-danger">ERR</span> Contrary to popular belief.
+                                    </a>
+                                </li>
+                                <li class="summary"><a href="#">See all notifications</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                                <i class="pe-7s-keypad"></i>
+                            </a>
+                            <div class="dropdown-menu hdropdown bigmenu animated flipInX">
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <a href="#">
+                                                    <i class="pe pe-7s-portfolio text-info"></i>
+                                                    <h5>Projects</h5>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a href="#">
+                                                    <i class="pe pe-7s-mail text-warning"></i>
+                                                    <h5>Email</h5>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a href="#">
+                                                    <i class="pe pe-7s-users text-success"></i>
+                                                    <h5>Contacts</h5>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <a href="#">
+                                                    <i class="pe pe-7s-comment text-info"></i>
+                                                    <h5>Forum</h5>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a href="#">
+                                                    <i class="pe pe-7s-graph1 text-danger"></i>
+                                                    <h5>Analytics</h5>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a href="#">
+                                                    <i class="pe pe-7s-box1 text-success"></i>
+                                                    <h5>Files</h5>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle label-menu-corner" href="#" data-toggle="dropdown">
+                                <i class="pe-7s-mail"></i>
+                                <span class="label label-success">4</span>
+                            </a>
+                            <ul class="dropdown-menu hdropdown animated flipInX">
+                                <div class="title">
+                                    You have 4 new messages
+                                </div>
+                                <li>
+                                    <a>It is a long established.
+                                    </a>
+                                </li>
+                                <li>
+                                    <a>There are many variations.
+                                    </a>
+                                </li>
+                                <li>
+                                    <a>Lorem Ipsum is simply dummy.
+                                    </a>
+                                </li>
+                                <li>
+                                    <a>Contrary to popular belief.
+                                    </a>
+                                </li>
+                                <li class="summary"><a href="#">See All Messages</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#" id="sidebar" class="right-sidebar-toggle">
+                                <i class="pe-7s-upload pe-7s-news-paper"></i>
+                            </a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="login.html">
+                                <i class="pe-7s-upload pe-rotate-90"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <div class="hpanel" style="margin-bottom: 1px !important; padding: 0px !important;">
+            <div style="height: 42px; padding: 0px !important; padding-top: 0px !important; border: 1px solid #a3a3a8 !important; background: #d8dbdd !important; font-size: 100% !important;">
+                <div style="width: 246px; float: left; padding-top: 12px; padding-left: 20px;">
+                    <% =DateTime.Now.ToString() %>
+                </div>
+                <div style="background-color: #ffffff !important; float: left; width: 55%; height: 94%; padding-bottom: 4px !important; margin-top: -4px;">
+                </div>
+                <div style="float: left; padding-left: 15px; padding-top: 6px;">
+                    <%--<% ="Welcome, " + Session["EmpName"].ToString() %>--%>
+                </div>
+            </div>
+        </div>
+        <!-- Header -->
+
+        <!-- Navigation -->
+        <aside id="menu">
+            <div id="navigation">
+                <%--<ul class="nav metismenu" id="side-menu">
+                <li class="active">
+                    <a href="#"><span class="nav-label">Dashboard</span> <span class="label label-success pull-right">v.1</span> </a>
+                </li>
+                <li class="">
+                    <a href="#"><span class="nav-label">Forms</span><span class="fa arrow"></span> </a>
+                    <ul class="nav nav-second-level">
+                        <li class=""><a href="TestPage.aspx">Forms elements</a></li>
+                        <li class=""><a href="#">Forms extended</a></li>
+                        <li class=""><a href="#">Text editor</a></li>
+                        <li class=""><a href="#">Wizard</a></li>
+                        <li class=""><a href="TestPage.aspx">Validation</a></li>
+                    </ul>
+                </li>
+
+            </ul>--%>
+                <ul class="nav" id="side-menu">
+                    <asp:PlaceHolder ID="mnuPlaceHolder" runat="server"></asp:PlaceHolder>
+                </ul>
+
+            </div>
+        </aside>
+        <!-- Navigation -->
+
+        <!-- Main view  -->
+        <div id="wrapper">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+
+
+            <!-- Footer-->
+            <footer class="footer">
+                <%--<span class="pull-right">Example text
+                </span>--%>
+                Vanita Agro 2019 - <%: DateTime.Now.Year %>
+            </footer>
+            <!-- Footer-->
+        </div>
+        <!-- Main view  -->
+
+    </form>
+
+    <!-- Section for main scripts render -->
+    <script src="Vendor/jquery/dist/jquery.min.js"></script>
+    <script src="Vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="Vendor/metisMenu/dist/metisMenu.min.js"></script>
+    <script src="Vendor/slimScroll/jquery.slimscroll.min.js"></script>
+    <script src="Vendor/iCheck/icheck.min.js"></script>
+    <script src="Vendor/peity/jquery.peity.min.js"></script>
+    <script src="Vendor/sparkline/index.js"></script>
+    <script src="Scripts/homer.js"></script>
+    <script src="Scripts/charts.js"></script>
+
+
+</body>
+</html>

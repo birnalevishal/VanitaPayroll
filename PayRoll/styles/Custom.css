@@ -1,0 +1,29 @@
+﻿/* Plcaing Ajax Update Progress at center of screen*/
+
+#progressBackgroundFilter {
+    position:fixed;
+    top:0px;
+    bottom:0px;
+    left:0px;
+    right:0px;
+    overflow:hidden;
+    padding:0;
+    margin:0;
+    background-color:#000;
+    filter:alpha(opacity=50);
+    opacity:0.5;
+    z-index:1000;
+    width: 100%;
+    height: 100%;
+}
+#processMessage {
+    position:fixed;
+    top:30%;
+    left:43%;
+    padding:10px;
+    width:14%;
+    z-index:1001;
+    background-color:#fff;
+    border:solid 1px #000;
+    
+}
