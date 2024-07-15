@@ -91,10 +91,12 @@ namespace PayRoll.Masters
                 //file upload path
                 if (FUExcel.HasFiles)
                 {
+                    //File name seperation
                     string extension = Path.GetExtension(FUExcel.PostedFile.FileName);
                     string fileName = Path.GetFileNameWithoutExtension(FUExcel.PostedFile.FileName);
                     string strConcat = DateTime.Now.ToString("ddMMyyyy_HHmmss");
 
+                    //Create New file name for saving file on sever
                     string excelPath = Server.MapPath("~/Imports/" + fileName + "_" + strConcat + extension);
                     FUExcel.SaveAs(excelPath);
 
@@ -102,28 +104,32 @@ namespace PayRoll.Masters
                     conString = ConfigurationManager.ConnectionStrings["Excel07+ConString"].ConnectionString;
                     conString = string.Format(conString, excelPath);
 
+                    //Read excel file
                     using (OleDbConnection excel_con = new OleDbConnection(conString))
                     {
                         excel_con.Open();
                         string sheet1 = excel_con.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null).Rows[0]["TABLE_NAME"].ToString();
                         DataTable dtExcelData = new DataTable();
 
-                        //[OPTIONAL]: It is recommended as otherwise the data will be considered as String by default.
-                        dtExcelData.Columns.AddRange(new DataColumn[6] { new DataColumn("OrgId", typeof(int)),
+                        //Data Table to store the information from excel file
+                        dtExcelData.Columns.AddRange(new DataColumn[6] {
+                                                                    new DataColumn("OrgId", typeof(int)),
                                                                     new DataColumn("MonYrcd", typeof(string)),
                                                                     new DataColumn("EMPCODE", typeof(string)),
                                                                     new DataColumn("Wages", typeof(decimal)),
-                                                                     new DataColumn("VehicleHamali", typeof(decimal)),
+                                                                    new DataColumn("VehicleHamali", typeof(decimal)),
                                                                     new DataColumn("TotalHamali", typeof(decimal)),
-                                                    });
+                                                                });
 
                         dtExcelData.Columns["OrgID"].DefaultValue = Session["OrgID"].ToString();
                         dtExcelData.Columns["MonYrcd"].DefaultValue = ddlMon.SelectedValue + ddlYear.SelectedValue;
 
+                        //Read from Sheet
                         using (OleDbDataAdapter oda = new OleDbDataAdapter("SELECT EMPCODE, Wages, VehicleHamali, TotalHamali FROM[" + sheet1 + "]", excel_con))
                         {
                             oda.Fill(dtExcelData);
 
+                            //Delete existing data for Selected Month/Year
                             string strQry = "SELECT * FROM T_MonthlyHamaliSalary Where MonYrcd='" + ddlMon.SelectedValue + ddlYear.SelectedValue + "' and orgID=" + Convert.ToInt32(Session["OrgID"]);
                             DataTable objDT = SqlHelper.ExecuteDataTable(strQry, AppGlobal.strConnString);
                             if (objDT.Rows.Count > 0)
@@ -134,6 +140,7 @@ namespace PayRoll.Masters
                         }
                         excel_con.Close();
 
+                        //Bulk copy data from excel to SQL 
                         string consString = ConfigurationManager.ConnectionStrings["VanitaPayrollConnectionString"].ConnectionString;
                         using (SqlConnection con = new SqlConnection(consString))
                         {
@@ -153,10 +160,10 @@ namespace PayRoll.Masters
                                 con.Open();
                                 sqlBulkCopy.WriteToServer(dtExcelData);
                                 con.Close();
-                                
+
                                 //Clear Grid
-                                //gvAttendence.DataSource = null;
-                                //gvAttendence.DataBind();
+                                gvAttendence.DataSource = null;
+                                gvAttendence.DataBind();
                                 gvSalary.DataSource = null;
                                 gvSalary.DataBind();
                                 gvHamali.DataSource = null;
@@ -194,7 +201,7 @@ namespace PayRoll.Masters
                                 int empSalNoApprovCount = 0;
                                 string returnStr = "";
 
-                                //Employees Active Count
+                                //Active Employees Count
                                 string strQryEmp = "select count(distinct(employeecd)) as EmpMastCount from M_Emp where (leaveDate is null or leavedate>'" + Convert.ToDateTime(dt).ToString("dd MMM yyyy") + "') and orgID=" + Convert.ToInt16(Session["OrgID"]) + " and isActive='Y'";
                                 DataTable objDTEmp = SqlHelper.ExecuteDataTable(strQryEmp, AppGlobal.strConnString);
                                 if (objDTEmp.Rows.Count > 0)
@@ -241,25 +248,25 @@ namespace PayRoll.Masters
 
                                 ////Attendance Not Found
                                 string strQryValidAtt = "";
-                                
-                                //strQryValidAtt = "select emp.Employeename, hamali.employeecd from T_MonthlyHamaliSalary hamali inner join M_Emp emp on emp.OrgID = hamali.OrgID and emp.Employeecd = hamali.Employeecd";
-                                //strQryValidAtt += " where hamali.orgID = " + Convert.ToInt16(Session["OrgID"]) + " and hamali.Employeecd not in (select Employeecd from T_Attendance att where att.orgID = " + Convert.ToInt16(Session["OrgID"]) + "  and att.MonYrCd = '" + ddlMon.SelectedValue + ddlYear.SelectedValue + "' ) ";
-                                //DataTable objDTValidAtt;
-                                //objDTValidAtt = SqlHelper.ExecuteDataTable(strQryValidAtt, AppGlobal.strConnString);
-                                //if (objDTValidAtt.Rows.Count > 0)
-                                //{
-                                //    for (int i = 0; i < objDTValidAtt.Rows.Count; i++)
-                                //    {
-                                //        dr = dtEmployee.NewRow();
-                                //        dr["Employeecd"] = objDTValidAtt.Rows[i]["Employeecd"].ToString();
-                                //        dr["Employeename"] = objDTValidAtt.Rows[i]["Employeename"].ToString();
-                                //        dr["Attendence"] = "Attendence Not Found";
-                                //        dtEmployee.Rows.Add(dr);
-                                //    }
-                                //    gvAttendence.DataSource = dtEmployee;
-                                //    gvAttendence.DataBind();
-                                //    pnlGVList.Visible = true;
-                                //}
+
+                                strQryValidAtt = "select emp.Employeename, emp.Employeecd from M_Emp emp WHERE emp.orgID = " + Convert.ToInt16(Session["OrgID"]) + " AND (emp.leaveDate is null or emp.leavedate>'" + Convert.ToDateTime(dt).ToString("dd MMM yyyy") + "') ";
+                                strQryValidAtt += " and emp.Employeecd not in (select Employeecd from T_MonthlyHamaliSalary att where att.orgID = " + Convert.ToInt16(Session["OrgID"]) + "  and att.MonYrCd = '" + ddlMon.SelectedValue + ddlYear.SelectedValue + "' ) ";
+                                DataTable objDTValidAtt;
+                                objDTValidAtt = SqlHelper.ExecuteDataTable(strQryValidAtt, AppGlobal.strConnString);
+                                if (objDTValidAtt.Rows.Count > 0)
+                                {
+                                    for (int i = 0; i < objDTValidAtt.Rows.Count; i++)
+                                    {
+                                        dr = dtEmployee.NewRow();
+                                        dr["Employeecd"] = objDTValidAtt.Rows[i]["Employeecd"].ToString();
+                                        dr["Employeename"] = objDTValidAtt.Rows[i]["Employeename"].ToString();
+                                        dr["Attendence"] = "Attendence Not Found";
+                                        dtEmployee.Rows.Add(dr);
+                                    }
+                                    gvAttendence.DataSource = dtEmployee;
+                                    gvAttendence.DataBind();
+                                    pnlGVList.Visible = true;
+                                }
 
 
                                 //Hamali Count > Than Employee Master
@@ -417,9 +424,10 @@ namespace PayRoll.Masters
             catch (Exception ex)
             {
                 sqlTrans.Rollback();
-                string error = "Error : " + ex.ToString();
+                string error = "alert(Error: '" + ex.ToString() + "'); " ;
+                Response.Write(ex.ToString());
                
-                ScriptManager.RegisterStartupScript(UpdatePanel1, UpdatePanel1.GetType(), "PayRoll", "alert('" + error + "'); ", true);
+                ScriptManager.RegisterStartupScript(UpdatePanel1, UpdatePanel1.GetType(), "PayRoll", error, true);
 
             }
         }

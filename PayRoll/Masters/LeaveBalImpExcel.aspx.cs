@@ -100,11 +100,12 @@ namespace PayRoll.Masters
                         DataTable dtExcelData = new DataTable();
 
                         //[OPTIONAL]: It is recommended as otherwise the data will be considered as String by default.
-                        dtExcelData.Columns.AddRange(new DataColumn[4] { new DataColumn("OrgId", typeof(int)),
+                        dtExcelData.Columns.AddRange(new DataColumn[4] {
+                                                                    new DataColumn("OrgId", typeof(int)),
                                                                     new DataColumn("MonYrcd", typeof(string)),
                                                                     new DataColumn("EMPCODE", typeof(string)),
                                                                     new DataColumn("PaidBal", typeof(decimal)),
-                                                     });
+                                                                });
 
                         dtExcelData.Columns["OrgID"].DefaultValue = Session["OrgID"].ToString();
                         dtExcelData.Columns["MonYrcd"].DefaultValue = ddlMon.SelectedValue + ddlYear.SelectedValue;

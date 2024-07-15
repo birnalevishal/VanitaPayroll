@@ -64,14 +64,41 @@ namespace PayRoll
                     //    OrgID = Convert.ToInt16(ddlList.SelectedValue);
                     //    ddlList.Attributes.Add("Enabled", "Enabled");
                     //}
-                    
-                    string strQry1 = "SELECT * FROM M_AccessOrganization Where IsActive='Y' AND OrgId='" + ddlList.SelectedValue + "' and Employeecd='" + txtName.Text + "' and yearID=" + ddlYear.SelectedValue;
+                    int nYrno = Convert.ToInt32(ddlYear.SelectedValue);
+                    string strQry1 = "SELECT * FROM M_AccessOrganization Where IsActive='Y' AND OrgId='" + ddlList.SelectedValue + "' and Employeecd='" + txtName.Text + "' and yearID=" + nYrno.ToString();
                     DataTable objDT1 = SqlHelper.ExecuteDataTable(strQry1, AppGlobal.strConnString);
                     {
                         if (objDT1.Rows.Count == 0)
                         {
-                            Response.Write("<script>alert('You Do Not Have Access To This Organisation/Year');</script>");
-                            return;
+                            strQry1 = "SELECT MAX(YearId) FROM M_AccessOrganization Where IsActive='Y' AND OrgId='" + ddlList.SelectedValue + "' and Employeecd='" + txtName.Text + "'";
+                            int nYearId = Convert.ToInt32(SqlHelper.ExecuteScalar(strQry1, AppGlobal.strConnString));
+                            if(nYearId!=0)
+                            {
+                                //Copy access from Previous Year
+                                strQry1 = "SELECT * FROM M_AccessOrganization Where IsActive='Y' AND OrgId='" + ddlList.SelectedValue + "' and Employeecd='" + txtName.Text + "' and yearID=" + nYearId.ToString();
+                                DataTable objDTCopy = SqlHelper.ExecuteDataTable(strQry1, AppGlobal.strConnString);
+                                foreach (DataRow item in objDTCopy.Rows)
+                                {
+                                    strQry1 = "INSERT INTO M_AccessOrganization(OrgId,YearId, Employeecd, IsActive) VALUES(@OrgId,@YearId, @Employeecd, @IsActive)";
+                                    SqlParameter[] para= new SqlParameter[4];
+                                    para[0] = new SqlParameter("@OrgId", Convert.ToInt32(ddlList.SelectedValue));
+                                    para[1] = new SqlParameter("@YearId", nYrno);
+                                    para[2] = new SqlParameter("@Employeecd", txtName.Text);
+                                    para[3] = new SqlParameter("@IsActive", "Y");
+                                   
+                                    bool result = SqlHelper.ExecuteNonQuery(strQry1, para, AppGlobal.strConnString);
+                                }
+
+                                Response.Write("<script>alert('Please LogIn again');</script>");
+                                return;
+                                //Copy access from Previous Year
+
+                            }
+                            else
+                            {
+                                Response.Write("<script>alert('You do not have access to this Organisation/Year');</script>");
+                                return;
+                            }
                         }
                     }
 

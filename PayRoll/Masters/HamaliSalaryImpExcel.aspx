@@ -104,7 +104,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                      <%--  <div class="col-lg-4">
+                                        <div class="col-lg-6">
                                             <div class="hpanel">
                                                 <div class="panel-heading">
                                                     <div class="panel-tools">
@@ -131,7 +131,7 @@
                                                     </asp:GridView>
                                                 </div>
                                             </div>
-                                        </div>--%>
+                                        </div>
                                         <div class="col-lg-6">
                                             <div class="hpanel">
                                                 <div class="panel-heading">

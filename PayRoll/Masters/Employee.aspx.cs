@@ -694,7 +694,7 @@ namespace PayRoll.Masters
             txtESINo.Text = "";
             rblESICal.ClearSelection();
             rblESICal.SelectedIndex = -1;
-            ddlHODApplicable.SelectedIndex = 0;
+            ddlHODApplicable.SelectedIndex = 1;
             chkIsActive.Checked = true;
             txtDrivingLicence.Text = "";
             txtLeaveDate.Text = "";

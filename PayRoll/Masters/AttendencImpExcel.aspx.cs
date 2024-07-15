@@ -90,10 +90,12 @@ namespace PayRoll.Masters
                 //file upload path
                 if (FUExcel.HasFiles)
                 {
+                    //File name seperation
                     string extension = Path.GetExtension(FUExcel.PostedFile.FileName);
                     string fileName = Path.GetFileNameWithoutExtension(FUExcel.PostedFile.FileName);
                     string strConcat = DateTime.Now.ToString("ddMMyyyy_HHmmss");
-
+                    
+                    //Create New file name for saving file on sever
                     string excelPath = Server.MapPath("~/Imports/" + fileName + "_" + strConcat + extension);
                     FUExcel.SaveAs(excelPath);
 
@@ -101,33 +103,38 @@ namespace PayRoll.Masters
                     conString = ConfigurationManager.ConnectionStrings["Excel07+ConString"].ConnectionString;
                     conString = string.Format(conString, excelPath);
 
+                    //Read excel file
                     using (OleDbConnection excel_con = new OleDbConnection(conString))
                     {
                         excel_con.Open();
                         string sheet1 = excel_con.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null).Rows[0]["TABLE_NAME"].ToString();
                         DataTable dtExcelData = new DataTable();
 
-                        //[OPTIONAL]: It is recommended as otherwise the data will be considered as String by default.
-                        dtExcelData.Columns.AddRange(new DataColumn[11] { new DataColumn("OrgID", typeof(int)),
+                        //Data Table to store the information from excel file
+                        dtExcelData.Columns.AddRange(new DataColumn[11] {
+                                                                    new DataColumn("OrgID", typeof(int)),
                                                                     new DataColumn("MonYrcd", typeof(string)),
                                                                     new DataColumn("EMPCODE", typeof(string)),
                                                                     new DataColumn("H", typeof(float)),
                                                                     new DataColumn("PH", typeof(float)),
-                                                                     new DataColumn("COff", typeof(float)),
+                                                                    new DataColumn("COff", typeof(float)),
                                                                     new DataColumn("A", typeof(float)),
                                                                     new DataColumn("L", typeof(float)),
                                                                     new DataColumn("P", typeof(float)),
-                                                                     new DataColumn("SNACKCOUNT", typeof(float)),
+                                                                    new DataColumn("SNACKCOUNT", typeof(float)),
                                                                     new DataColumn("OT", typeof(float)),
-                                                });
+                                                                });
 
                         dtExcelData.Columns["OrgID"].DefaultValue = Session["OrgID"].ToString();
                         dtExcelData.Columns["MonYrcd"].DefaultValue = ddlMon.SelectedValue + ddlYear.SelectedValue;
 
+                        //Read from Sheet
                         //using (OleDbDataAdapter oda = new OleDbDataAdapter("SELECT EMPCODE, Weeklyoff, Payholiday, COff, Absent, PL, PresentDay, SNACKCOUNT, OT  FROM[" + sheet1 + "]", excel_con))
                         using (OleDbDataAdapter oda = new OleDbDataAdapter("SELECT EMPCODE, H, PH, COff, A, L, P, SNACKCOUNT, OT  FROM[" + sheet1 + "]", excel_con))
                         {
                             oda.Fill(dtExcelData);
+
+                            //Delete existing data for Selected Month/Year
                             string strQry = "SELECT * FROM T_Attendance Where MonYrcd='" + ddlMon.SelectedValue + ddlYear.SelectedValue + "' and orgID=" + Convert.ToInt32(Session["OrgID"]);
                             DataTable objDT = SqlHelper.ExecuteDataTable(strQry, AppGlobal.strConnString);
                             if (objDT.Rows.Count > 0)
@@ -138,6 +145,7 @@ namespace PayRoll.Masters
                         }
                         excel_con.Close();
 
+                        //Bulk copy data from excel to SQL 
                         string consString = ConfigurationManager.ConnectionStrings["VanitaPayrollConnectionString"].ConnectionString;
                         using (SqlConnection con = new SqlConnection(consString))
                         {
@@ -181,6 +189,7 @@ namespace PayRoll.Masters
                                 gvSalary.DataBind();
                                 gvConfiguration.DataSource = null;
                                 gvConfiguration.DataBind();
+
                                 int lastDay = 0;
                                 lastDay = DateTime.DaysInMonth(Convert.ToInt32(ddlYear.SelectedValue), Convert.ToInt32(ddlMon.SelectedValue));
                                 string dt = lastDay + "/" + ddlMon.SelectedValue + "/" + ddlYear.SelectedValue;
@@ -219,7 +228,7 @@ namespace PayRoll.Masters
                                 int empSalCount = 0;
                                 string returnStr = "";
 
-                                //Employees Active Count
+                                //Active Employees Count
                                 //string strQryEmp = "select count(distinct(employeecd)) as EmpMastCount from M_Emp where (leaveDate is null or leavedate>'" + Convert.ToDateTime(dt).ToString("dd MMM yyyy") + "') and orgID=" + Convert.ToInt16(Session["OrgID"]) + " and isActive='Y'";
                                 string strQryEmp = " SELECT COUNT(DISTINCT dbo.M_Emp.Employeecd) AS EmpMastCount FROM dbo.M_Emp LEFT OUTER JOIN dbo.udfEmpConfigurationmax1(" + Convert.ToInt16(Session["OrgID"]) + ",'" + Convert.ToDateTime(dt).ToString("dd MMM yyyy") + "', 'desg') AS udfEmpConfigurationmax1_1 ON dbo.M_Emp.OrgId = udfEmpConfigurationmax1_1.OrgId AND ";
                                 strQryEmp += " dbo.M_Emp.Employeecd = udfEmpConfigurationmax1_1.Employeecd ";
@@ -232,7 +241,7 @@ namespace PayRoll.Masters
                                     empMastCount = Convert.ToInt32(objDTEmp.Rows[0]["EmpMastCount"]);
                                 }
 
-                                //Attendence Count
+                                //Attendence Import Count
                                 string strQryAtt = "select count(distinct(employeecd)) as empAttCount from T_Attendance where orgID =" + Convert.ToInt16(Session["OrgID"]) + " and MonYrcd='" + ddlMon.SelectedValue + ddlYear.SelectedValue + "'";
                                 DataTable objDTAtt = SqlHelper.ExecuteDataTable(strQryAtt, AppGlobal.strConnString);
                                 if (objDTAtt.Rows.Count > 0)
@@ -353,6 +362,7 @@ namespace PayRoll.Masters
                                     objSalDet = SqlHelper.ExecuteDataTable(strSalDet, AppGlobal.strConnString);
                                     return;
                                 }
+
                                 //Employee Configuration
                                 string strQyValidAtt = "";
 

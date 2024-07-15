@@ -141,7 +141,7 @@ namespace PayRoll.Reports
             dtReport.Columns.Add("Freequency", typeof(string));
             dtReport.Columns.Add("EmployeeName", typeof(string));
             dtReport.Columns.Add("Gender", typeof(string));
-            dtReport.Columns.Add("DOJScheme", typeof(string));
+            dtReport.Columns.Add("Gratuitydate", typeof(string));
           
             DataRow dr;
 
@@ -174,7 +174,7 @@ namespace PayRoll.Reports
                     dr["EmployeeName"] = objDT.Rows[i]["Employeename"].ToString();
                     dr["Gender"] = objDT.Rows[i]["Gender"].ToString();
                     if (objDT.Rows[i]["Gratuitydate"] != DBNull.Value)
-                        dr["DOJScheme"] = Convert.ToDateTime(objDT.Rows[i]["Gratuitydate"]).ToString("dd/MM/yyyy");
+                        dr["Gratuitydate"] = Convert.ToDateTime(objDT.Rows[i]["Gratuitydate"]).ToString("dd/MM/yyyy");
 
                     dtReport.Rows.Add(dr);
                 }
@@ -212,7 +212,7 @@ namespace PayRoll.Reports
                     dr["EmployeeName"] = objDT.Rows[i]["Employeename"].ToString();
                     dr["Gender"] = objDT.Rows[i]["Gender"].ToString();
                     if (objDT.Rows[i]["Gratuitydate"] != DBNull.Value)
-                        dr["DOJScheme"] = Convert.ToDateTime(objDT.Rows[i]["Gratuitydate"]).ToString("dd/MM/yyyy");
+                        dr["Gratuitydate"] = Convert.ToDateTime(objDT.Rows[i]["Gratuitydate"]).ToString("dd/MM/yyyy");
 
                     dtReport.Rows.Add(dr);
                 }
@@ -251,7 +251,7 @@ namespace PayRoll.Reports
                     dr["EmployeeName"] = objDT.Rows[i]["Employeename"].ToString();
                     dr["Gender"] = objDT.Rows[i]["Gender"].ToString();
                     if (objDT.Rows[i]["Gratuitydate"] != DBNull.Value)
-                        dr["DOJScheme"] = Convert.ToDateTime(objDT.Rows[i]["Gratuitydate"]).ToString("dd/MM/yyyy");
+                        dr["Gratuitydate"] = Convert.ToDateTime(objDT.Rows[i]["Gratuitydate"]).ToString("dd/MM/yyyy");
 
                     dtReport.Rows.Add(dr);
                 }
