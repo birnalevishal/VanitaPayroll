@@ -96,32 +96,26 @@
                                     </div>
                                     <div class="form-group col-lg-4" style="margin-top: 20px">
                                         <asp:Button ID="btnGetData" runat="server" Text="Get Data" class="btn btn-outline btn-success" OnClick="btnGetData_Click" TabIndex="999" />
-                                        <asp:Button ID="btnUpdate" runat="server" Text="Update" class="btn btn-outline btn-success" OnClick="btnUpdate_Click" TabIndex="999" />
+                                        <asp:Button ID="btnUpdate" runat="server" Text="Update Employee Data" class="btn btn-outline btn-success" OnClick="btnUpdate_Click" TabIndex="999" />
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
-                                    <div class="form-group col-lg-4">
+                                    <div class="form-group col-lg-2">
                                         <label for="username">First Name</label>
                                         <asp:TextBox ID="txtFName" runat="server" type="text" MaxLength="25" placeholder="Enter First Name" class="form-control" name="name" ValidationGroup="OK" TabIndex="5" onkeypress="return onlyAlphabets(event,this);" onchange="setEmployeeName()"></asp:TextBox>
                                         <asp:RequiredFieldValidator ID="RFVtxtFName" runat="server" ControlToValidate="txtFName" ErrorMessage="First Name Required" Display="Dynamic" ForeColor="Red" ValidationGroup="OK"></asp:RequiredFieldValidator>
                                     </div>
 
-                                    <div class="form-group col-lg-4">
+                                    <div class="form-group col-lg-2">
                                         <label for="username">Middle Name</label>
                                         <asp:TextBox ID="txtMName" runat="server" type="text" MaxLength="25" placeholder="Enter Middle Name" class="form-control" name="name" ValidationGroup="OK" TabIndex="6" onkeypress="return onlyAlphabets(event,this);" onchange="setEmployeeName()"></asp:TextBox>
                                         <asp:RequiredFieldValidator ID="RFVtxtMName" runat="server" ControlToValidate="txtMName" ErrorMessage="Middle Name Required" Display="Dynamic" ForeColor="Red" ValidationGroup="OK"></asp:RequiredFieldValidator>
                                     </div>
 
-                                    <div class="form-group col-lg-4">
+                                    <div class="form-group col-lg-2">
                                         <label for="username">Last Name</label>
                                         <asp:TextBox ID="txtLName" runat="server" type="text" MaxLength="25" placeholder="Enter Last Name" class="form-control" name="name" ValidationGroup="OK" TabIndex="7" onkeypress="return onlyAlphabets(event,this);" onchange="setEmployeeName()"></asp:TextBox>
                                         <asp:RequiredFieldValidator ID="RFVtxtLName" runat="server" ControlToValidate="txtLName" ErrorMessage="Last Name Required" Display="Dynamic" ForeColor="Red" ValidationGroup="OK"></asp:RequiredFieldValidator>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="form-group col-lg-4">
-                                        <label for="username">Employee Name</label>
-                                        <asp:TextBox ID="txtEmpName" runat="server" ReadOnly="true" type="text" placeholder="Employee Name" class="form-control" name="name" ValidationGroup="OK" TabIndex="8"></asp:TextBox>
                                     </div>
                                     <div class="form-group col-lg-2">
                                         <label for="username">Birthdate</label>
@@ -129,6 +123,17 @@
                                         <Ajax:CalendarExtender ID="Calendar1" PopupButtonID="imgPopup" runat="server" TargetControlID="txtBirthdate" Format="dd/MM/yyyy"></Ajax:CalendarExtender>
                                         <asp:RequiredFieldValidator ID="RFVtxtBirthdate" runat="server" ControlToValidate="txtBirthdate" ErrorMessage="Birthdate Required" Display="Dynamic" ForeColor="Red" ValidationGroup="OK"></asp:RequiredFieldValidator>
                                     </div>
+                                    <div class="form-group col-lg-2">
+                                        <label for="username">Previous Exp(Locked)</label>
+                                        <asp:TextBox ID="txtPreviousExp" runat="server" type="text" MaxLength="10" ReadOnly="true" placeholder="Previous Exp" class="form-control" name="name" ValidationGroup="OK" TabIndex="16"></asp:TextBox>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-group col-lg-6">
+                                        <label for="username">Employee Name</label>
+                                        <asp:TextBox ID="txtEmpName" runat="server" ReadOnly="true" type="text" placeholder="Employee Name" class="form-control" name="name" ValidationGroup="OK" TabIndex="8"></asp:TextBox>
+                                    </div>
+
                                     <div class="form-group col-lg-2">
                                         <label for="username">Gender</label>
                                         <asp:DropDownList ID="ddlGender" runat="server" class="form-control" name="account" TabIndex="10"></asp:DropDownList>
@@ -171,11 +176,17 @@
                                         <asp:TextBox ID="txtQualification" runat="server" type="text" MaxLength="50" placeholder="Qualification" class="form-control" name="name" ValidationGroup="OK" TabIndex="15"></asp:TextBox>
 
                                     </div>
-
                                     <div class="form-group col-lg-2">
-                                        <label for="username">Previous Exp</label>
-                                        <asp:TextBox ID="txtPreviousExp" runat="server" type="text" MaxLength="10" placeholder="Previous Exp" class="form-control" name="name" ValidationGroup="OK" TabIndex="16"></asp:TextBox>
+                                        <label for="username">Previous Exp(Year/Month)</label>
+                                        <div class="col-lg-6" style="padding-left: 0">
+                                            <asp:TextBox ID="txtPrevExpYr" runat="server" type="number" MaxLength="2" placeholder="Year" class="form-control" name="name" ValidationGroup="OK" TabIndex="16"></asp:TextBox>
+                                            
+                                        </div>
+                                        <div class="col-lg-6" style="padding-left: 0; padding-right:0">
+                                            <asp:TextBox ID="txtPrevExpMnth" runat="server" type="number" MaxLength="2" placeholder="Month" class="form-control" name="name" ValidationGroup="OK" TabIndex="16"></asp:TextBox>
+                                        </div>
                                     </div>
+
                                     <div class="form-group col-lg-2">
                                         <label for="username">Designation</label>
                                         <asp:TextBox ID="txtDesignation" ReadOnly="true" runat="server" type="text" MaxLength="10" placeholder="Designation" class="form-control" name="name" ValidationGroup="OK" TabIndex="17"></asp:TextBox>
@@ -423,7 +434,7 @@
                                         <asp:DropDownList ID="ddlRole" runat="server" class="form-control" name="account" TabIndex="54"></asp:DropDownList>
                                     </div>
 
-                                   
+
                                 </div>
 
                                 <div class="col-lg-12">
@@ -450,13 +461,13 @@
                                         <%--<asp:TextBox ID="txtLeaveReason" runat="server" type="text" MaxLength="15" placeholder="Leave Reason" class="form-control" name="name"  ValidationGroup="OK" TabIndex="33"></asp:TextBox>--%>
                                     </div>
 
-                                     <div class="col-lg-3">
+                                    <div class="col-lg-3">
                                         <label for="Isactive">Is Active</label>
                                         <asp:CheckBox ID="chkIsActive" runat="server" Checked="true" type="checkbox" class="form-control i-checks" TabIndex="60" />
                                     </div>
                                 </div>
 
-                                
+
 
                                 <div class="col-lg-12">
                                     <div class="hr-line-dashed"></div>

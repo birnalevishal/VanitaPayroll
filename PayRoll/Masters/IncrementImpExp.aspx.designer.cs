@@ -94,6 +94,15 @@ namespace PayRoll.Masters {
         protected global::System.Web.UI.WebControls.FileUpload FUExcel;
         
         /// <summary>
+        /// btnUpload control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnUpload;
+        
+        /// <summary>
         /// pnlGVList control.
         /// </summary>
         /// <remarks>
@@ -103,31 +112,22 @@ namespace PayRoll.Masters {
         protected global::System.Web.UI.WebControls.Panel pnlGVList;
         
         /// <summary>
-        /// lblAttHeading control.
+        /// lblUploadHeading control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAttHeading;
+        protected global::System.Web.UI.WebControls.Label lblUploadHeading;
         
         /// <summary>
-        /// gvEmployee control.
+        /// gvUploadList control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvEmployee;
-        
-        /// <summary>
-        /// gvSalary control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvSalary;
+        protected global::System.Web.UI.WebControls.GridView gvUploadList;
         
         /// <summary>
         /// btnCancel control.

@@ -155,11 +155,11 @@ namespace PayRoll.Masters
         }
         protected void txtEmpCode_TextChanged(object sender, EventArgs e)
         {
-            if(txtEmpCode.Text!="")
+            if (txtEmpCode.Text != "")
             {
                 string strQry = "SELECT Employeename  FROM M_Emp Where Employeecd='" + txtEmpCode.Text + "' and OrgID=" + Convert.ToInt16(Session["OrgID"]) + " and IsActive='Y'";
                 DataTable objDT = SqlHelper.ExecuteDataTable(strQry, AppGlobal.strConnString);
-                if(objDT.Rows.Count>0)
+                if (objDT.Rows.Count > 0)
                 {
                     ddlEmpName.SelectedValue = txtEmpCode.Text;
                 }
@@ -196,7 +196,7 @@ namespace PayRoll.Masters
             DataTable objESIConfig1;
             DataTable objLabWelFunConfig;
 
-            string wefMonth = "", wefYear="";
+            string wefMonth = "", wefYear = "";
             string prvMonth = "";
             double esiConfigAmt = 0, esiEmpPer = 0, esiCompPer = 0;
             double presentDays = 0, PL = 0, COff = 0, weeklyOff = 0, payDays = 0, absentDays = 0, payHolidays = 0;
@@ -376,10 +376,13 @@ namespace PayRoll.Masters
 
                         if (objDT.Rows[i]["witheffect"] != DBNull.Value)
                         {
-                            wefMonth= Convert.ToDateTime(objDT.Rows[i]["witheffect"]).ToString("MM");
+                            wefMonth = Convert.ToDateTime(objDT.Rows[i]["witheffect"]).ToString("MM");
                             wefYear = Convert.ToDateTime(objDT.Rows[i]["witheffect"]).ToString("yyyy");
+                            int wefYrMnth = Convert.ToInt32(wefYear + wefMonth);
+                            int curYrMnth = Convert.ToInt32(ddlYear.SelectedValue + ddlMon.SelectedValue);
 
-                            if ((Convert.ToInt16(ddlMon.SelectedValue)>=Convert.ToInt16(wefMonth)) && (Convert.ToInt16(ddlYear.SelectedValue) >= Convert.ToInt16(wefYear)))
+                            //if ((Convert.ToInt16(ddlMon.SelectedValue) >= Convert.ToInt16(wefMonth)) && (Convert.ToInt16(ddlYear.SelectedValue) >= Convert.ToInt16(wefYear)))
+                            if (curYrMnth >= wefYrMnth)
                             {
                                 dr = dtEmpSalary.NewRow();
                                 //From T_Attendence
@@ -629,10 +632,10 @@ namespace PayRoll.Masters
                                                                     pfPension = Convert.ToInt32(objPFConfig.Rows[0]["PFAmtLimit"]) * Convert.ToDouble(objPFConfig.Rows[0]["EPS"]) / 100;
                                                                 }
                                                                 else
-                                                                { 
+                                                                {
                                                                     pfAmount = standardBasic * Convert.ToDouble(objPFConfig.Rows[0]["EPF"]) / 100;
                                                                     pfPension = standardBasic * Convert.ToDouble(objPFConfig.Rows[0]["EPS"]) / 100;
-                                                                 }
+                                                                }
                                                             }
                                                             else
                                                             {
@@ -644,7 +647,7 @@ namespace PayRoll.Masters
                                                                 {
                                                                     pfAmount = standardBasic * Convert.ToDouble(objPFConfig.Rows[0]["PF"]) / 100;
                                                                 }
-                                                                    
+
                                                             }
                                                         }
                                                     }
@@ -735,27 +738,27 @@ namespace PayRoll.Masters
 
                                                                 //if (basicfrEsi <= esiConfigAmt)
                                                                 //{
-                                                                    lastDay = 0;
-                                                                    lastDay = DateTime.DaysInMonth(Convert.ToInt32(ddlYear.SelectedValue), Convert.ToInt32(ddlMon.SelectedValue));
-                                                                    salDate = ddlYear.SelectedValue + "/" + ddlMon.SelectedValue + "/" + lastDay;
-                                                                    //DateTime salDate = Convert.ToDateTime(dtSalaryDate);
+                                                                lastDay = 0;
+                                                                lastDay = DateTime.DaysInMonth(Convert.ToInt32(ddlYear.SelectedValue), Convert.ToInt32(ddlMon.SelectedValue));
+                                                                salDate = ddlYear.SelectedValue + "/" + ddlMon.SelectedValue + "/" + lastDay;
+                                                                //DateTime salDate = Convert.ToDateTime(dtSalaryDate);
 
-                                                                    strESIConfig1 = " select top(1) esi.*, emp.origjoindate,month(" + salDate + "),";
-                                                                    strESIConfig1 += " case ";
-                                                                    strESIConfig1 += " when " + salDate + "  < origjoindate then 'false'";
-                                                                    strESIConfig1 += " when (month(origjoindate) >=4 and month(origjoindate) <=9 and year(origjoindate) = year(" + salDate + ") and month(" + salDate + ")>=4 and month(" + salDate + ")<=9) ";
-                                                                    strESIConfig1 += " or (month(origjoindate) < 4 and month(" + salDate + ") < 4 and  year(origjoindate) = year(" + salDate + "))";
-                                                                    strESIConfig1 += " or (month(origjoindate) > 9 and ((year(origjoindate) = year(" + salDate + ") and  month(" + salDate + ")> 9) or (year(origjoindate) = year(" + salDate + ")-1 and  month(" + salDate + ")< 4)))";
-                                                                    strESIConfig1 += " then 'True' else 'flase'  end as esi, ";
-                                                                    strESIConfig1 += " case when ESICalculate = 1 then " + basicForEsi * esiEmpPer / 100 + "   else  " + grossSalary * esiEmpPer / 100 + "  end as esiEmpAmt , ";
-                                                                    strESIConfig1 += " case when ESICalculate = 1 then " + basicForEsi * esiCompPer / 100 + "   else  " + grossSalary * esiCompPer / 100 + "  end as esiCompAmt  ";
-                                                                    strESIConfig1 += " from M_Emp as emp left outer join M_ESIConfigure as esi on emp.orgid=esi.orgID where employeecd=" + objDTHamaliSal.Rows[j]["employeecd"].ToString() + " and (convert(int, RIGHT(MonYrcd, 4) + LEFT(MonYrcd, 2)) <='" + ddlYear.SelectedValue + ddlMon.SelectedValue + "') and esi.orgid=" + Convert.ToInt16(Session["OrgID"]) + " order by convert(int, RIGHT(MonYrcd, 4) + LEFT(MonYrcd, 2)) desc";
-                                                                    objESIConfig1 = SqlHelper.ExecuteDataTable(strESIConfig1, AppGlobal.strConnString);
-                                                                    if (objESIConfig1.Rows.Count > 0)
-                                                                    {
-                                                                        esiEmpAmount = Convert.ToDouble(objESIConfig1.Rows[0]["esiEmpAmt"]);
-                                                                        esiCompAmount = Convert.ToDouble(objESIConfig1.Rows[0]["esiCompAmt"]);
-                                                                    }
+                                                                strESIConfig1 = " select top(1) esi.*, emp.origjoindate,month(" + salDate + "),";
+                                                                strESIConfig1 += " case ";
+                                                                strESIConfig1 += " when " + salDate + "  < origjoindate then 'false'";
+                                                                strESIConfig1 += " when (month(origjoindate) >=4 and month(origjoindate) <=9 and year(origjoindate) = year(" + salDate + ") and month(" + salDate + ")>=4 and month(" + salDate + ")<=9) ";
+                                                                strESIConfig1 += " or (month(origjoindate) < 4 and month(" + salDate + ") < 4 and  year(origjoindate) = year(" + salDate + "))";
+                                                                strESIConfig1 += " or (month(origjoindate) > 9 and ((year(origjoindate) = year(" + salDate + ") and  month(" + salDate + ")> 9) or (year(origjoindate) = year(" + salDate + ")-1 and  month(" + salDate + ")< 4)))";
+                                                                strESIConfig1 += " then 'True' else 'flase'  end as esi, ";
+                                                                strESIConfig1 += " case when ESICalculate = 1 then " + basicForEsi * esiEmpPer / 100 + "   else  " + grossSalary * esiEmpPer / 100 + "  end as esiEmpAmt , ";
+                                                                strESIConfig1 += " case when ESICalculate = 1 then " + basicForEsi * esiCompPer / 100 + "   else  " + grossSalary * esiCompPer / 100 + "  end as esiCompAmt  ";
+                                                                strESIConfig1 += " from M_Emp as emp left outer join M_ESIConfigure as esi on emp.orgid=esi.orgID where employeecd=" + objDTHamaliSal.Rows[j]["employeecd"].ToString() + " and (convert(int, RIGHT(MonYrcd, 4) + LEFT(MonYrcd, 2)) <='" + ddlYear.SelectedValue + ddlMon.SelectedValue + "') and esi.orgid=" + Convert.ToInt16(Session["OrgID"]) + " order by convert(int, RIGHT(MonYrcd, 4) + LEFT(MonYrcd, 2)) desc";
+                                                                objESIConfig1 = SqlHelper.ExecuteDataTable(strESIConfig1, AppGlobal.strConnString);
+                                                                if (objESIConfig1.Rows.Count > 0)
+                                                                {
+                                                                    esiEmpAmount = Convert.ToDouble(objESIConfig1.Rows[0]["esiEmpAmt"]);
+                                                                    esiCompAmount = Convert.ToDouble(objESIConfig1.Rows[0]["esiCompAmt"]);
+                                                                }
                                                                 //}
                                                             }
                                                         }
@@ -1056,27 +1059,27 @@ namespace PayRoll.Masters
 
                                                                 //if (basicfrEsi <= esiConfigAmt)
                                                                 //{
-                                                                    lastDay = 0;
-                                                                    lastDay = DateTime.DaysInMonth(Convert.ToInt32(ddlYear.SelectedValue), Convert.ToInt32(ddlMon.SelectedValue));
-                                                                    salDate = ddlYear.SelectedValue + "/" + ddlMon.SelectedValue + "/" + lastDay;
-                                                                    //DateTime salDate = Convert.ToDateTime(dtSalaryDate);
+                                                                lastDay = 0;
+                                                                lastDay = DateTime.DaysInMonth(Convert.ToInt32(ddlYear.SelectedValue), Convert.ToInt32(ddlMon.SelectedValue));
+                                                                salDate = ddlYear.SelectedValue + "/" + ddlMon.SelectedValue + "/" + lastDay;
+                                                                //DateTime salDate = Convert.ToDateTime(dtSalaryDate);
 
-                                                                    strESIConfig1 = " select top(1) esi.*, emp.origjoindate,month(" + salDate + "),";
-                                                                    strESIConfig1 += " case ";
-                                                                    strESIConfig1 += " when " + salDate + "  < origjoindate then 'false'";
-                                                                    strESIConfig1 += " when (month(origjoindate) >=4 and month(origjoindate) <=9 and year(origjoindate) = year(" + salDate + ") and month(" + salDate + ")>=4 and month(" + salDate + ")<=9) ";
-                                                                    strESIConfig1 += " or (month(origjoindate) < 4 and month(" + salDate + ") < 4 and  year(origjoindate) = year(" + salDate + "))";
-                                                                    strESIConfig1 += " or (month(origjoindate) > 9 and ((year(origjoindate) = year(" + salDate + ") and  month(" + salDate + ")> 9) or (year(origjoindate) = year(" + salDate + ")-1 and  month(" + salDate + ")< 4)))";
-                                                                    strESIConfig1 += " then 'True' else 'flase'  end as esi, ";
-                                                                    strESIConfig1 += " case when ESICalculate = 1 then " + basicForEsi * esiEmpPer / 100 + "   else  " + grossSalary * esiEmpPer / 100 + "  end as esiEmpAmt , ";
-                                                                    strESIConfig1 += " case when ESICalculate = 1 then " + basicForEsi * esiCompPer / 100 + "   else  " + grossSalary * esiCompPer / 100 + "  end as esiCompAmt  ";
-                                                                    strESIConfig1 += " from M_Emp as emp left outer join M_ESIConfigure as esi on emp.orgid=esi.orgID where employeecd=" + objDTHamaliSal.Rows[j]["employeecd"].ToString() + " and (convert(int, RIGHT(MonYrcd, 4) + LEFT(MonYrcd, 2)) <='" + ddlYear.SelectedValue + ddlMon.SelectedValue + "') and esi.orgid=" + Convert.ToInt16(Session["OrgID"]) + " order by convert(int, RIGHT(MonYrcd, 4) + LEFT(MonYrcd, 2)) desc";
-                                                                    objESIConfig1 = SqlHelper.ExecuteDataTable(strESIConfig1, AppGlobal.strConnString);
-                                                                    if (objESIConfig1.Rows.Count > 0)
-                                                                    {
-                                                                        esiEmpAmount = Convert.ToDouble(objESIConfig1.Rows[0]["esiEmpAmt"]);
-                                                                        esiCompAmount = Convert.ToDouble(objESIConfig1.Rows[0]["esiCompAmt"]);
-                                                                    }
+                                                                strESIConfig1 = " select top(1) esi.*, emp.origjoindate,month(" + salDate + "),";
+                                                                strESIConfig1 += " case ";
+                                                                strESIConfig1 += " when " + salDate + "  < origjoindate then 'false'";
+                                                                strESIConfig1 += " when (month(origjoindate) >=4 and month(origjoindate) <=9 and year(origjoindate) = year(" + salDate + ") and month(" + salDate + ")>=4 and month(" + salDate + ")<=9) ";
+                                                                strESIConfig1 += " or (month(origjoindate) < 4 and month(" + salDate + ") < 4 and  year(origjoindate) = year(" + salDate + "))";
+                                                                strESIConfig1 += " or (month(origjoindate) > 9 and ((year(origjoindate) = year(" + salDate + ") and  month(" + salDate + ")> 9) or (year(origjoindate) = year(" + salDate + ")-1 and  month(" + salDate + ")< 4)))";
+                                                                strESIConfig1 += " then 'True' else 'flase'  end as esi, ";
+                                                                strESIConfig1 += " case when ESICalculate = 1 then " + basicForEsi * esiEmpPer / 100 + "   else  " + grossSalary * esiEmpPer / 100 + "  end as esiEmpAmt , ";
+                                                                strESIConfig1 += " case when ESICalculate = 1 then " + basicForEsi * esiCompPer / 100 + "   else  " + grossSalary * esiCompPer / 100 + "  end as esiCompAmt  ";
+                                                                strESIConfig1 += " from M_Emp as emp left outer join M_ESIConfigure as esi on emp.orgid=esi.orgID where employeecd=" + objDTHamaliSal.Rows[j]["employeecd"].ToString() + " and (convert(int, RIGHT(MonYrcd, 4) + LEFT(MonYrcd, 2)) <='" + ddlYear.SelectedValue + ddlMon.SelectedValue + "') and esi.orgid=" + Convert.ToInt16(Session["OrgID"]) + " order by convert(int, RIGHT(MonYrcd, 4) + LEFT(MonYrcd, 2)) desc";
+                                                                objESIConfig1 = SqlHelper.ExecuteDataTable(strESIConfig1, AppGlobal.strConnString);
+                                                                if (objESIConfig1.Rows.Count > 0)
+                                                                {
+                                                                    esiEmpAmount = Convert.ToDouble(objESIConfig1.Rows[0]["esiEmpAmt"]);
+                                                                    esiCompAmount = Convert.ToDouble(objESIConfig1.Rows[0]["esiCompAmt"]);
+                                                                }
                                                                 //}
                                                             }
                                                         }
@@ -1504,34 +1507,34 @@ namespace PayRoll.Masters
 
                                                         //if (basicfrEsi <= esiConfigAmt)
                                                         //{
-                                                            lastDay = 0;
-                                                            lastDay = DateTime.DaysInMonth(Convert.ToInt32(ddlYear.SelectedValue), Convert.ToInt32(ddlMon.SelectedValue));
-                                                            salDate = ddlYear.SelectedValue + "/" + ddlMon.SelectedValue + "/" + lastDay;
-                                                            //DateTime salDate = Convert.ToDateTime(dtSalaryDate);
+                                                        lastDay = 0;
+                                                        lastDay = DateTime.DaysInMonth(Convert.ToInt32(ddlYear.SelectedValue), Convert.ToInt32(ddlMon.SelectedValue));
+                                                        salDate = ddlYear.SelectedValue + "/" + ddlMon.SelectedValue + "/" + lastDay;
+                                                        //DateTime salDate = Convert.ToDateTime(dtSalaryDate);
 
-                                                            strESIConfig1 = " select top(1) esi.*, emp.origjoindate,month(" + salDate + "),";
-                                                            strESIConfig1 += " case ";
-                                                            strESIConfig1 += " when " + salDate + "  < origjoindate then 'false'";
-                                                            strESIConfig1 += " when (month(origjoindate) >=4 and month(origjoindate) <=9 and year(origjoindate) = year(" + salDate + ") and month(" + salDate + ")>=4 and month(" + salDate + ")<=9) ";
-                                                            strESIConfig1 += " or (month(origjoindate) < 4 and month(" + salDate + ") < 4 and  year(origjoindate) = year(" + salDate + "))";
-                                                            strESIConfig1 += " or (month(origjoindate) > 9 and ((year(origjoindate) = year(" + salDate + ") and  month(" + salDate + ")> 9) or (year(origjoindate) = year(" + salDate + ")-1 and  month(" + salDate + ")< 4)))";
-                                                            strESIConfig1 += " then 'True' else 'flase'  end as esi, ";
-                                                            strESIConfig1 += " case when ESICalculate = 1 then " + basicForEsi * esiEmpPer / 100 + "   else  " + grossSalary * esiEmpPer / 100 + "  end as esiEmpAmt , ";
-                                                            strESIConfig1 += " case when ESICalculate = 1 then " + basicForEsi * esiCompPer / 100 + "   else  " + grossSalary * esiCompPer / 100 + "  end as esiCompAmt  ";
-                                                            strESIConfig1 += " from M_Emp as emp left outer join M_ESIConfigure as esi on emp.orgid=esi.orgID where employeecd=" + objDT.Rows[i]["employeecd"].ToString() + " and (convert(int, RIGHT(MonYrcd, 4) + LEFT(MonYrcd, 2)) <='" + ddlYear.SelectedValue + ddlMon.SelectedValue + "') and esi.orgid=" + Convert.ToInt16(Session["OrgID"]) + " order by convert(int, RIGHT(MonYrcd, 4) + LEFT(MonYrcd, 2)) desc";
-                                                            objESIConfig1 = SqlHelper.ExecuteDataTable(strESIConfig1, AppGlobal.strConnString);
-                                                            if (objESIConfig1.Rows.Count > 0)
-                                                            {
-                                                                //    if (Convert.ToBoolean(objESIConfig1.Rows[0]["esi"]) == true)
-                                                                //    {
-                                                                //        if(objDT.Rows[i]["ESICalculate"].ToString()=="1")
-                                                                //            esiAmount = Math.Round((basicfrEsi) * esiEmpPer / 100);
-                                                                //        else
-                                                                //            esiAmount = Math.Round((basicfrEsi+standardHRA+stadEducation+standardMedical+insentive) * esiEmpPer / 100);
-                                                                //    }
-                                                                esiEmpAmount = Convert.ToDouble(objESIConfig1.Rows[0]["esiEmpAmt"]);
-                                                                esiCompAmount = Convert.ToDouble(objESIConfig1.Rows[0]["esiCompAmt"]);
-                                                            }
+                                                        strESIConfig1 = " select top(1) esi.*, emp.origjoindate,month(" + salDate + "),";
+                                                        strESIConfig1 += " case ";
+                                                        strESIConfig1 += " when " + salDate + "  < origjoindate then 'false'";
+                                                        strESIConfig1 += " when (month(origjoindate) >=4 and month(origjoindate) <=9 and year(origjoindate) = year(" + salDate + ") and month(" + salDate + ")>=4 and month(" + salDate + ")<=9) ";
+                                                        strESIConfig1 += " or (month(origjoindate) < 4 and month(" + salDate + ") < 4 and  year(origjoindate) = year(" + salDate + "))";
+                                                        strESIConfig1 += " or (month(origjoindate) > 9 and ((year(origjoindate) = year(" + salDate + ") and  month(" + salDate + ")> 9) or (year(origjoindate) = year(" + salDate + ")-1 and  month(" + salDate + ")< 4)))";
+                                                        strESIConfig1 += " then 'True' else 'flase'  end as esi, ";
+                                                        strESIConfig1 += " case when ESICalculate = 1 then " + basicForEsi * esiEmpPer / 100 + "   else  " + grossSalary * esiEmpPer / 100 + "  end as esiEmpAmt , ";
+                                                        strESIConfig1 += " case when ESICalculate = 1 then " + basicForEsi * esiCompPer / 100 + "   else  " + grossSalary * esiCompPer / 100 + "  end as esiCompAmt  ";
+                                                        strESIConfig1 += " from M_Emp as emp left outer join M_ESIConfigure as esi on emp.orgid=esi.orgID where employeecd=" + objDT.Rows[i]["employeecd"].ToString() + " and (convert(int, RIGHT(MonYrcd, 4) + LEFT(MonYrcd, 2)) <='" + ddlYear.SelectedValue + ddlMon.SelectedValue + "') and esi.orgid=" + Convert.ToInt16(Session["OrgID"]) + " order by convert(int, RIGHT(MonYrcd, 4) + LEFT(MonYrcd, 2)) desc";
+                                                        objESIConfig1 = SqlHelper.ExecuteDataTable(strESIConfig1, AppGlobal.strConnString);
+                                                        if (objESIConfig1.Rows.Count > 0)
+                                                        {
+                                                            //    if (Convert.ToBoolean(objESIConfig1.Rows[0]["esi"]) == true)
+                                                            //    {
+                                                            //        if(objDT.Rows[i]["ESICalculate"].ToString()=="1")
+                                                            //            esiAmount = Math.Round((basicfrEsi) * esiEmpPer / 100);
+                                                            //        else
+                                                            //            esiAmount = Math.Round((basicfrEsi+standardHRA+stadEducation+standardMedical+insentive) * esiEmpPer / 100);
+                                                            //    }
+                                                            esiEmpAmount = Convert.ToDouble(objESIConfig1.Rows[0]["esiEmpAmt"]);
+                                                            esiCompAmount = Convert.ToDouble(objESIConfig1.Rows[0]["esiCompAmt"]);
+                                                        }
                                                         //}
                                                     }
                                                 }
@@ -1875,14 +1878,14 @@ namespace PayRoll.Masters
             int Hours = Now.Subtract(PastYearDate).Hours;
             int Minutes = Now.Subtract(PastYearDate).Minutes;
             int Seconds = Now.Subtract(PastYearDate).Seconds;
-            if (Years==58 && (Months>0 || Days>0))
+            if (Years == 58 && (Months > 0 || Days > 0))
             {
                 Years += 1;
             }
 
-                //return String.Format("Age: {0} Year(s) {1} Month(s) {2} Day(s) {3} Hour(s) {4} Second(s)",
-                //Years, Months, Days, Hours, Seconds);
-                return Years;
+            //return String.Format("Age: {0} Year(s) {1} Month(s) {2} Day(s) {3} Hour(s) {4} Second(s)",
+            //Years, Months, Days, Hours, Seconds);
+            return Years;
         }
 
         protected bool getPreviousESI(string month, string empCode)
@@ -1909,7 +1912,7 @@ namespace PayRoll.Masters
 
         protected void ddlEmpName_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if(ddlEmpName.SelectedIndex!=0)
+            if (ddlEmpName.SelectedIndex != 0)
             {
                 txtEmpCode.Text = ddlEmpName.SelectedValue.ToString();
             }

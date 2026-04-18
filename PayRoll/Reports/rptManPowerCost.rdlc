@@ -471,7 +471,7 @@
               </Group>
               <SortExpressions>
                 <SortExpression>
-                  <Value>=Fields!MonYrcd.Value</Value>
+                  <Value>=Right(Fields!MonYrcd.Value,4)+Left(Fields!MonYrcd.Value,2)</Value>
                 </SortExpression>
               </SortExpressions>
               <TablixHeader>
@@ -651,6 +651,7 @@
                       </Style>
                     </Textbox>
                     <ColSpan>3</ColSpan>
+                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
                 <TablixCell />
@@ -1075,7 +1076,7 @@
               </Group>
               <SortExpressions>
                 <SortExpression>
-                  <Value>=Fields!MonYrcd.Value</Value>
+                  <Value>=Right(Fields!MonYrcd.Value,4)+Left(Fields!MonYrcd.Value,2)</Value>
                 </SortExpression>
               </SortExpressions>
               <TablixMembers>

@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="ESI Register" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ESIRegister.aspx.cs" Inherits="PayRoll.Reports.ESIRegister" %>
 
-<%@ Register Assembly="Microsoft.ReportViewer.WebForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" Namespace="Microsoft.Reporting.WebForms" TagPrefix="rsweb" %>
+<%@ Register Assembly="Microsoft.ReportViewer.WebForms" Namespace="Microsoft.Reporting.WebForms" TagPrefix="rsweb" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
@@ -41,7 +41,7 @@
                             <div class="col-lg-12">
                                 <div class="form-group col-lg-2">
                                     <label for="username">Month Name</label>
-                                    <asp:DropDownList ID="ddlMon" runat="server" class="form-control" name="account" CausesValidation="True" AutoPostBack="True" TabIndex="1">
+                                    <asp:DropDownList ID="ddlMon" runat="server" class="form-control" name="account" CausesValidation="True" TabIndex="1">
                                         <asp:ListItem Text="select" Value="00" Selected="True"></asp:ListItem>
                                         <asp:ListItem Text="January" Value="01"></asp:ListItem>
                                         <asp:ListItem Text="February" Value="02"></asp:ListItem>
@@ -60,7 +60,7 @@
                                 </div>
                                 <div class="form-group col-lg-2">
                                     <label for="username">Year</label>
-                                    <asp:DropDownList ID="ddlYear" runat="server" class="form-control" name="account" CausesValidation="True" AutoPostBack="True" TabIndex="2">
+                                    <asp:DropDownList ID="ddlYear" runat="server" class="form-control" name="account" CausesValidation="True"  TabIndex="2">
                                     </asp:DropDownList>
                                     <asp:RequiredFieldValidator ID="RFVddlYear" InitialValue="0000" runat="server" ControlToValidate="ddlYear" ErrorMessage="Select Year" Display="Dynamic" ForeColor="Red" ValidationGroup="OK"></asp:RequiredFieldValidator>
                                 </div>

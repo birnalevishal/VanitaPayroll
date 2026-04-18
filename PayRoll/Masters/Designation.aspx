@@ -47,7 +47,7 @@
 
             <div class="content">
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-4">
                         <div class="hpanel hblue">
                             <div class="panel-heading hbuilt">
                                 <div class="panel-tools">
@@ -65,8 +65,13 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="username">LWF Report Type</label>
-                                    <asp:TextBox ID="txtLWFReportType" runat="server" type="text" MaxLength="1" TabIndex="1" placeholder="Enter LWF Report Type" class="form-control" name="name" CausesValidation="True" ValidationGroup="OK"></asp:TextBox>
-                                    
+                                    <asp:DropDownList ID="ddlLWFReportType" runat="server" class="form-control m-b" TabIndex="2">
+                                    </asp:DropDownList>
+                                </div>
+                                <div class="form-group">
+                                    <label for="username">Stat. Report Level</label>
+                                    <asp:DropDownList ID="ddlList" runat="server" class="form-control m-b" TabIndex="3">
+                                    </asp:DropDownList>
                                 </div>
                                 <div class="form-group">
                                     <label for="Isactive">Is Active</label>
@@ -86,7 +91,7 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-6">
+                    <div class="col-lg-8">
                         <div class="hpanel hblue">
                             <div class="panel-heading hbuilt">
                                 <div class="panel-tools">
@@ -96,7 +101,7 @@
                                 Designation List
                             </div>
                             <div class="panel-body">
-                                <asp:GridView ID="gvDesignationList" runat="server" class="table table-striped table-bordered table-hover" AllowPaging="True" AutoGenerateColumns="False" PageSize="10" Width="100%" DataKeyNames="Desigcd" OnRowCommand="gvDesignationList_RowCommand" OnPageIndexChanging="gvDesignationList_PageIndexChanging">
+                                <asp:GridView ID="gvDesignationList" runat="server" class="table table-striped table-bordered table-hover" AllowPaging="True" AutoGenerateColumns="False" PageSize="10" Width="100%" DataKeyNames="Desigcd" OnRowCommand="gvDesignationList_RowCommand" OnPageIndexChanging="gvDesignationList_PageIndexChanging" OnRowDataBound="gvDesignationList_RowDataBound">
                                     <Columns>
                                         <asp:TemplateField HeaderText="Action" HeaderStyle-CssClass="col-lg-2">
                                             <ItemTemplate>
@@ -105,13 +110,16 @@
 
                                             <HeaderStyle CssClass="col-lg-2"></HeaderStyle>
                                         </asp:TemplateField>
-                                        <asp:BoundField DataField="Designation" HeaderText="Designation" HeaderStyle-CssClass="col-lg-6">
-                                            <HeaderStyle CssClass="col-lg-8"></HeaderStyle>
+                                        <asp:BoundField DataField="Designation" HeaderText="Designation" HeaderStyle-CssClass="col-lg-5">
+                                            <HeaderStyle CssClass="col-lg-5"></HeaderStyle>
                                         </asp:BoundField>
-                                         <asp:BoundField DataField="LWFReportType" HeaderText="LWFReportType" HeaderStyle-CssClass="col-lg-3">
-                                            <HeaderStyle CssClass="col-lg-3"></HeaderStyle>
+                                         <asp:BoundField DataField="LWFDesc" HeaderText="LWF Report Type" HeaderStyle-CssClass="col-lg-2">
+                                            <HeaderStyle CssClass="col-lg-2"></HeaderStyle>
                                         </asp:BoundField>
-                                        <asp:BoundField DataField="IsActive" HeaderText="Active" HeaderStyle-CssClass="col-lg-4">
+                                         <asp:BoundField DataField="STATDesc" HeaderText="Stat Report Level" HeaderStyle-CssClass="col-lg-5">
+                                            <HeaderStyle CssClass="col-lg-5"></HeaderStyle>
+                                        </asp:BoundField>
+                                        <asp:BoundField DataField="IsActive" HeaderText="Active" HeaderStyle-CssClass="col-lg-3">
                                             <HeaderStyle CssClass="col-lg-2"></HeaderStyle>
                                         </asp:BoundField>
                                     </Columns>

@@ -78,7 +78,7 @@
 
 <body class="fixed-navbar sidebar-scroll fixed-footer">
     <form runat="server">
-        <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+        <asp:ScriptManager ID="ScriptManager1" runat="server" AsyncPostBackTimeout="900"></asp:ScriptManager>
 
         <!-- Header -->
         <div id="header">
@@ -444,6 +444,9 @@
             $(".js-source-states").select2();
 
             $(".js-source-states-2").select2();
+
+            /*txtVisible();*/
+
 
         });
 

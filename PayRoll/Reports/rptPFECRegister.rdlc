@@ -944,7 +944,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value />
+                              <Value>="0"</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
                               </Style>
@@ -1364,14 +1364,14 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="Textbox20">
+                    <Textbox Name="NCPDays1">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value />
+                              <Value>=SUM(Fields!NCPDays.Value)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
                                 <FontWeight>Bold</FontWeight>
@@ -1383,7 +1383,7 @@
                           </Style>
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>Textbox20</rd:DefaultName>
+                      <rd:DefaultName>NCPDays1</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -1685,7 +1685,8 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>= Ceiling((Sum(Fields!BasicDA.Value, "DataSet1")*Parameters!ac1.Value/100))+Ceiling((Sum(Fields!BasicDA.Value, "DataSet1")*Parameters!ac2.Value/100))</Value>
+                              <Value>= Ceiling((Sum(Fields!BasicDA.Value, "DataSet1")*Parameters!ac1.Value/100)) +
+Ceiling((Sum(Fields!EDLIWages.Value, "DataSet1")*Parameters!ac2.Value/100))</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
                               </Style>
@@ -1995,7 +1996,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Ceiling(Sum(Fields!BasicDA.Value, "DataSet1")*Parameters!ac2.Value/100)</Value>
+                              <Value>=Ceiling(Sum(Fields!EDLIWages.Value, "DataSet1")*Parameters!ac2.Value/100)</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
                               </Style>
@@ -2016,6 +2017,7 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
+                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
               </TablixCells>
@@ -2103,7 +2105,8 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>= Ceiling((Sum(Fields!BasicDA.Value, "DataSet1")*Parameters!ac1.Value/100))+Ceiling((Sum(Fields!BasicDA.Value, "DataSet1")*Parameters!ac2.Value/100))</Value>
+                              <Value>= Ceiling((Sum(Fields!BasicDA.Value, "DataSet1")*Parameters!ac1.Value/100)) +
+Ceiling((Sum(Fields!EDLIWages.Value, "DataSet1")*Parameters!ac2.Value/100))</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
                                 <FontWeight>Bold</FontWeight>
@@ -2136,7 +2139,8 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>= Ceiling((Sum(Fields!BasicDA.Value, "DataSet1")*Parameters!ac1.Value/100))+Ceiling((Sum(Fields!BasicDA.Value, "DataSet1")*Parameters!ac2.Value/100))</Value>
+                              <Value>= Ceiling((Sum(Fields!BasicDA.Value, "DataSet1")*Parameters!ac1.Value/100)) +
+Ceiling((Sum(Fields!EDLIWages.Value, "DataSet1")*Parameters!ac2.Value/100))</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
                                 <FontWeight>Bold</FontWeight>

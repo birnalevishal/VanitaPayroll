@@ -340,7 +340,7 @@ namespace PayRoll.Masters
                 strQry += " SELECT dbo.M_Emp.OrgId,dbo.T_MonthlyHamaliSalary.MonYrcd, dbo.M_Emp.Employeecd, 0 as Weeklyoff, 0 as Payholiday,0 as COff, 0 as Absent, 0 as PL,0 as PresentDay,0 as SNACKCOUNT,0 as OT, ";
                 strQry += " dbo.M_Emp.Employeename, dbo.M_Emp.Birthdate, dbo.M_Emp.Gendercd, dbo.M_Emp.WStatecd, dbo.M_Emp.PFApplicable,dbo.M_Emp.PFJoindate, dbo.M_Emp.ProfTaxApplicable, dbo.M_Emp.LabWelApplicable, dbo.M_Emp.ESIApplicable, dbo.M_Emp.ESINotApplicableDt, dbo.M_Emp.ESICalculate, dbo.M_Emp.OrigJoindate,";
                 strQry += " isnull(udf_EmpSalMaster_1.BasicDA, 0)+isnull(udf_EmpSalMaster_1.HRA, 0)+isnull(udf_EmpSalMaster_1.Education, 0)+isnull(udf_EmpSalMaster_1.Medical, 0) AS stdBasic, isnull(udf_EmpSalMaster_1.Gross, 0) as grossSal ,ISNULL(Gross, 0) AS stadGross, udf_EmpSalMaster_1.Gross as Docdate, '' AS Expr1, 0 as PfMan, 0 as PfEmpPct, '' as Approval, ";
-                strQry += "  isnull(dbo.T_MonthlyDeduction.Advance,0),  isnull(dbo.T_MonthlyDeduction.Loan,0),  isnull(dbo.T_MonthlyDeduction.TDS,0),  isnull(dbo.T_MonthlyDeduction.TardalPathsansth,0),  isnull(dbo.T_MonthlyDeduction.Ded1,0), 0 as PF,0 as EPF, 0 as EPS, 0 as PFConditional,0 as PFAmtLimit, 0 as PFAgeLimit, ";
+                strQry += "  isnull(dbo.T_MonthlyDeduction.Advance,0),  isnull(dbo.T_MonthlyDeduction.Loan,0),  isnull(dbo.T_MonthlyDeduction.TDS,0),  isnull(dbo.T_MonthlyDeduction.TardalPathsansth,0),  isnull(dbo.T_MonthlyDeduction.Ded1,0), isnull(dbo.T_MonthlyDeduction.Ded2,0), 0 as PF,0 as EPF, 0 as EPS, 0 as PFConditional,0 as PFAmtLimit, 0 as PFAgeLimit, ";
                 strQry += " 0 AS canteenRate,";
                 strQry += " isnull(udf_EmpSalMaster_1.BasicDA, 0) as BasicDA, isnull(udf_EmpSalMaster_1.HRA, 0) as HRA, isnull(udf_EmpSalMaster_1.Conveyance, 0) as Conveyance,isnull(udf_EmpSalMaster_1.Education, 0) as Education,isnull(udf_EmpSalMaster_1.Medical, 0) as Medical,";
                 strQry += "	isnull(udf_EmpSalMaster_1.Canteen, 0) as Canteen, isnull(udf_EmpSalMaster_1.Washing, 0) as Washing, isnull(udf_EmpSalMaster_1.Uniform, 0) as Uniform, isnull(udf_EmpSalMaster_1.Add1, 0) Add1, isnull(udf_EmpSalMaster_1.Add2, 0) Add2, isnull(udf_EmpSalMaster_1.Add3, 0) Add3,";
@@ -361,6 +361,7 @@ namespace PayRoll.Masters
                 {
                     DataSet1.EmpSalaryDataTable empSalary = new DataSet1.EmpSalaryDataTable();
 
+                    #region[CalculateEmployeeSalary]
                     for (int i = 0; i < objDT.Rows.Count; i++)
                     {
                         presentDays = PL = COff = weeklyOff = payDays = absentDays = 0;
@@ -471,7 +472,7 @@ namespace PayRoll.Masters
                                         dr["TDS"] = 0;
                                         dr["TardalPathsansth"] = 0;
                                         dr["Ded1"] = 0;
-                                        
+                                        dr["Ded2"] = 0;
 
                                         #endregion
 
@@ -555,6 +556,7 @@ namespace PayRoll.Masters
                                             add2 = Math.Round(Convert.ToDouble(objDTHamaliSal.Rows[j]["Add2"]));
                                             grossSalary = grossSalary + add2;
                                             dr["Add2"] = add2;
+                                            basicForEsi = basicForEsi + Math.Round(Convert.ToDouble(objDT.Rows[i]["Add2"])); // Newlly added for esi calculation on 04/07/2025
 
                                             add3 = Math.Round(Convert.ToDouble(objDTHamaliSal.Rows[j]["Add3"]));
                                             grossSalary = grossSalary + add3;
@@ -609,6 +611,11 @@ namespace PayRoll.Masters
                                                 dr["Ded1"] = Math.Round(Convert.ToDouble(objDT.Rows[i]["Ded1"]));
                                                 deduction = deduction + Math.Round(Convert.ToDouble(objDT.Rows[i]["Ded1"]));
                                             }
+                                            if (objDT.Rows[i]["Ded2"] != DBNull.Value)
+                                            {
+                                                dr["Ded2"] = Math.Round(Convert.ToDouble(objDT.Rows[i]["Ded2"]));
+                                                deduction = deduction + Math.Round(Convert.ToDouble(objDT.Rows[i]["Ded2"]));
+                                            }
                                             #endregion
 
                                             #region[PF Config]
@@ -633,10 +640,23 @@ namespace PayRoll.Masters
                                                             }
                                                             else
                                                             {
-                                                                pfAmount = standardBasic * Convert.ToDouble(objPFConfig.Rows[0]["EPF"]) / 100;
-                                                                pfPension = standardBasic * Convert.ToDouble(objPFConfig.Rows[0]["EPS"]) / 100;
+                                                                //PF 12%
+                                                                double pfAmt = Math.Round(standardBasic * (Math.Round(Convert.ToDouble(objPFConfig.Rows[0]["PF"]), 2) / 100), 0);
+
+                                                                //Old Logic on Standard Basic
+                                                                //pfAmount = Math.Round(standardBasic * (Math.Round(Convert.ToDouble(objPFConfig.Rows[0]["EPF"]),2) / 100),0); //PF 3.67%
+                                                                pfPension = Math.Round(standardBasic * (Math.Round(Convert.ToDouble(objPFConfig.Rows[0]["EPS"]), 2) / 100), 0); //Pension 8.33%
+                                                                pfAmount = pfAmt - pfPension;
+
+                                                                //New EPF & EPS ECR contribution w.e.f - Sep 2025
+                                                                int YrMoncd = Convert.ToInt32(ddlYear.SelectedValue + ddlMon.SelectedValue);
+                                                                if (YrMoncd >= 202509 && standardBasic > 15000)
+                                                                {
+                                                                    pfPension = Math.Round(15000 * (Math.Round(Convert.ToDouble(objPFConfig.Rows[0]["EPS"]), 2) / 100), 0);
+                                                                    pfAmount = pfAmt - pfPension;
+                                                                }
                                                             }
-                                                                
+         
                                                         }
                                                         else
                                                         {
@@ -908,6 +928,8 @@ namespace PayRoll.Masters
                                             basicForEsi = basicForEsi + add1; // Newlly added for esi calculation on 10/03/2021
 
                                             dr["Add2"] = add2;
+                                            basicForEsi = basicForEsi + add2; // Newlly added for esi calculation on 04/07/2025
+
                                             dr["Add3"] = add3;
                                             dr["insentive"] = insentive;
 
@@ -944,6 +966,11 @@ namespace PayRoll.Masters
                                                 dr["Ded1"] = Math.Round(Convert.ToDouble(objDT.Rows[i]["Ded1"]));
                                                 deduction = deduction + Math.Round(Convert.ToDouble(objDT.Rows[i]["Ded1"]));
                                             }
+                                            if (objDT.Rows[i]["Ded2"] != DBNull.Value)
+                                            {
+                                                dr["Ded2"] = Math.Round(Convert.ToDouble(objDT.Rows[i]["Ded2"]));
+                                                deduction = deduction + Math.Round(Convert.ToDouble(objDT.Rows[i]["Ded2"]));
+                                            }
 
                                             #region[PF Config]
                                             //PF Calculation  
@@ -967,8 +994,21 @@ namespace PayRoll.Masters
                                                             }
                                                             else
                                                             {
-                                                                pfAmount = standardBasic * Convert.ToDouble(objPFConfig.Rows[0]["EPF"]) / 100;
-                                                                pfPension = standardBasic * Convert.ToDouble(objPFConfig.Rows[0]["EPS"]) / 100;
+                                                                //PF 12%
+                                                                double pfAmt = Math.Round(standardBasic * (Math.Round(Convert.ToDouble(objPFConfig.Rows[0]["PF"]), 2) / 100), 0);
+
+                                                                //Old Logic on Standard Basic
+                                                                //pfAmount = Math.Round(standardBasic * (Math.Round(Convert.ToDouble(objPFConfig.Rows[0]["EPF"]),2) / 100),0); //PF 3.67%
+                                                                pfPension = Math.Round(standardBasic * (Math.Round(Convert.ToDouble(objPFConfig.Rows[0]["EPS"]), 2) / 100), 0); //Pension 8.33%
+                                                                pfAmount = pfAmt - pfPension;
+
+                                                                //New EPF & EPS ECR contribution w.e.f - Sep 2025
+                                                                int YrMoncd = Convert.ToInt32(ddlYear.SelectedValue + ddlMon.SelectedValue);
+                                                                if (YrMoncd >= 202509 && standardBasic > 15000)
+                                                                {
+                                                                    pfPension = Math.Round(15000 * (Math.Round(Convert.ToDouble(objPFConfig.Rows[0]["EPS"]), 2) / 100), 0);
+                                                                    pfAmount = pfAmt - pfPension;
+                                                                }
                                                             }
                                                                 
                                                         }
@@ -1255,6 +1295,8 @@ namespace PayRoll.Masters
                                         basicForEsi = basicForEsi + add1;// Newlly added for esi calculation on 10/03/2021
 
                                         dr["Add2"] = add2;
+                                        basicForEsi = basicForEsi + add2; // Newlly added for esi calculation on 04/07/2025
+
                                         dr["Add3"] = add3;
                                         dr["insentive"] = insentive;
 
@@ -1292,6 +1334,11 @@ namespace PayRoll.Masters
                                             dr["Ded1"] = Math.Round(Convert.ToDouble(objDT.Rows[i]["Ded1"]));
                                             deduction = deduction + Math.Round(Convert.ToDouble(objDT.Rows[i]["Ded1"]));
                                         }
+                                        if (objDT.Rows[i]["Ded2"] != DBNull.Value)
+                                        {
+                                            dr["Ded2"] = Math.Round(Convert.ToDouble(objDT.Rows[i]["Ded2"]));
+                                            deduction = deduction + Math.Round(Convert.ToDouble(objDT.Rows[i]["Ded2"]));
+                                        }
 
                                         #region[PF Config]
                                         //PF Calculation  
@@ -1316,10 +1363,23 @@ namespace PayRoll.Masters
                                                         }
                                                         else
                                                         {
-                                                            pfAmount = standardBasic * Convert.ToDouble(objPFConfig.Rows[0]["EPF"]) / 100;
-                                                            pfPension = standardBasic * Convert.ToDouble(objPFConfig.Rows[0]["EPS"]) / 100;
+                                                            //PF 12%
+                                                            double pfAmt = Math.Round(standardBasic * (Math.Round(Convert.ToDouble(objPFConfig.Rows[0]["PF"]), 2) / 100), 0);
+
+                                                            //Old Logic on Standard Basic
+                                                            //pfAmount = Math.Round(standardBasic * (Math.Round(Convert.ToDouble(objPFConfig.Rows[0]["EPF"]),2) / 100),0); //PF 3.67%
+                                                            pfPension = Math.Round(standardBasic * (Math.Round(Convert.ToDouble(objPFConfig.Rows[0]["EPS"]), 2) / 100), 0); //Pension 8.33%
+                                                            pfAmount = pfAmt - pfPension;
+
+                                                            //New EPF & EPS ECR contribution w.e.f - Sep 2025
+                                                            int YrMoncd = Convert.ToInt32(ddlYear.SelectedValue + ddlMon.SelectedValue);
+                                                            if (YrMoncd >= 202509 && standardBasic > 15000)
+                                                            {
+                                                                pfPension = Math.Round(15000 * (Math.Round(Convert.ToDouble(objPFConfig.Rows[0]["EPS"]), 2) / 100), 0);
+                                                                pfAmount = pfAmt - pfPension;
+                                                            }
+
                                                         }
-                                                            
                                                     }
                                                     else
                                                     {
@@ -1581,6 +1641,7 @@ namespace PayRoll.Masters
                                 dr["TDS"] = 0;
                                 dr["TardalPathsansth"] = 0;
                                 dr["Ded1"] = 0;
+                                dr["Ded2"] = 0;
                                 #endregion
 
                                 dr["providendFund"] = 0;
@@ -1710,6 +1771,7 @@ namespace PayRoll.Masters
                                 add2 = Math.Round(Convert.ToDouble(objDT.Rows[i]["Add2"]));
                                 grossSalary = grossSalary + add2;
                                 dr["Add2"] = add2;
+                                basicForEsi = basicForEsi + Math.Round(Convert.ToDouble(objDT.Rows[i]["Add2"])); // Newlly added for esi calculation on 04/07/2025
 
                                 add3 = Math.Round(Convert.ToDouble(objDT.Rows[i]["Add3"]));
                                 grossSalary = grossSalary + add3;
@@ -1768,6 +1830,12 @@ namespace PayRoll.Masters
                                     deduction = deduction + Math.Round(Convert.ToDouble(objDT.Rows[i]["Ded1"]));
                                     deductionImp += (Convert.ToDouble(objDT.Rows[i]["Ded1"]));
                                 }
+                                if (objDT.Rows[i]["Ded2"] != DBNull.Value)
+                                {
+                                    dr["Ded2"] = Math.Round(Convert.ToDouble(objDT.Rows[i]["Ded2"]));
+                                    deduction = deduction + Math.Round(Convert.ToDouble(objDT.Rows[i]["Ded2"]));
+                                    deductionImp += (Convert.ToDouble(objDT.Rows[i]["Ded2"]));
+                                }
                                 #endregion
 
                                 #region[PF Config]
@@ -1794,10 +1862,23 @@ namespace PayRoll.Masters
                                                 }
                                                 else
                                                 {
-                                                    pfAmount = standardBasic * Convert.ToDouble(objPFConfig.Rows[0]["EPF"]) / 100;
-                                                    pfPension = standardBasic * Convert.ToDouble(objPFConfig.Rows[0]["EPS"]) / 100;
+                                                    //PF 12%
+                                                    double pfAmt = Math.Round(standardBasic * (Math.Round(Convert.ToDouble(objPFConfig.Rows[0]["PF"]), 2) / 100), 0);
+
+                                                    //Old Logic on Standard Basic
+                                                    //pfAmount = Math.Round(standardBasic * (Math.Round(Convert.ToDouble(objPFConfig.Rows[0]["EPF"]),2) / 100),0); //PF 3.67%
+                                                    pfPension = Math.Round(standardBasic * (Math.Round(Convert.ToDouble(objPFConfig.Rows[0]["EPS"]), 2) / 100),0); //Pension 8.33%
+                                                    pfAmount = pfAmt - pfPension;
+
+                                                    //New EPF & EPS ECR contribution w.e.f - Sep 2025
+                                                    int YrMoncd = Convert.ToInt32(ddlYear.SelectedValue + ddlMon.SelectedValue);
+                                                    if(YrMoncd >= 202509 && standardBasic > 15000)
+                                                    {
+                                                        pfPension = Math.Round(15000 * (Math.Round(Convert.ToDouble(objPFConfig.Rows[0]["EPS"]),2) / 100), 0);
+                                                        pfAmount = pfAmt - pfPension;
+                                                    }
+                                                                                                      
                                                 }
-                                               
                                             }
                                             else
                                             {
@@ -2025,8 +2106,8 @@ namespace PayRoll.Masters
                             }
                         }
                     }
-
-
+                    #endregion
+                    
                     #region[DisplaySalary]
                     if (opr == "1")
                     {
@@ -2097,6 +2178,8 @@ namespace PayRoll.Masters
                             txtPathSanstha.Text = Convert.ToDouble(dtEmpSalary.Rows[0]["TardalPathsansth"]).ToString("0.00");
                         if (dtEmpSalary.Rows[0]["Ded1"] != DBNull.Value)
                             txtEntertainmentCost.Text = Convert.ToDouble(dtEmpSalary.Rows[0]["Ded1"]).ToString("0.00");
+                        if (dtEmpSalary.Rows[0]["Ded2"] != DBNull.Value)
+                            txtExpenses.Text = Convert.ToDouble(dtEmpSalary.Rows[0]["Ded2"]).ToString("0.00");
 
                         txtGross.Text = Convert.ToDouble(dtEmpSalary.Rows[0]["gross"]).ToString("0.00");
                         txtDeduction.Text = Convert.ToDouble(dtEmpSalary.Rows[0]["deduction"]).ToString("0.00");
@@ -2138,24 +2221,19 @@ namespace PayRoll.Masters
 
                             SqlHelper.ExecuteTransaction(sqlCmd, strQrySalary, para1);
 
+                            int nOrgId = Convert.ToInt32(Session["OrgID"]);
+                            string strMnthYrcd = ddlMon.SelectedValue + ddlYear.SelectedValue;
+
                             for (int i = 0; i < dtEmpSalary.Rows.Count; i++)
                             {
-                                //strQrySalary = "delete from T_MonthlySalary where OrgId=@OrgID and MonYrcd=@MonYrcd and Employeecd=@Employeecd";
-                                //SqlParameter[] para2 = new SqlParameter[3];
-                                //para2[0] = new SqlParameter("@OrgId", Convert.ToInt32(Session["OrgID"]));
-                                //para2[1] = new SqlParameter("@MonYrcd", ddlMon.SelectedValue + ddlYear.SelectedValue);
-                                //para2[2] = new SqlParameter("@Employeecd", dtEmpSalary.Rows[i]["empCode"].ToString());
-
-                                //SqlHelper.ExecuteTransaction(sqlCmd, strQrySalary, para2);
-
                                 strQrySalary = @"INSERT INTO T_MonthlySalary(OrgId, MonYrcd, Docdate,Employeecd,MonthDay,PayDay,AbsentDay,PL,PresentDay,Weeklyoff,Holiday,Coff,PayableDay,
                                 BasicDA,HRA,Conveyance,Education,Medical,Canteen,Washing,Uniform, Add1,Add2, Add3,Incentive,EPF,EPS,
-                                Advance,Loan,TDS,TardalPathsasnth,ProfTax,Provfund,pfPension, lwf,LwfCompContri,esiEmp, esiComp,ESIEmpContribution,ESICompContribution, Ded1, Gross,Deduction,NetAmount) 
+                                Advance,Loan,TDS,TardalPathsasnth,ProfTax,Provfund,pfPension, lwf,LwfCompContri,esiEmp, esiComp,ESIEmpContribution,ESICompContribution, Ded1, Ded2, Gross,Deduction,NetAmount) 
                                 VALUES(@OrgId, @MonYrcd, @Docdate,@Employeecd,@MonthDay,@PayDay,@AbsentDay,@PL,@PresentDay,@Weeklyoff,@payholiday,@Coff,@PayableDay,
                                 @BasicDA,@HRA,@Conveyance,@Education,@Medical,@Canteen,@Washing,@Uniform,  @Add1,@Add2, @Add3,@Incentive,@EPF,@EPS,
-                                @Advance,@Loan,@TDS,@TardalPathsasnth,@ProfTax,@Provfund, @pfPension, @lwf,@LwfCompContri, @esiEmp, @esiComp,@ESIEmpContribution,@ESICompContribution, @Ded1, @Gross,@Deduction,@NetAmount)";
+                                @Advance,@Loan,@TDS,@TardalPathsasnth,@ProfTax,@Provfund, @pfPension, @lwf,@LwfCompContri, @esiEmp, @esiComp,@ESIEmpContribution,@ESICompContribution, @Ded1, @Ded2, @Gross,@Deduction,@NetAmount)";
 
-                                SqlParameter[] para = new SqlParameter[44];
+                                SqlParameter[] para = new SqlParameter[45];
                                 para[0] = new SqlParameter("@OrgId", Convert.ToInt32(Session["OrgId"]));
                                 para[1] = new SqlParameter("@MonYrcd", ddlMon.SelectedValue + ddlYear.SelectedValue);
                                 para[2] = new SqlParameter("@Docdate", Convert.ToDateTime(DateTime.Now).ToString("dd MMM yyyy"));
@@ -2206,8 +2284,11 @@ namespace PayRoll.Masters
                                 para[41] = new SqlParameter("@lwfCompContri", dtEmpSalary.Rows[i]["lwfCompContri"] == DBNull.Value ? 0 : Convert.ToDouble(dtEmpSalary.Rows[i]["lwfCompContri"]));
                                 para[42] = new SqlParameter("@pfPension", dtEmpSalary.Rows[i]["pfPension"] == DBNull.Value ? 0 : Convert.ToDouble(dtEmpSalary.Rows[i]["pfPension"]));
                                 para[43] = new SqlParameter("@Ded1", dtEmpSalary.Rows[i]["Ded1"] == DBNull.Value ? 0 : Convert.ToDouble(dtEmpSalary.Rows[i]["Ded1"]));
+                                para[44] = new SqlParameter("@Ded2", dtEmpSalary.Rows[i]["Ded2"] == DBNull.Value ? 0 : Convert.ToDouble(dtEmpSalary.Rows[i]["Ded2"]));
                                 //result = SqlHelper.ExecuteNonQuery(strQrySalary, para, AppGlobal.strConnString);
                                 result = SqlHelper.ExecuteTransaction(sqlCmd, strQrySalary, para);
+
+
                             }
                             if (result)
                             {
@@ -2265,6 +2346,7 @@ namespace PayRoll.Masters
                 ScriptManager.RegisterStartupScript(UpdatePanel1, UpdatePanel1.GetType(), "PayRoll", "alert('Error!'); ", true);
             }
         }
+        
         protected void btnGetData_Click(object sender, EventArgs e)
         {
             try
@@ -2372,5 +2454,7 @@ namespace PayRoll.Masters
                 txtEmpCode.Text = ddlEmpName.SelectedValue.ToString();
             }
         }
+
+
     }
 }

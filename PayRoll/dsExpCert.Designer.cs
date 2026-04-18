@@ -1727,6 +1727,8 @@ namespace PayRoll {
             
             private global::System.Data.DataColumn columnLocation;
             
+            private global::System.Data.DataColumn columnSalConfigTA;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public PerformanceEvaluationFormDataTable() {
@@ -1882,6 +1884,14 @@ namespace PayRoll {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn SalConfigTAColumn {
+                get {
+                    return this.columnSalConfigTA;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1917,7 +1927,23 @@ namespace PayRoll {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public PerformanceEvaluationFormRow AddPerformanceEvaluationFormRow(string Employeecd, string Employeename, System.DateTime OrigJoindate, System.DateTime ResigDate, System.DateTime Leavedate, System.DateTime PFJoindate, string Designation, string Period1, decimal Gross, decimal TA, decimal DA, decimal phone, string PFApplicable, string Department, string Location) {
+            public PerformanceEvaluationFormRow AddPerformanceEvaluationFormRow(
+                        string Employeecd, 
+                        string Employeename, 
+                        System.DateTime OrigJoindate, 
+                        System.DateTime ResigDate, 
+                        System.DateTime Leavedate, 
+                        System.DateTime PFJoindate, 
+                        string Designation, 
+                        string Period1, 
+                        decimal Gross, 
+                        decimal TA, 
+                        decimal DA, 
+                        decimal phone, 
+                        string PFApplicable, 
+                        string Department, 
+                        string Location, 
+                        decimal SalConfigTA) {
                 PerformanceEvaluationFormRow rowPerformanceEvaluationFormRow = ((PerformanceEvaluationFormRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         Employeecd,
@@ -1934,7 +1960,8 @@ namespace PayRoll {
                         phone,
                         PFApplicable,
                         Department,
-                        Location};
+                        Location,
+                        SalConfigTA};
                 rowPerformanceEvaluationFormRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowPerformanceEvaluationFormRow);
                 return rowPerformanceEvaluationFormRow;
@@ -1972,6 +1999,7 @@ namespace PayRoll {
                 this.columnPFApplicable = base.Columns["PFApplicable"];
                 this.columnDepartment = base.Columns["Department"];
                 this.columnLocation = base.Columns["Location"];
+                this.columnSalConfigTA = base.Columns["SalConfigTA"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2007,6 +2035,8 @@ namespace PayRoll {
                 base.Columns.Add(this.columnDepartment);
                 this.columnLocation = new global::System.Data.DataColumn("Location", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnLocation);
+                this.columnSalConfigTA = new global::System.Data.DataColumn("SalConfigTA", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSalConfigTA);
                 this.columnEmployeecd.AllowDBNull = false;
                 this.columnEmployeecd.MaxLength = 6;
                 this.columnEmployeename.MaxLength = 75;
@@ -5522,6 +5552,23 @@ namespace PayRoll {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal SalConfigTA {
+                get {
+                    try {
+                        return ((decimal)(this[this.tablePerformanceEvaluationForm.SalConfigTAColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'SalConfigTA\' in table \'PerformanceEvaluationForm\' is DBNull" +
+                                ".", e);
+                    }
+                }
+                set {
+                    this[this.tablePerformanceEvaluationForm.SalConfigTAColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsEmployeenameNull() {
                 return this.IsNull(this.tablePerformanceEvaluationForm.EmployeenameColumn);
             }
@@ -5662,6 +5709,18 @@ namespace PayRoll {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetLocationNull() {
                 this[this.tablePerformanceEvaluationForm.LocationColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsSalConfigTANull() {
+                return this.IsNull(this.tablePerformanceEvaluationForm.SalConfigTAColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetSalConfigTANull() {
+                this[this.tablePerformanceEvaluationForm.SalConfigTAColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -8461,6 +8520,7 @@ WHERE        (e.Employeecd = @empcd)";
             tableMapping.ColumnMappings.Add("PFApplicable", "PFApplicable");
             tableMapping.ColumnMappings.Add("Department", "Department");
             tableMapping.ColumnMappings.Add("Location", "Location");
+            tableMapping.ColumnMappings.Add("SalConfigTA", "SalConfigTA");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -8477,31 +8537,8 @@ WHERE        (e.Employeecd = @empcd)";
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT        e.Employeecd, e.Employeename, e.OrigJoindate, e.RegignationDate AS " +
-                "ResigDate, e.Leavedate, e.PFJoindate, d.Designation, pf.Period1, e.PFApplicable," +
-                " dbo.M_Division.Division AS Department, \r\n                         ld.LocationDe" +
-                "p AS Location, udfEmployeesalarymax_1.Gross, udf_AllowanceMax_1.TA, udf_Allowanc" +
-                "eMax_1.DA, udf_AllowanceMax_1.phone\r\nFROM            dbo.M_Emp AS e INNER JOIN\r\n" +
-                "                         dbo.udfEmpConfigurationmax1(@OrgId, @Dt, \'desg\') AS u O" +
-                "N e.Employeecd = u.Employeecd AND e.OrgId = u.OrgId INNER JOIN\r\n                " +
-                "         dbo.M_Designation AS d ON u.conId = d.Desigcd INNER JOIN\r\n             " +
-                "            dbo.udfEmpConfigurationmax1(@OrgId, @Dt, \'div\') AS udfEmpConfigurati" +
-                "onmax1_1 ON e.OrgId = udfEmpConfigurationmax1_1.OrgId AND e.Employeecd = udfEmpC" +
-                "onfigurationmax1_1.Employeecd INNER JOIN\r\n                         dbo.M_Divisio" +
-                "n ON udfEmpConfigurationmax1_1.conId = dbo.M_Division.Divcd INNER JOIN\r\n        " +
-                "                 dbo.udfEmpConfigurationmax1(@OrgId, @Dt, \'dept\') AS udfEmpConfi" +
-                "gurationmax1_2 ON e.OrgId = udfEmpConfigurationmax1_2.OrgId AND e.Employeecd = u" +
-                "dfEmpConfigurationmax1_2.Employeecd INNER JOIN\r\n                         dbo.M_L" +
-                "ocationDep AS ld ON udfEmpConfigurationmax1_2.conId = ld.LocDepCd LEFT OUTER JOI" +
-                "N\r\n                         dbo.udf_AllowanceMax(@OrgId, @Dt) AS udf_AllowanceMa" +
-                "x_1 ON e.OrgId = udf_AllowanceMax_1.OrgId AND e.Employeecd = udf_AllowanceMax_1." +
-                "Employeecd LEFT OUTER JOIN\r\n                         dbo.udfEmployeesalarymax(@O" +
-                "rgId, @MonYrCd) AS udfEmployeesalarymax_1 ON e.OrgId = udfEmployeesalarymax_1.Or" +
-                "gId AND e.Employeecd = udfEmployeesalarymax_1.Employeecd LEFT OUTER JOIN\r\n      " +
-                "                   dbo.udfPerformanceEvalDayCount(@OrgId) AS pf ON e.Employeecd " +
-                "= pf.Employeecd\r\nWHERE        (e.Employeecd IN\r\n                             (SE" +
-                "LECT        Param\r\n                               FROM            dbo.splitstrin" +
-                "g(@EmpCodes) AS splitstring_1)) AND (e.OrgId = @OrgId)";
+            this._commandCollection[0].CommandText = @"SELECT Employeecd, Employeename, OrigJoindate, ResigDate, Leavedate, PFJoindate, Designation, Period1, PFApplicable, Department, Location, Gross, TA, DA, phone, SalConfigTA
+FROM  dbo.udfPerformanceEval(@OrgId, @Dt, @MonYrCd, @EmpCodes) AS udfPerformanceEval_1";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@OrgId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Dt", global::System.Data.SqlDbType.DateTime, 0, global::System.Data.ParameterDirection.Input, 0, 0, "", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));

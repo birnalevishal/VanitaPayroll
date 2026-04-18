@@ -1,8 +1,9 @@
 ﻿<%@ Page Title="Employee Report" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="WebForm1.aspx.cs" Inherits="PayRoll.Reports.WebForm1" %>
 
+<%@ Register Assembly="Microsoft.ReportViewer.WebForms" Namespace="Microsoft.Reporting.WebForms" TagPrefix="rsweb" %>
+
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="Ajax" %>
 
-<%@ Register Assembly="Microsoft.ReportViewer.WebForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" Namespace="Microsoft.Reporting.WebForms" TagPrefix="rsweb" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <script type="text/javascript">
         function txtVisible() {
@@ -11,15 +12,21 @@
 
             document.getElementById('<%= txt1.ClientID %>').value = '';
             document.getElementById('<%= txt2.ClientID %>').value = '';
+
             document.getElementById('<%= lbl1.ClientID %>').style.display = 'none';
             document.getElementById('<%= lbl2.ClientID %>').style.display = 'none';
             document.getElementById('<%= txt1.ClientID %>').style.display = 'none';
             document.getElementById('<%= txt2.ClientID %>').style.display = 'none';
 
+            document.getElementById('<%= txt1.ClientID %>').placeholder = '';
+            document.getElementById('<%= txt2.ClientID %>').placeholder = '';
+
             if (ddlType == 1) {
+                document.getElementById('<%= lbl1.ClientID %>').innerHTML = 'Employee Code';
+
                 document.getElementById('<%= lbl1.ClientID %>').style.display = 'block';
                 document.getElementById('<%= lbl2.ClientID %>').style.display = 'none';
-                document.getElementById('<%= lbl1.ClientID %>').innerHTML = 'Employee Code';
+
                 document.getElementById('<%= lbl2.ClientID %>').innerHTML = '';
 
                 document.getElementById('<%= txt1.ClientID %>').style.display = 'block';
@@ -29,9 +36,11 @@
                 document.getElementById('<%= txt2.ClientID %>').value = '';
             }
             else if (ddlType == 2) {
+                document.getElementById('<%= lbl1.ClientID %>').innerHTML = 'Employee Name';
+
                 document.getElementById('<%= lbl1.ClientID %>').style.display = 'block';
                 document.getElementById('<%= lbl2.ClientID %>').style.display = 'none';
-                document.getElementById('<%= lbl1.ClientID %>').innerHTML = 'Employee Name';
+
                 document.getElementById('<%= lbl2.ClientID %>').innerHTML = '';
 
                 document.getElementById('<%= txt1.ClientID %>').style.display = 'block';
@@ -41,17 +50,20 @@
                 document.getElementById('<%= txt2.ClientID %>').value = '';
             }
             else if (ddlType == 3 || ddlType == 4) {
-                document.getElementById('<%= lbl1.ClientID %>').style.display = 'block';
-                document.getElementById('<%= lbl2.ClientID %>').style.display = 'block';
-
                 document.getElementById('<%= lbl1.ClientID %>').innerHTML = 'From Date';
                 document.getElementById('<%= lbl2.ClientID %>').innerHTML = 'To Date';
+
+                document.getElementById('<%= lbl1.ClientID %>').style.display = 'block';
+                document.getElementById('<%= lbl2.ClientID %>').style.display = 'block';
 
                 document.getElementById('<%= txt1.ClientID %>').style.display = 'block';
                 document.getElementById('<%= txt2.ClientID %>').style.display = 'block';
 
                 document.getElementById('<%= txt1.ClientID %>').value = '';
                 document.getElementById('<%= txt2.ClientID %>').value = '';
+
+                document.getElementById('<%= txt1.ClientID %>').placeholder = 'DD/MM/YYYY';
+                document.getElementById('<%= txt2.ClientID %>').placeholder = 'DD/MM/YYYY';
             }
 
 }
@@ -142,11 +154,11 @@ window.onload = function () {
                                     <label for="username">HOD Wise </label>
                                     <asp:DropDownList ID="ddlHOD" runat="server" class="form-control m-b" name="account" CausesValidation="True" TabIndex="5"></asp:DropDownList>
                                 </div>
-                               
+
                             </div>
 
                             <div class="col-lg-12">
-                                 <div class="form-group col-lg-2">
+                                <div class="form-group col-lg-2">
                                     <label for="username">Division</label>
                                     <asp:DropDownList ID="ddlDivision" runat="server" class="form-control m-b" name="account" CausesValidation="True" TabIndex="6"></asp:DropDownList>
 
@@ -170,11 +182,11 @@ window.onload = function () {
                                     </asp:DropDownList>
                                 </div>
                                 <div class="form-group col-lg-2">
-                                    <asp:Label ID="lbl1" runat="server" Text=""></asp:Label>
+                                    <asp:Label for="username" ID="lbl1" runat="server" Text="" Font-Bold="True"></asp:Label>
                                     <asp:TextBox ID="txt1" runat="server" MaxLength="75" type="text" placeholder="" class="form-control" name="name" CausesValidation="True" ValidationGroup="OK" TabIndex="10"></asp:TextBox>
                                 </div>
                                 <div class="form-group col-lg-2">
-                                    <asp:Label ID="lbl2" runat="server" Text=""></asp:Label>
+                                    <asp:Label for="username" ID="lbl2" runat="server" Text="" Font-Bold="True"></asp:Label>
                                     <asp:TextBox ID="txt2" runat="server" MaxLength="80" placeholder="" class="form-control" name="name" CausesValidation="True" ValidationGroup="OK" TabIndex="11"></asp:TextBox>
                                 </div>
 
@@ -199,6 +211,7 @@ window.onload = function () {
                             <div class="col-lg-12">
                                 <rsweb:ReportViewer ID="ReportViewer1" runat="server" Width="100%" class="table table-bordered table-striped">
                                 </rsweb:ReportViewer>
+                                
                             </div>
                         </div>
                     </div>
@@ -233,6 +246,7 @@ window.onload = function () {
             window.setTimeout("updateProgress.set_visible(true)", updateProgress.get_displayAfter());
             return true;
         }
+
     </script>
 
 </asp:Content>

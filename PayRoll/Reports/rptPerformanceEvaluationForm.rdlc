@@ -11,7 +11,7 @@
           </TablixColumns>
           <TablixRows>
             <TablixRow>
-              <Height>19.14458in</Height>
+              <Height>19.02479in</Height>
               <TablixCells>
                 <TablixCell>
                   <CellContents>
@@ -131,7 +131,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>(TO BE FILLED UP BY HOD / INCARGE AND SUBMITTED TO HRD DEPT)</Value>
+                                  <Value>(TO BE FILLED UP BY HOD / INCHARGE AND SUBMITTED TO HRD DEPT)</Value>
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontFamily>Times New Roman</FontFamily>
@@ -1435,11 +1435,56 @@
                                 <Paragraph>
                                   <TextRuns>
                                     <TextRun>
-                                      <Value>Current Gross – Rs. </Value>
+                                      <Value>Current Gross - Rs. </Value>
                                       <Style>
                                         <FontStyle>Normal</FontStyle>
                                         <FontFamily>Times New Roman</FontFamily>
-                                        <FontSize>12pt</FontSize>
+                                        <FontSize>11pt</FontSize>
+                                        <FontWeight>Normal</FontWeight>
+                                        <TextDecoration>None</TextDecoration>
+                                        <Color>#000000</Color>
+                                      </Style>
+                                    </TextRun>
+                                    <TextRun>
+                                      <Value>=Round(Fields!Gross.Value,2) - Round(Fields!SalConfigTA.Value,2)</Value>
+                                      <Style>
+                                        <FontStyle>Normal</FontStyle>
+                                        <FontFamily>Times New Roman</FontFamily>
+                                        <FontSize>11pt</FontSize>
+                                        <FontWeight>Normal</FontWeight>
+                                        <TextDecoration>None</TextDecoration>
+                                        <Color>#000000</Color>
+                                      </Style>
+                                    </TextRun>
+                                    <TextRun>
+                                      <Value> /-  + (DA + Other) - Rs. </Value>
+                                      <Style>
+                                        <FontStyle>Normal</FontStyle>
+                                        <FontFamily>Times New Roman</FontFamily>
+                                        <FontSize>11pt</FontSize>
+                                        <FontWeight>Normal</FontWeight>
+                                        <TextDecoration>None</TextDecoration>
+                                        <Color>#000000</Color>
+                                      </Style>
+                                    </TextRun>
+                                    <TextRun>
+                                      <Value>=Round(Fields!SalConfigTA.Value,2)
+'Round((Fields!TA.Value + Fields!DA.Value + Fields!phone.Value),2)</Value>
+                                      <Style>
+                                        <FontStyle>Normal</FontStyle>
+                                        <FontFamily>Times New Roman</FontFamily>
+                                        <FontSize>11pt</FontSize>
+                                        <FontWeight>Normal</FontWeight>
+                                        <TextDecoration>None</TextDecoration>
+                                        <Color>#000000</Color>
+                                      </Style>
+                                    </TextRun>
+                                    <TextRun>
+                                      <Value> /- =  Total Gross - Rs. </Value>
+                                      <Style>
+                                        <FontStyle>Normal</FontStyle>
+                                        <FontFamily>Times New Roman</FontFamily>
+                                        <FontSize>11pt</FontSize>
                                         <FontWeight>Normal</FontWeight>
                                         <TextDecoration>None</TextDecoration>
                                         <Color>#000000</Color>
@@ -1450,29 +1495,18 @@
                                       <Style>
                                         <FontStyle>Normal</FontStyle>
                                         <FontFamily>Times New Roman</FontFamily>
-                                        <FontSize>12pt</FontSize>
+                                        <FontSize>11pt</FontSize>
                                         <FontWeight>Normal</FontWeight>
                                         <TextDecoration>None</TextDecoration>
                                         <Color>#000000</Color>
                                       </Style>
                                     </TextRun>
                                     <TextRun>
-                                      <Value>  /-  TA + DA + Mobile – Rs. </Value>
+                                      <Value> /-</Value>
                                       <Style>
                                         <FontStyle>Normal</FontStyle>
                                         <FontFamily>Times New Roman</FontFamily>
-                                        <FontSize>12pt</FontSize>
-                                        <FontWeight>Normal</FontWeight>
-                                        <TextDecoration>None</TextDecoration>
-                                        <Color>#000000</Color>
-                                      </Style>
-                                    </TextRun>
-                                    <TextRun>
-                                      <Value>=Round((Fields!TA.Value + Fields!DA.Value + Fields!phone.Value),2)</Value>
-                                      <Style>
-                                        <FontStyle>Normal</FontStyle>
-                                        <FontFamily>Times New Roman</FontFamily>
-                                        <FontSize>12pt</FontSize>
+                                        <FontSize>11pt</FontSize>
                                         <FontWeight>Normal</FontWeight>
                                         <TextDecoration>None</TextDecoration>
                                         <Color>#000000</Color>
@@ -1486,7 +1520,7 @@
                               <Top>4.09444in</Top>
                               <Left>0.07292in</Left>
                               <Height>0.25in</Height>
-                              <Width>4.7in</Width>
+                              <Width>6.38749in</Width>
                               <ZIndex>11</ZIndex>
                               <Style>
                                 <Border>
@@ -1528,13 +1562,13 @@
                                     </TextRun>
                                   </TextRuns>
                                   <Style>
-                                    <TextAlign>Right</TextAlign>
+                                    <TextAlign>Left</TextAlign>
                                   </Style>
                                 </Paragraph>
                               </Paragraphs>
                               <rd:DefaultName>Textbox14</rd:DefaultName>
-                              <Top>4.09444in</Top>
-                              <Left>4.78681in</Left>
+                              <Top>4.38194in</Top>
+                              <Left>0.075in</Left>
                               <Height>0.25in</Height>
                               <Width>1.67361in</Width>
                               <ZIndex>12</ZIndex>
@@ -1550,9 +1584,9 @@
                             </Textbox>
                           </ReportItems>
                           <KeepTogether>true</KeepTogether>
-                          <Top>1.28236in</Top>
-                          <Left>0.05937in</Left>
-                          <Height>4.44792in</Height>
+                          <Top>1.27715in</Top>
+                          <Left>0.05938in</Left>
+                          <Height>4.67534in</Height>
                           <Width>6.53333in</Width>
                           <ZIndex>4</ZIndex>
                           <Style>
@@ -1584,7 +1618,7 @@
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox136</rd:DefaultName>
-                          <Top>5.84694in</Top>
+                          <Top>6.02194in</Top>
                           <Left>0.13229in</Left>
                           <Height>0.25in</Height>
                           <Width>4.42708in</Width>
@@ -1621,7 +1655,7 @@
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox137</rd:DefaultName>
-                          <Top>6.19972in</Top>
+                          <Top>6.34972in</Top>
                           <Left>0.13229in</Left>
                           <Height>0.25in</Height>
                           <Width>4.14583in</Width>
@@ -1658,7 +1692,7 @@
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox138</rd:DefaultName>
-                          <Top>6.19972in</Top>
+                          <Top>6.33722in</Top>
                           <Left>4.47257in</Left>
                           <Height>0.25in</Height>
                           <Width>2.12014in</Width>
@@ -1695,7 +1729,7 @@
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox139</rd:DefaultName>
-                          <Top>6.49139in</Top>
+                          <Top>6.61639in</Top>
                           <Left>0.13229in</Left>
                           <Height>0.25in</Height>
                           <Width>4.14583in</Width>
@@ -1732,7 +1766,7 @@
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox140</rd:DefaultName>
-                          <Top>6.4775in</Top>
+                          <Top>6.6025in</Top>
                           <Left>4.44479in</Left>
                           <Height>0.25in</Height>
                           <Width>2.14792in</Width>
@@ -3455,7 +3489,7 @@
                               <TablixMember />
                             </TablixMembers>
                           </TablixRowHierarchy>
-                          <Top>6.87958in</Top>
+                          <Top>7.02958in</Top>
                           <Left>0.13229in</Left>
                           <Height>2.55208in</Height>
                           <Width>6.46041in</Width>
@@ -4496,7 +4530,7 @@
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Textbox15</rd:DefaultName>
-                          <Top>9.53723in</Top>
+                          <Top>9.66223in</Top>
                           <Left>2.85302in</Left>
                           <Height>0.25in</Height>
                           <Width>1.4251in</Width>
@@ -4542,7 +4576,7 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>dsPerformanceEvaluationForm</DataSetName>
-        <Height>19.14458in</Height>
+        <Height>19.02479in</Height>
         <Width>6.65208in</Width>
         <Style>
           <Border>
@@ -4551,7 +4585,7 @@
         </Style>
       </Tablix>
     </ReportItems>
-    <Height>19.42583in</Height>
+    <Height>19.30604in</Height>
     <Style />
   </Body>
   <Width>6.65208in</Width>
@@ -4641,10 +4675,14 @@
           <DataField>Location</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
+        <Field Name="SalConfigTA">
+          <DataField>SalConfigTA</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>dsExpCert</rd:DataSetName>
-        <rd:SchemaPath>D:\VSProject\VanitaPayRoll\PayRoll\dsExpCert.xsd</rd:SchemaPath>
+        <rd:SchemaPath>D:\AMC Projects\VanitaPayroll\PayRoll\dsExpCert.xsd</rd:SchemaPath>
         <rd:TableName>PerformanceEvaluationForm</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>

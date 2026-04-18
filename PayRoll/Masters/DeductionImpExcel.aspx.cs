@@ -109,7 +109,7 @@ namespace PayRoll.Masters
                         DataTable dtExcelData = new DataTable();
 
                         //[OPTIONAL]: It is recommended as otherwise the data will be considered as String by default.
-                        dtExcelData.Columns.AddRange(new DataColumn[8] {new DataColumn("OrgID", typeof(int)),
+                        dtExcelData.Columns.AddRange(new DataColumn[9] {new DataColumn("OrgID", typeof(int)),
                                                                         new DataColumn("MonYrcd", typeof(string)),
                                                                         new DataColumn("EMPCODE", typeof(string)),
                                                                         new DataColumn("Advance", typeof(decimal)),
@@ -117,14 +117,13 @@ namespace PayRoll.Masters
                                                                         new DataColumn("TDS", typeof(decimal)),
                                                                         new DataColumn("TardalPathsansth", typeof(decimal)),
                                                                         new DataColumn("EntertainmentCost", typeof(decimal)),
-                                                                    
-
+                                                                        new DataColumn("Expenses", typeof(decimal))
                                                 });
 
                         dtExcelData.Columns["OrgID"].DefaultValue = Session["OrgID"].ToString();
                         dtExcelData.Columns["MonYrcd"].DefaultValue = ddlMon.SelectedValue + ddlYear.SelectedValue;
 
-                        using (OleDbDataAdapter oda = new OleDbDataAdapter("SELECT EMPCODE, Advance, Loan, TDS, TardalPathsansth, EntertainmentCost FROM[" + sheet1 + "]", excel_con))
+                        using (OleDbDataAdapter oda = new OleDbDataAdapter("SELECT EMPCODE, Advance, Loan, TDS, TardalPathsansth, EntertainmentCost, Expenses FROM[" + sheet1 + "]", excel_con))
                         {
                             oda.Fill(dtExcelData);
 
@@ -155,6 +154,7 @@ namespace PayRoll.Masters
                                 sqlBulkCopy.ColumnMappings.Add("TDS", "TDS");
                                 sqlBulkCopy.ColumnMappings.Add("TardalPathsansth", "TardalPathsansth");
                                 sqlBulkCopy.ColumnMappings.Add("EntertainmentCost", "Ded1");
+                                sqlBulkCopy.ColumnMappings.Add("Expenses", "Ded2");
 
                                 con.Open();
                                 sqlBulkCopy.WriteToServer(dtExcelData);

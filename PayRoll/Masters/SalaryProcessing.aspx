@@ -294,7 +294,12 @@
                                                     </div>
                                                      <div class="form-group col-lg-2">
                                                         <label for="username">EntertainmentCost</label>
-                                                        <asp:TextBox ID="txtEntertainmentCost" runat="server" type="text" MaxLength="25" placeholder="LWF" class="form-control" name="name"   ValidationGroup="OK" TabIndex="4" onkeypress="return onlyAlphabets(event,this);" onchange="setEmployeeName()"></asp:TextBox>
+                                                        <asp:TextBox ID="txtEntertainmentCost" runat="server" type="text" MaxLength="25" placeholder="Ent. Cost" class="form-control" name="name"   ValidationGroup="OK" TabIndex="4" onkeypress="return onlyAlphabets(event,this);" onchange="setEmployeeName()"></asp:TextBox>
+                                                        <%--<asp:RequiredFieldValidator ID="RFVtxtFName" runat="server" ControlToValidate="txtFName" ErrorMessage="First Name Required" Display="Dynamic" ForeColor="Red" ValidationGroup="OK"></asp:RequiredFieldValidator>--%>
+                                                    </div>
+                                                    <div class="form-group col-lg-2">
+                                                        <label for="username">Expenses</label>
+                                                        <asp:TextBox ID="txtExpenses" runat="server" type="text" MaxLength="25" placeholder="Expenses" class="form-control" name="name"   ValidationGroup="OK" TabIndex="4" onkeypress="return onlyAlphabets(event,this);" onchange="setEmployeeName()"></asp:TextBox>
                                                         <%--<asp:RequiredFieldValidator ID="RFVtxtFName" runat="server" ControlToValidate="txtFName" ErrorMessage="First Name Required" Display="Dynamic" ForeColor="Red" ValidationGroup="OK"></asp:RequiredFieldValidator>--%>
                                                     </div>
                                                 </div>

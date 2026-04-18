@@ -103,18 +103,18 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Switch(left(Fields!MonYrcd.Value,2) = "01", "January", 
-         left(Fields!MonYrcd.Value,2) = "02", "February",
-         left(Fields!MonYrcd.Value,2) = "03", "March",
-		 left(Fields!MonYrcd.Value,2) = "04", "April", 
-         left(Fields!MonYrcd.Value,2) = "05", "May",
-         left(Fields!MonYrcd.Value,2) = "06", "June",
-		 left(Fields!MonYrcd.Value,2) = "07", "July", 
-         left(Fields!MonYrcd.Value,2) = "08", "August",
-         left(Fields!MonYrcd.Value,2) = "09", "September",
-		 left(Fields!MonYrcd.Value,2) = "10", "October", 
-         left(Fields!MonYrcd.Value,2) = "11", "November",
-         left(Fields!MonYrcd.Value,2) = "12", "December"
+                              <Value>=Switch(left(Fields!MonYrcd.Value,2) = "01", "Jan " &amp; right(Fields!MonYrcd.Value,4), 
+         left(Fields!MonYrcd.Value,2) = "02", "Feb " &amp; right(Fields!MonYrcd.Value,4),
+         left(Fields!MonYrcd.Value,2) = "03", "Mar " &amp; right(Fields!MonYrcd.Value,4),
+		 left(Fields!MonYrcd.Value,2) = "04", "Apr " &amp; right(Fields!MonYrcd.Value,4), 
+         left(Fields!MonYrcd.Value,2) = "05", "May " &amp; right(Fields!MonYrcd.Value,4),
+         left(Fields!MonYrcd.Value,2) = "06", "Jun " &amp; right(Fields!MonYrcd.Value,4),
+		 left(Fields!MonYrcd.Value,2) = "07", "Jul " &amp; right(Fields!MonYrcd.Value,4), 
+         left(Fields!MonYrcd.Value,2) = "08", "Aug " &amp; right(Fields!MonYrcd.Value,4),
+         left(Fields!MonYrcd.Value,2) = "09", "Sep " &amp; right(Fields!MonYrcd.Value,4),
+		 left(Fields!MonYrcd.Value,2) = "10", "Oct " &amp; right(Fields!MonYrcd.Value,4), 
+         left(Fields!MonYrcd.Value,2) = "11", "Nov " &amp; right(Fields!MonYrcd.Value,4),
+         left(Fields!MonYrcd.Value,2) = "12", "Dec " &amp; right(Fields!MonYrcd.Value,4)
 		 )</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
@@ -480,7 +480,7 @@
               </Group>
               <SortExpressions>
                 <SortExpression>
-                  <Value>=Fields!MonYrcd.Value</Value>
+                  <Value>=Right(Fields!MonYrcd.Value,4)+Left(Fields!MonYrcd.Value,2)</Value>
                 </SortExpression>
               </SortExpressions>
               <TablixMembers>
@@ -1132,27 +1132,27 @@
         </Field>
         <Field Name="catid">
           <DataField>catid</DataField>
-          <rd:TypeName>System.Int16</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="desgid">
           <DataField>desgid</DataField>
-          <rd:TypeName>System.Int16</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="divid">
           <DataField>divid</DataField>
-          <rd:TypeName>System.Int16</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="deptid">
           <DataField>deptid</DataField>
-          <rd:TypeName>System.Int16</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="skillid">
           <DataField>skillid</DataField>
-          <rd:TypeName>System.Int16</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="staid">
           <DataField>staid</DataField>
-          <rd:TypeName>System.Int16</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="WStatecd">
           <DataField>WStatecd</DataField>
@@ -1161,7 +1161,7 @@
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>dsRegister</rd:DataSetName>
-        <rd:SchemaPath>E:\Visual2015Projects\VanitaPayroll\PayRoll\dsRegister.xsd</rd:SchemaPath>
+        <rd:SchemaPath>D:\AMC Projects\VanitaPayroll\PayRoll\dsRegister.xsd</rd:SchemaPath>
         <rd:TableName>udf_EarningDeduction1</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>

@@ -2599,6 +2599,8 @@ namespace PayRoll {
             
             private global::System.Data.DataColumn columnDed1;
             
+            private global::System.Data.DataColumn columnDed2;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public udf_EarnDedStatementDataTable() {
@@ -2858,6 +2860,14 @@ namespace PayRoll {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn Ded2Column {
+                get {
+                    return this.columnDed2;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -2921,7 +2931,8 @@ namespace PayRoll {
                         decimal Add1, 
                         decimal Add2, 
                         decimal Add3, 
-                        decimal Ded1) {
+                        decimal Ded1, 
+                        decimal Ded2) {
                 udf_EarnDedStatementRow rowudf_EarnDedStatementRow = ((udf_EarnDedStatementRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         OrgId,
@@ -2951,7 +2962,8 @@ namespace PayRoll {
                         Add1,
                         Add2,
                         Add3,
-                        Ded1};
+                        Ded1,
+                        Ded2};
                 rowudf_EarnDedStatementRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowudf_EarnDedStatementRow);
                 return rowudf_EarnDedStatementRow;
@@ -3002,6 +3014,7 @@ namespace PayRoll {
                 this.columnAdd2 = base.Columns["Add2"];
                 this.columnAdd3 = base.Columns["Add3"];
                 this.columnDed1 = base.Columns["Ded1"];
+                this.columnDed2 = base.Columns["Ded2"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3063,6 +3076,8 @@ namespace PayRoll {
                 base.Columns.Add(this.columnAdd3);
                 this.columnDed1 = new global::System.Data.DataColumn("Ded1", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDed1);
+                this.columnDed2 = new global::System.Data.DataColumn("Ded2", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDed2);
                 this.columnOrgId.AllowDBNull = false;
                 this.columnMonYrcd.AllowDBNull = false;
                 this.columnMonYrcd.MaxLength = 6;
@@ -3327,6 +3342,13 @@ namespace PayRoll {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public M_AddHeadingRow FindByOrgId(int OrgId) {
+                return ((M_AddHeadingRow)(this.Rows.Find(new object[] {
+                            OrgId})));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public override global::System.Data.DataTable Clone() {
                 M_AddHeadingDataTable cln = ((M_AddHeadingDataTable)(base.Clone()));
                 cln.InitVars();
@@ -3359,7 +3381,10 @@ namespace PayRoll {
                 base.Columns.Add(this.columnAdd2Heading);
                 this.columnAdd3Heading = new global::System.Data.DataColumn("Add3Heading", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnAdd3Heading);
+                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
+                                this.columnOrgId}, true));
                 this.columnOrgId.AllowDBNull = false;
+                this.columnOrgId.Unique = true;
                 this.columnAdd1Heading.MaxLength = 20;
                 this.columnAdd2Heading.MaxLength = 20;
                 this.columnAdd3Heading.MaxLength = 20;
@@ -7529,6 +7554,14 @@ namespace PayRoll {
             
             private global::System.Data.DataColumn columnSESIEmpContribution;
             
+            private global::System.Data.DataColumn columnDed2;
+            
+            private global::System.Data.DataColumn columnMEPSWages;
+            
+            private global::System.Data.DataColumn columnEPFAmt;
+            
+            private global::System.Data.DataColumn columnEPSAmt;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public udfSalarySlip_NewDataTable() {
@@ -8204,6 +8237,38 @@ namespace PayRoll {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn Ded2Column {
+                get {
+                    return this.columnDed2;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn MEPSWagesColumn {
+                get {
+                    return this.columnMEPSWages;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn EPFAmtColumn {
+                get {
+                    return this.columnEPFAmt;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn EPSAmtColumn {
+                get {
+                    return this.columnEPSAmt;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -8319,7 +8384,11 @@ namespace PayRoll {
                         decimal MAdd3, 
                         decimal Ded1, 
                         string Hold, 
-                        double SESIEmpContribution) {
+                        double SESIEmpContribution, 
+                        decimal Ded2, 
+                        decimal MEPSWages, 
+                        decimal EPFAmt, 
+                        decimal EPSAmt) {
                 udfSalarySlip_NewRow rowudfSalarySlip_NewRow = ((udfSalarySlip_NewRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         OrgId,
@@ -8401,7 +8470,11 @@ namespace PayRoll {
                         MAdd3,
                         Ded1,
                         Hold,
-                        SESIEmpContribution};
+                        SESIEmpContribution,
+                        Ded2,
+                        MEPSWages,
+                        EPFAmt,
+                        EPSAmt};
                 rowudfSalarySlip_NewRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowudfSalarySlip_NewRow);
                 return rowudfSalarySlip_NewRow;
@@ -8504,6 +8577,10 @@ namespace PayRoll {
                 this.columnDed1 = base.Columns["Ded1"];
                 this.columnHold = base.Columns["Hold"];
                 this.columnSESIEmpContribution = base.Columns["SESIEmpContribution"];
+                this.columnDed2 = base.Columns["Ded2"];
+                this.columnMEPSWages = base.Columns["MEPSWages"];
+                this.columnEPFAmt = base.Columns["EPFAmt"];
+                this.columnEPSAmt = base.Columns["EPSAmt"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -8669,6 +8746,14 @@ namespace PayRoll {
                 base.Columns.Add(this.columnHold);
                 this.columnSESIEmpContribution = new global::System.Data.DataColumn("SESIEmpContribution", typeof(double), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnSESIEmpContribution);
+                this.columnDed2 = new global::System.Data.DataColumn("Ded2", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDed2);
+                this.columnMEPSWages = new global::System.Data.DataColumn("MEPSWages", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnMEPSWages);
+                this.columnEPFAmt = new global::System.Data.DataColumn("EPFAmt", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEPFAmt);
+                this.columnEPSAmt = new global::System.Data.DataColumn("EPSAmt", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEPSAmt);
                 this.columnOrganization.AllowDBNull = false;
                 this.columnOrganization.MaxLength = 80;
                 this.columnAddress.MaxLength = 80;
@@ -8698,6 +8783,8 @@ namespace PayRoll {
                 this.columnEmailId.MaxLength = 50;
                 this.columnCIN.MaxLength = 30;
                 this.columnHold.MaxLength = 1;
+                this.columnEPFAmt.AllowDBNull = false;
+                this.columnEPSAmt.AllowDBNull = false;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -13748,6 +13835,22 @@ namespace PayRoll {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal Ded2 {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableudf_EarnDedStatement.Ded2Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Ded2\' in table \'udf_EarnDedStatement\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableudf_EarnDedStatement.Ded2Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsEmployeenameNull() {
                 return this.IsNull(this.tableudf_EarnDedStatement.EmployeenameColumn);
             }
@@ -14032,6 +14135,18 @@ namespace PayRoll {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetDed1Null() {
                 this[this.tableudf_EarnDedStatement.Ded1Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsDed2Null() {
+                return this.IsNull(this.tableudf_EarnDedStatement.Ded2Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetDed2Null() {
+                this[this.tableudf_EarnDedStatement.Ded2Column] = global::System.Convert.DBNull;
             }
         }
         
@@ -18500,6 +18615,60 @@ namespace PayRoll {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal Ded2 {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableudfSalarySlip_New.Ded2Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Ded2\' in table \'udfSalarySlip_New\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableudfSalarySlip_New.Ded2Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal MEPSWages {
+                get {
+                    try {
+                        return ((decimal)(this[this.tableudfSalarySlip_New.MEPSWagesColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'MEPSWages\' in table \'udfSalarySlip_New\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableudfSalarySlip_New.MEPSWagesColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal EPFAmt {
+                get {
+                    return ((decimal)(this[this.tableudfSalarySlip_New.EPFAmtColumn]));
+                }
+                set {
+                    this[this.tableudfSalarySlip_New.EPFAmtColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public decimal EPSAmt {
+                get {
+                    return ((decimal)(this[this.tableudfSalarySlip_New.EPSAmtColumn]));
+                }
+                set {
+                    this[this.tableudfSalarySlip_New.EPSAmtColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsOrgIdNull() {
                 return this.IsNull(this.tableudfSalarySlip_New.OrgIdColumn);
             }
@@ -19408,6 +19577,30 @@ namespace PayRoll {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetSESIEmpContributionNull() {
                 this[this.tableudfSalarySlip_New.SESIEmpContributionColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsDed2Null() {
+                return this.IsNull(this.tableudfSalarySlip_New.Ded2Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetDed2Null() {
+                this[this.tableudfSalarySlip_New.Ded2Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsMEPSWagesNull() {
+                return this.IsNull(this.tableudfSalarySlip_New.MEPSWagesColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetMEPSWagesNull() {
+                this[this.tableudfSalarySlip_New.MEPSWagesColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -22454,6 +22647,7 @@ namespace PayRoll.ReportDSTableAdapters {
             tableMapping.ColumnMappings.Add("Add2", "Add2");
             tableMapping.ColumnMappings.Add("Add3", "Add3");
             tableMapping.ColumnMappings.Add("Ded1", "Ded1");
+            tableMapping.ColumnMappings.Add("Ded2", "Ded2");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -22470,9 +22664,8 @@ namespace PayRoll.ReportDSTableAdapters {
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = @"SELECT        OrgId, MonYrcd, Employeecd, Employeename, BasicDA, HRA, Conveyance, Education, Medical, Canteen, Washing, Uniform, Incentive, Advance, Loan, TDS, TardalPathsasnth, Ded1, ESIEmp, ESIEmpContribution,
-                          ProfTax, Provfund, Gross, Deduction, NetAmount, Add1, Add2, Add3
-FROM            dbo.udf_EarnDedStatement(@OrgId, @Moncd) AS udf_EarnDedStatement_1";
+            this._commandCollection[0].CommandText = @"SELECT OrgId, MonYrcd, Employeecd, Employeename, BasicDA, HRA, Conveyance, Education, Medical, Canteen, Washing, Uniform, Incentive, Advance, Loan, TDS, TardalPathsasnth, Ded1, ESIEmp, ESIEmpContribution, ProfTax, Provfund, Gross, Deduction, NetAmount, Add1, Add2, Add3, Ded2
+FROM  dbo.udf_EarnDedStatement(@OrgId, @Moncd) AS udf_EarnDedStatement_1";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@OrgId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Moncd", global::System.Data.SqlDbType.VarChar, 1024, global::System.Data.ParameterDirection.Input, 0, 0, "", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -24608,6 +24801,10 @@ WHERE (Above30Days = 'Y')";
             tableMapping.ColumnMappings.Add("Ded1", "Ded1");
             tableMapping.ColumnMappings.Add("Hold", "Hold");
             tableMapping.ColumnMappings.Add("SESIEmpContribution", "SESIEmpContribution");
+            tableMapping.ColumnMappings.Add("Ded2", "Ded2");
+            tableMapping.ColumnMappings.Add("MEPSWages", "MEPSWages");
+            tableMapping.ColumnMappings.Add("EPFAmt", "EPFAmt");
+            tableMapping.ColumnMappings.Add("EPSAmt", "EPSAmt");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -24624,26 +24821,15 @@ WHERE (Above30Days = 'Y')";
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT        t.OrgId, t.Organization, t.Address, t.City, t.PinCode, t.Taluka, t." +
-                "District, t.MonYrcd, t.Employeecd, t.Employeename, t.EmpDesgId, t.Divcd, t.CatgC" +
-                "d, t.HodCd, \r\n                         t.LocDeptCd, t.PANNo, t.UANNO, t.PFNo, t." +
-                "ESIIP, t.BankActNo, t.MonthDay, t.PayDay, t.AbsentDay, t.PL, t.PresentDay, t.Wee" +
-                "klyoff, t.Holiday, t.Coff, t.PayableDay, \r\n                         t.CalBasicDA" +
-                ", t.CalHRA, t.Conveyance, t.Education, t.Medical, t.Canteen, t.Washing, t.Unifor" +
-                "m, t.Incentive, t.Allowance, t.Advance, t.Loan, t.TDS, t.TardalPathsasnth, \r\n   " +
-                "                      t.ESIEmpContribution, t.ESICompContribution, t.ESIEmp, t.E" +
-                "SIComp, t.ProfTax, t.Provfund, t.LWF, t.EPF, t.EPS, t.Gross, t.Deduction, t.NetA" +
-                "mount, t.MBasicDA, t.MHRA, \r\n                         t.MConveyance, t.MEducatio" +
-                "n, t.MMedical, t.MCanteen, t.MWashing, t.MUniform, M_Designation.Designation, M_" +
-                "Division.Division, M_LocationDep.LocationDep, \r\n                         M_Categ" +
-                "ory.Category, t.DatofJoin, t.MAllowance, t.EmailId, t.CIN, t.Add1, t.Add2, t.Add" +
-                "3, t.MAdd1, t.MAdd2, t.MAdd3, t.Ded1, t.Hold, t.SESIEmpContribution\r\nFROM       " +
-                "     dbo.udfSalarySlip_New(@OrgId, @Yr, @Dt, @Moncd, @EmpCd) AS t LEFT OUTER JOI" +
-                "N\r\n                         M_Category ON t.CatgCd = M_Category.Categcd LEFT OUT" +
-                "ER JOIN\r\n                         M_LocationDep ON t.LocDeptCd = M_LocationDep.L" +
-                "ocDepCd LEFT OUTER JOIN\r\n                         M_Division ON t.Divcd = M_Divi" +
-                "sion.Divcd LEFT OUTER JOIN\r\n                         M_Designation ON t.EmpDesgI" +
-                "d = M_Designation.Desigcd\r\nWHERE        (t.OrgId = @OrgId)";
+            this._commandCollection[0].CommandText = @"SELECT t.OrgId, t.Organization, t.Address, t.City, t.PinCode, t.Taluka, t.District, t.MonYrcd, t.Employeecd, t.Employeename, t.EmpDesgId, t.Divcd, t.CatgCd, t.HodCd, t.LocDeptCd, t.PANNo, t.UANNO, t.PFNo, t.ESIIP, t.BankActNo, t.MonthDay, t.PayDay, t.AbsentDay, t.PL, t.PresentDay, t.Weeklyoff, t.Holiday, t.Coff, t.PayableDay, t.CalBasicDA, t.CalHRA, t.Conveyance, t.Education, t.Medical, 
+         t.Canteen, t.Washing, t.Uniform, t.Incentive, t.Allowance, t.Advance, t.Loan, t.TDS, t.TardalPathsasnth, t.ESIEmpContribution, t.ESICompContribution, t.ESIEmp, t.ESIComp, t.ProfTax, t.Provfund, t.LWF, t.EPF, t.EPS, t.Gross, t.Deduction, t.NetAmount, t.MBasicDA, t.MHRA, t.MConveyance, t.MEducation, t.MMedical, t.MCanteen, t.MWashing, t.MUniform, M_Designation.Designation, 
+         M_Division.Division, M_LocationDep.LocationDep, M_Category.Category, t.DatofJoin, t.MAllowance, t.EmailId, t.CIN, t.Add1, t.Add2, t.Add3, t.MAdd1, t.MAdd2, t.MAdd3, t.Ded1, t.Hold, t.SESIEmpContribution, t.Ded2, t.MEPSWages, t.EPFAmt, t.EPSAmt
+FROM  dbo.udfSalarySlip_New(@OrgId, @Yr, @Dt, @Moncd, @EmpCd) AS t LEFT OUTER JOIN
+         M_Category ON t.CatgCd = M_Category.Categcd LEFT OUTER JOIN
+         M_LocationDep ON t.LocDeptCd = M_LocationDep.LocDepCd LEFT OUTER JOIN
+         M_Division ON t.Divcd = M_Division.Divcd LEFT OUTER JOIN
+         M_Designation ON t.EmpDesgId = M_Designation.Desigcd
+WHERE (t.OrgId = @OrgId)";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@OrgId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[0].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Yr", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));

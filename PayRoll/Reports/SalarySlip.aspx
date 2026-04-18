@@ -1,9 +1,8 @@
-﻿<%@ Page Title="Salary Slip Report" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="SalarySlip.aspx.cs" Inherits="PayRoll.Reports.SalarySlip" %>
+﻿<%@ Page Title="Salary Slip Report" Async="true" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="SalarySlip.aspx.cs" Inherits="PayRoll.Reports.SalarySlip" %>
 
-<%@ Register Assembly="Microsoft.ReportViewer.WebForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" Namespace="Microsoft.Reporting.WebForms" TagPrefix="rsweb" %>
-
+<%@ Register Assembly="Microsoft.ReportViewer.WebForms" Namespace="Microsoft.Reporting.WebForms" TagPrefix="rsweb" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
-   
+
     <script type="text/javascript">
         function onlyAlphabets(e, t) {
             try {
@@ -35,6 +34,7 @@
 
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
+            <asp:HiddenField ID="hdnOrgID" runat="server" />
             <!--Page Layout -->
             <div class="small-header">
                 <div class="hpanel">
@@ -157,9 +157,16 @@
                                                 <asp:DropDownList ID="ddlHOD" runat="server" class="form-control m-b" name="account" CausesValidation="True" TabIndex="10"></asp:DropDownList>
                                             </div>
 
-                                            <div class="col-sm-1">
-                                                <asp:Button ID="btnSendMail" runat="server" Text="Send Mail" class="btn btn-outline btn-success" ValidationGroup="OK" TabIndex="17" OnClick="btnSendMail_Click" />
+
+                                            <div class="col-sm-3">
+                                                <asp:Button ID="btnGeneratePDF" runat="server" Text="Generate PDF" class="btn btn-outline btn-warning" ValidationGroup="OK" TabIndex="17" CausesValidation="False" OnClick="btnGeneratePDF_Click" />
+                                                <asp:Button ID="btnSendMail" runat="server" Text="Send Mail" class="btn btn-outline btn-success" ValidationGroup="OK" TabIndex="17" OnClick="btnSendMail_Click" CausesValidation="False" />
+
                                             </div>
+
+                                            <div class="col-sm-1">
+                                            </div>
+
                                         </div>
                                     </div>
 
@@ -182,7 +189,7 @@
                     </div>
                 </div>
 
-                <div class="row" style="text-align: center;">
+               <div class="row" style="text-align: center;">
                     <asp:UpdateProgress ID="UpdateProgress1" runat="server">
                         <ProgressTemplate>
                             <div id="progressBackgroundFilter">
@@ -197,18 +204,29 @@
 
             </div>
 
-            <!--Page Layout --> 
+            <!--Page Layout -->
         </ContentTemplate>
+        <Triggers>
+            <asp:AsyncPostBackTrigger ControlID="btnSendMail" EventName="Click" />
+        </Triggers>
     </asp:UpdatePanel>
 
 
-    <script type="text/javascript">
-        var updateProgress = null;
-        function postbackButtonClick() {
-            updateProgress = $find("<%= UpdateProgress1.ClientID %>");
-            window.setTimeout("updateProgress.set_visible(true)", updateProgress.get_displayAfter());
-            return true;
+   <script type="text/javascript">
+    function postbackButtonClick() {
+        var updateProgress = $find("<%= UpdateProgress1.ClientID %>");
+        if (updateProgress) {
+            console.log("Display after:", updateProgress.get_displayAfter());
+            window.setTimeout(function () {
+                        updateProgress.set_visible(true);
+                        }, updateProgress.get_displayAfter());
         }
-    </script>
+        return true; // allow postback to continue
+    }
+   </script>
+
+
 
 </asp:Content>
+
+

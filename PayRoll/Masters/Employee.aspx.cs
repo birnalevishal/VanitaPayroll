@@ -252,16 +252,16 @@ namespace PayRoll.Masters
                      " PAddre,pPincode, PCitycd, PTalcd, PDistCd, PStateCd, WAddre,wPincode, WCitycd, WTalcd, WDistCd, WStateCd ," +
                      " MobNo, EmailId, Birthdate, Password, OrigJoindate,DatofJoin,HODInchAppl,PANNo,UANNO,PFApplicable,PFJoindate,PFNo," +
                      " HRAApplicable,ProfTaxApplicable,LabWelApplicable,ESIApplicable,ESIIP,ESICalculate,BankCd, BankActNo, BankBranchId,Gratuitydate,DrivingLicence,RegignationDate, " +
-                     " Leavedate,RasonLeavingjob,LIC_Id,LIC_PolicyNo, IsActive, castID,Regid, SubRegid,DiIncode, ESINotApplicableDt, LINNo) " +
+                     " Leavedate,RasonLeavingjob,LIC_Id,LIC_PolicyNo, IsActive, castID,Regid, SubRegid,DiIncode, ESINotApplicableDt, LINNo, PrevExpInYears, PrevExpInMnths) " +
 
                      " VALUES(@OrgId, @Employeecd, @CommCodeAdhno, @FName, @MName, @LName, @Employeename, @Gendercd, @BloodGroup, @Marital,@Qual,@PrevExper,@UserRolecd, " +
                      " @PAddre,@pPincode, @PCitycd, @PTalcd, @PDistCd,@PStateCd, @WAddre,@wPincode, @WCitycd, @WTalcd, @WDistCd, @WStateCd, " +
                      " @MobNo, @EmailId, @Birthdate,@Password, @OrigJoindate,@DatofJoin,@HODInchAppl,@PANNo,@UANNO,@PFApplicable,@PFJoindate,@PFNo," +
                      " @HRAApplicable,@ProfTaxApplicable,@LabWelApplicable,@ESIApplicable,@ESIIP,@ESICalculate, @BankCd,@BankActNo, @BankBranchId,@Gratuitydate,@DrivingLicence,@RegignationDate, " +
-                     " @Leavedate,@RasonLeavingjob,@LIC_Id, @LIC_PolicyNo, @IsActive, @castID,@Regid, @SubRegid,@DiIncode, @ESINotApplicableDt, @LINNo)";
+                     " @Leavedate,@RasonLeavingjob,@LIC_Id, @LIC_PolicyNo, @IsActive, @castID,@Regid, @SubRegid,@DiIncode, @ESINotApplicableDt, @LINNo, @PrevExpInYears, @PrevExpInMnths)";
 
 
-                SqlParameter[] para = new SqlParameter[60];
+                SqlParameter[] para = new SqlParameter[62];
                 para[0] = new SqlParameter("@OrgId", Convert.ToInt32(Session["OrgID"]));
                 para[1] = new SqlParameter("@Employeecd", txtEmpCode.Text.Trim());
                 para[2] = new SqlParameter("@CommCodeAdhno", txtAadharNo.Text.Trim());
@@ -365,6 +365,8 @@ namespace PayRoll.Masters
                 para[57] = new SqlParameter("@DiIncode", ddlDI.SelectedValue != "" ? Convert.ToInt16(ddlDI.SelectedValue) : 0);
                 para[58] = new SqlParameter("@ESINotApplicableDt", txtESIEffectDt.Text.Trim() == "" ? (object)DBNull.Value : Convert.ToDateTime(txtESIEffectDt.Text).ToString("dd MMM yyyy"));
                 para[59] = new SqlParameter("@LINNo", txtLINNo.Text);
+                para[60] = new SqlParameter("@PrevExpInYears", txtPrevExpYr.Text);
+                para[61] = new SqlParameter("@PrevExpInMnths", txtPrevExpMnth.Text);
 
                 //result = SqlHelper.ExecuteNonQuery(strQry, para, AppGlobal.strConnString);
                 //-----Check Employee already exists in all organisation-23/11/2020-------------
@@ -490,10 +492,10 @@ namespace PayRoll.Masters
                             MobNo=@MobNo, EmailId=@EmailId, Birthdate=@Birthdate, password=@password, OrigJoindate=@OrigJoindate, DatofJoin=@DatofJoin, HODInchAppl=@HODInchAppl,PANNo=@PANNo,UANNO=@UANNO,PFApplicable=@PFApplicable,PFJoindate=@PFJoindate,PFNo=@PFNo,
                             HRAApplicable=@HRAApplicable,ProfTaxApplicable=@ProfTaxApplicable,LabWelApplicable=@LabWelApplicable,ESIApplicable=@ESIApplicable,ESIIP=@ESIIP, ESICalculate=@ESICalculate, BankCd=@BankCd, BankActNo=@BankActNo, BankBranchId=@BankBranchId,
                             Gratuitydate=@Gratuitydate, DrivingLicence=@DrivingLicence,RegignationDate=@RegignationDate, Leavedate=@Leavedate,RasonLeavingjob=@RasonLeavingjob,IsActive=@IsActive,UserRolecd=@UserRolecd,LIC_Id=@LIC_Id,LIC_PolicyNo=@LIC_PolicyNo, 
-                            castID=@castID,Regid=@Regid, SubRegid=@SubRegid,DiIncode=@DiIncode, ESINotApplicableDt=@ESINotApplicableDt, LINNo=@LINNo  
+                            castID=@castID,Regid=@Regid, SubRegid=@SubRegid,DiIncode=@DiIncode, ESINotApplicableDt=@ESINotApplicableDt, LINNo=@LINNo, PrevExpInYears=@PrevExpInYears, PrevExpInMnths=@PrevExpInMnths   
                        WHERE OrgId=@OrgId and Employeecd=@Employeecd";
 
-                SqlParameter[] para = new SqlParameter[60];
+                SqlParameter[] para = new SqlParameter[62];
                 para[0] = new SqlParameter("@OrgId", Convert.ToInt32(Session["OrgID"]));
                 para[1] = new SqlParameter("@Employeecd", txtEmpCode.Text.Trim());
                 para[2] = new SqlParameter("@CommCodeAdhno", txtAadharNo.Text.Trim());
@@ -597,6 +599,8 @@ namespace PayRoll.Masters
                 para[57] = new SqlParameter("@DiIncode", ddlDI.SelectedValue);
                 para[58] = new SqlParameter("@ESINotApplicableDt", txtESIEffectDt.Text.Trim() == "" ? (object)DBNull.Value : Convert.ToDateTime(txtESIEffectDt.Text).ToString("dd MMM yyyy"));
                 para[59] = new SqlParameter("@LINNo", txtLINNo.Text);
+                para[60] = new SqlParameter("@PrevExpInYears", txtPrevExpYr.Text);
+                para[61] = new SqlParameter("@PrevExpInMnths", txtPrevExpMnth.Text);
 
                 result = SqlHelper.ExecuteNonQuery(strQry, para, AppGlobal.strConnString);
 
@@ -716,6 +720,9 @@ namespace PayRoll.Masters
             ddlRegional.SelectedIndex =  0;
             ddlRegional_SelectedIndexChanged(null, null);
             ddlDI.SelectedIndex = 0;
+
+            txtPrevExpYr.Text = "";
+            txtPrevExpMnth.Text = "";
         }
 
         private void ViewRecord()
@@ -754,6 +761,9 @@ namespace PayRoll.Masters
 
                 txtQualification.Text = objDT.Rows[0]["Qual"].ToString();
                 txtPreviousExp.Text = objDT.Rows[0]["PrevExper"].ToString();
+
+                txtPrevExpYr.Text = objDT.Rows[0]["PrevExpInYears"].ToString();
+                txtPrevExpMnth.Text = objDT.Rows[0]["PrevExpInMnths"].ToString();
 
                 txtMobileNo.Text = objDT.Rows[0]["MobNo"].ToString();
                 txtEmailID.Text = objDT.Rows[0]["EmailId"].ToString();

@@ -71,7 +71,7 @@
                                 </TablixCells>
                               </TablixRow>
                               <TablixRow>
-                                <Height>0.22in</Height>
+                                <Height>0.2in</Height>
                                 <TablixCells>
                                   <TablixCell>
                                     <CellContents>
@@ -112,7 +112,7 @@
                                 </TablixCells>
                               </TablixRow>
                               <TablixRow>
-                                <Height>0.22in</Height>
+                                <Height>0.2in</Height>
                                 <TablixCells>
                                   <TablixCell>
                                     <CellContents>
@@ -153,7 +153,7 @@
                                 </TablixCells>
                               </TablixRow>
                               <TablixRow>
-                                <Height>0.22in</Height>
+                                <Height>0.2in</Height>
                                 <TablixCells>
                                   <TablixCell>
                                     <CellContents>
@@ -194,7 +194,7 @@
                                 </TablixCells>
                               </TablixRow>
                               <TablixRow>
-                                <Height>0.12in</Height>
+                                <Height>0.2in</Height>
                                 <TablixCells>
                                   <TablixCell>
                                     <CellContents>
@@ -205,10 +205,9 @@
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value EvaluationMode="Constant" />
+                                                <Value>="FORM XIX {SEE RULE 78 (1) (B)}"</Value>
                                                 <Style>
                                                   <FontFamily>Tahoma</FontFamily>
-                                                  <FontWeight>Bold</FontWeight>
                                                 </Style>
                                               </TextRun>
                                             </TextRuns>
@@ -236,7 +235,7 @@
                                 </TablixCells>
                               </TablixRow>
                               <TablixRow>
-                                <Height>0.22in</Height>
+                                <Height>0.2in</Height>
                                 <TablixCells>
                                   <TablixCell>
                                     <CellContents>
@@ -5681,7 +5680,7 @@ Right(First(Fields!MonYrcd.Value),4)</Value>
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value />
+                                                <Value>Travelling Expenses</Value>
                                                 <Style>
                                                   <FontFamily>Tahoma</FontFamily>
                                                   <FontSize>9pt</FontSize>
@@ -5713,14 +5712,14 @@ Right(First(Fields!MonYrcd.Value),4)</Value>
                                   </TablixCell>
                                   <TablixCell>
                                     <CellContents>
-                                      <Textbox Name="Textbox14">
+                                      <Textbox Name="Ded2">
                                         <CanGrow>true</CanGrow>
                                         <KeepTogether>true</KeepTogether>
                                         <Paragraphs>
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value />
+                                                <Value>=Sum(Fields!Ded2.Value)</Value>
                                                 <Style>
                                                   <FontFamily>Tahoma</FontFamily>
                                                   <FontSize>9pt</FontSize>
@@ -5733,7 +5732,7 @@ Right(First(Fields!MonYrcd.Value),4)</Value>
                                             </Style>
                                           </Paragraph>
                                         </Paragraphs>
-                                        <rd:DefaultName>Textbox14</rd:DefaultName>
+                                        <rd:DefaultName>Ded2</rd:DefaultName>
                                         <Style>
                                           <Border>
                                             <Color>LightGrey</Color>
@@ -5762,7 +5761,8 @@ Right(First(Fields!MonYrcd.Value),4)</Value>
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value />
+                                                <Value>="0.00"
+'Sum(Fields!Ded2.Value)</Value>
                                                 <Style>
                                                   <FontFamily>Tahoma</FontFamily>
                                                   <FontSize>9pt</FontSize>
@@ -6346,7 +6346,7 @@ Sum(Fields!ProfTax.Value) + "0.00" + "0.00" + "0.00" +
                               <TablixMember />
                               <TablixMember>
                                 <Visibility>
-                                  <Hidden>=IIf(Sum(Fields!Add1.Value)&gt;0, false, true)</Hidden>
+                                  <Hidden>=IIf(Sum(Fields!Ded2.Value)&gt;0, false, true)</Hidden>
                                 </Visibility>
                               </TablixMember>
                               <TablixMember>
@@ -6617,7 +6617,8 @@ Sum(Fields!ProfTax.Value) + "0.00" + "0.00" + "0.00" +
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value>="Employer EPF @" &amp; Round(Sum(Fields!EPF.Value),2) &amp; "% - Indirect"</Value>
+                                                <Value>="Employer EPF - Indirect"
+'"Employer EPF @" &amp; Round(Sum(Fields!EPF.Value),2) &amp; "% - Indirect"</Value>
                                                 <Style>
                                                   <FontFamily>Tahoma</FontFamily>
                                                   <FontSize>8pt</FontSize>
@@ -6656,7 +6657,8 @@ Sum(Fields!ProfTax.Value) + "0.00" + "0.00" + "0.00" +
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value>=Round(Sum(Fields!CalBasicDA.Value) * Sum(Fields!EPF.Value)/100,0)</Value>
+                                                <Value>=Round(Fields!EPFAmt.Value,0)
+'Round(Sum(Fields!CalBasicDA.Value) * Sum(Fields!EPF.Value)/100,0)</Value>
                                                 <Style>
                                                   <FontFamily>Tahoma</FontFamily>
                                                   <FontSize>9pt</FontSize>
@@ -6698,7 +6700,9 @@ Sum(Fields!ProfTax.Value) + "0.00" + "0.00" + "0.00" +
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value>=(Sum(Fields!MBasicDA.Value) * Sum(Fields!EPF.Value))/100</Value>
+                                                <Value>=Round(((Sum(Fields!MBasicDA.Value) * Round((Sum(Fields!EPF.Value)+Sum(Fields!EPS.Value)),2))/100) -
+((Sum(Fields!MEPSWages.Value) * Round(Sum(Fields!EPS.Value),2))/100),0)
+'(Sum(Fields!MBasicDA.Value) * Sum(Fields!EPF.Value))/100</Value>
                                                 <Style>
                                                   <FontFamily>Tahoma</FontFamily>
                                                   <FontSize>9pt</FontSize>
@@ -6729,6 +6733,7 @@ Sum(Fields!ProfTax.Value) + "0.00" + "0.00" + "0.00" +
                                           <PaddingBottom>1pt</PaddingBottom>
                                         </Style>
                                       </Textbox>
+                                      <rd:Selected>true</rd:Selected>
                                     </CellContents>
                                   </TablixCell>
                                 </TablixCells>
@@ -6745,7 +6750,8 @@ Sum(Fields!ProfTax.Value) + "0.00" + "0.00" + "0.00" +
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value>="Employer EPS @" &amp; Round(Sum(Fields!EPS.Value),2) &amp; "% - Indirect"</Value>
+                                                <Value>="Employer EPS - Indirect"
+'"Employer EPS @" &amp; Round(Sum(Fields!EPS.Value),2) &amp; "% - Indirect"</Value>
                                                 <Style>
                                                   <FontFamily>Tahoma</FontFamily>
                                                   <FontSize>8pt</FontSize>
@@ -6784,7 +6790,8 @@ Sum(Fields!ProfTax.Value) + "0.00" + "0.00" + "0.00" +
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value>=Round((Sum(Fields!CalBasicDA.Value) * Sum(Fields!EPS.Value))/100,0)</Value>
+                                                <Value>=Round(Fields!EPSAmt.Value,0)
+'Round((Sum(Fields!CalBasicDA.Value) * Sum(Fields!EPS.Value))/100,0)</Value>
                                                 <Style>
                                                   <FontFamily>Tahoma</FontFamily>
                                                   <FontSize>9pt</FontSize>
@@ -6826,7 +6833,8 @@ Sum(Fields!ProfTax.Value) + "0.00" + "0.00" + "0.00" +
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value>=(Sum(Fields!MBasicDA.Value) * Sum(Fields!EPS.Value))/100</Value>
+                                                <Value>=Round((Sum(Fields!MEPSWages.Value) * Round(Sum(Fields!EPS.Value),2))/100,0)
+'(Sum(Fields!MBasicDA.Value) * Sum(Fields!EPS.Value))/100</Value>
                                                 <Style>
                                                   <FontFamily>Tahoma</FontFamily>
                                                   <FontSize>9pt</FontSize>
@@ -6956,7 +6964,7 @@ Sum(Fields!ProfTax.Value) + "0.00" + "0.00" + "0.00" +
                                           <Paragraph>
                                             <TextRuns>
                                               <TextRun>
-                                                <Value>=(Sum(Fields!MBasicDA.Value) * (Sum(Fields!EPF.Value)+Sum(Fields!EPS.Value)))/100</Value>
+                                                <Value>=Round((Sum(Fields!MBasicDA.Value) * (Sum(Fields!EPF.Value)+Sum(Fields!EPS.Value)))/100,0)</Value>
                                                 <Style>
                                                   <FontFamily>Tahoma</FontFamily>
                                                   <FontSize>8pt</FontSize>
@@ -7312,23 +7320,23 @@ Sum(Fields!ProfTax.Value) + "0.00" + "0.00" + "0.00" +
         </Field>
         <Field Name="EmpDesgId">
           <DataField>EmpDesgId</DataField>
-          <rd:TypeName>System.Int16</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Divcd">
           <DataField>Divcd</DataField>
-          <rd:TypeName>System.Int16</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="CatgCd">
           <DataField>CatgCd</DataField>
-          <rd:TypeName>System.Int16</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="HodCd">
           <DataField>HodCd</DataField>
-          <rd:TypeName>System.Int16</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="LocDeptCd">
           <DataField>LocDeptCd</DataField>
-          <rd:TypeName>System.Int16</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="PANNo">
           <DataField>PANNo</DataField>
@@ -7590,10 +7598,26 @@ Sum(Fields!ProfTax.Value) + "0.00" + "0.00" + "0.00" +
           <DataField>SESIEmpContribution</DataField>
           <rd:TypeName>System.Double</rd:TypeName>
         </Field>
+        <Field Name="Ded2">
+          <DataField>Ded2</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="MEPSWages">
+          <DataField>MEPSWages</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="EPFAmt">
+          <DataField>EPFAmt</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="EPSAmt">
+          <DataField>EPSAmt</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
       </Fields>
       <rd:DataSetInfo>
         <rd:DataSetName>ReportDS</rd:DataSetName>
-        <rd:SchemaPath>E:\Ajit\VanitaPayRoll\PayRoll\ReportDS.xsd</rd:SchemaPath>
+        <rd:SchemaPath>D:\AMC Projects\VanitaPayroll\PayRoll\ReportDS.xsd</rd:SchemaPath>
         <rd:TableName>udfSalarySlip_New</rd:TableName>
         <rd:TableAdapterFillMethod>Fill</rd:TableAdapterFillMethod>
         <rd:TableAdapterGetDataMethod>GetData</rd:TableAdapterGetDataMethod>

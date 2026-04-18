@@ -162,7 +162,7 @@ namespace PayRoll.Reports
                         strcsv += Convert.ToDouble(dt3.Rows[i]["fund"]).ToString("0") + "#~#";
                         
                         //strcsv += "#~#";
-                        strcsv += dt3.Rows[i]["NCPDays"].ToString() + "#~#";
+                        strcsv += dt3.Rows[i]["NCPDays"].ToString() + "#~#0";
                         strcsv += "\n";
 
                     }

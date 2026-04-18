@@ -1724,7 +1724,7 @@
           <Top>0.26389in</Top>
           <Left>0.86347in</Left>
           <Height>0.25in</Height>
-          <Width>3.88542in</Width>
+          <Width>4.20833in</Width>
           <ZIndex>1</ZIndex>
           <Style>
             <Border>
@@ -1757,7 +1757,7 @@
           <Top>0.51389in</Top>
           <Left>2.05236in</Left>
           <Height>0.25in</Height>
-          <Width>1.15625in</Width>
+          <Width>1.54708in</Width>
           <ZIndex>2</ZIndex>
           <Style>
             <Border>
@@ -1836,9 +1836,9 @@
           </Paragraphs>
           <rd:DefaultName>Regional</rd:DefaultName>
           <Top>0.51389in</Top>
-          <Left>3.23833in</Left>
+          <Left>3.61333in</Left>
           <Height>0.27084in</Height>
-          <Width>1.51056in</Width>
+          <Width>1.45847in</Width>
           <ZIndex>5</ZIndex>
           <Style>
             <Border>
@@ -1869,9 +1869,9 @@
           </Paragraphs>
           <rd:DefaultName>SubRegional</rd:DefaultName>
           <Top>0.51389in</Top>
-          <Left>4.73847in</Left>
+          <Left>5.08222in</Left>
           <Height>0.27084in</Height>
-          <Width>5.14583in</Width>
+          <Width>4.73958in</Width>
           <ZIndex>6</ZIndex>
           <Style>
             <Border>

@@ -16,14 +16,36 @@ namespace PayRoll.Masters
         {
             if (!Page.IsPostBack)
             {
+                BindData();
                 BindGrid();
             }
             txtName.Focus();
         }
+        private void BindData()
+        {
+            string strQry = "SELECT Code, Description FROM M_MasterType Where FilterBy='LWFReport'";
+            DataTable objDT = SqlHelper.ExecuteDataTable(strQry, AppGlobal.strConnString);
+            ddlLWFReportType.DataSource = objDT;
+            ddlLWFReportType.DataTextField = "Description";
+            ddlLWFReportType.DataValueField = "Code";
+            ddlLWFReportType.DataBind();
+            ddlLWFReportType.Items.Insert(0, new ListItem("Select", ""));
 
+            strQry = "SELECT Code, Description FROM M_MasterType Where FilterBy='STAT'";
+            objDT = SqlHelper.ExecuteDataTable(strQry, AppGlobal.strConnString);
+            ddlList.DataSource = objDT;
+            ddlList.DataTextField = "Description";
+            ddlList.DataValueField = "Code";
+            ddlList.DataBind();
+            ddlList.Items.Insert(0, new ListItem("Select", ""));
+
+        }
         private void BindGrid()
         {
-            string strQry = "SELECT * FROM M_Designation Order By Designation";
+            string strQry = @"SELECT d.*, m1.Description As LWFDesc, m2.Description As STATDesc FROM M_Designation d 
+                                Left outer join M_MasterType m1 ON d.LWFReportType=m1.code AND m1.FilterBy='LWFReport' 
+                                Left Outer Join M_MasterType m2 ON d.StatReportLevel=m2.code AND m2.FilterBy='STAT' 
+                                ORDER BY Designation";
             DataTable objDT = SqlHelper.ExecuteDataTable(strQry, AppGlobal.strConnString);
             gvDesignationList.DataSource = objDT;
             gvDesignationList.DataBind();
@@ -84,14 +106,15 @@ namespace PayRoll.Masters
             //    return;
             //}
 
-            strQry = "INSERT INTO M_Designation(Desigcd, Designation,LWFReportType, IsActive) VALUES(@Desigcd, @Designation,@LWFReportType, @IsActive)";
+            strQry = "INSERT INTO M_Designation(Desigcd, Designation,LWFReportType, StatReportLevel, IsActive) VALUES(@Desigcd, @Designation,@LWFReportType,@StatReportLevel, @IsActive)";
             int nID = SqlHelper.GetMaxID("M_Designation", "Desigcd", AppGlobal.strConnString);
 
-            SqlParameter[] para = new SqlParameter[4];
+            SqlParameter[] para = new SqlParameter[5];
             para[0] = new SqlParameter("@Desigcd", nID);
             para[1] = new SqlParameter("@Designation", txtName.Text);
-            para[2] = new SqlParameter("@LWFReportType", txtLWFReportType.Text != "" ? txtLWFReportType.Text : (object)DBNull.Value);
+            para[2] = new SqlParameter("@LWFReportType", ddlLWFReportType.SelectedValue.ToString());
             para[3] = new SqlParameter("@IsActive", chkIsActive.Checked ? "Y" : "N");
+            para[4] = new SqlParameter("@StatReportLevel", ddlList.SelectedValue.ToString());
 
             result = SqlHelper.ExecuteNonQuery(strQry, para, AppGlobal.strConnString);
 
@@ -111,12 +134,13 @@ namespace PayRoll.Masters
             bool result = false;
             int nId = Convert.ToInt32(ViewState["CID"]);
 
-            strQry = "UPDATE M_Designation SET Designation=@Designation,LWFReportType=@LWFReportType, IsActive=@IsActive WHERE Desigcd=@Desigcd";
-            SqlParameter[] para = new SqlParameter[4];
+            strQry = "UPDATE M_Designation SET Designation=@Designation,LWFReportType=@LWFReportType, StatReportLevel=@StatReportLevel, IsActive=@IsActive WHERE Desigcd=@Desigcd";
+            SqlParameter[] para = new SqlParameter[5];
             para[0] = new SqlParameter("@Desigcd", nId);
             para[1] = new SqlParameter("@Designation", txtName.Text);
-            para[2] = new SqlParameter("@LWFReportType", txtLWFReportType.Text != "" ? txtLWFReportType.Text : (object)DBNull.Value);
+            para[2] = new SqlParameter("@LWFReportType", ddlLWFReportType.SelectedValue.ToString());
             para[3] = new SqlParameter("@IsActive", chkIsActive.Checked ? "Y" : "N");
+            para[4] = new SqlParameter("@StatReportLevel", ddlList.SelectedValue.ToString());
 
             result = SqlHelper.ExecuteNonQuery(strQry, para, AppGlobal.strConnString);
 
@@ -132,10 +156,11 @@ namespace PayRoll.Masters
         private void clearControls()
         {
             txtName.Text = "";
-            txtLWFReportType.Text = "";
+            ddlLWFReportType.SelectedIndex=0;
             chkIsActive.Checked = true;
             btnSave.Text = "Save";
             txtName.Focus();
+            ddlList.SelectedIndex = 0;
             ViewState["CID"] = null;
         }
 
@@ -170,8 +195,9 @@ namespace PayRoll.Masters
 
             ViewState["CID"] = objDT.Rows[i]["Desigcd"].ToString();
             txtName.Text = objDT.Rows[i]["Designation"].ToString();
-            txtLWFReportType.Text = objDT.Rows[i]["Designation"] != DBNull.Value ? objDT.Rows[i]["LWFReportType"].ToString() : "";
+            ddlLWFReportType.SelectedValue = objDT.Rows[i]["LWFReportType"].ToString();
             chkIsActive.Checked = objDT.Rows[i]["IsActive"].ToString() == "Y" ? true : false;
+            ddlList.SelectedValue = objDT.Rows[i]["StatReportLevel"].ToString();
         }
 
         private void alertMessage(string str)
@@ -200,6 +226,14 @@ namespace PayRoll.Masters
                 return false;
             }
             return true;
+        }
+
+        protected void gvDesignationList_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if(e.Row.RowType == DataControlRowType.DataRow)
+            {
+
+            }
         }
     }
 }

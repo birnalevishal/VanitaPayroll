@@ -10,7 +10,8 @@ using System.Data;
 using System.IO;
 using System.Net.Mail;
 using System.Net;
-
+using System.Threading.Tasks;
+using System.Web.Services;
 
 namespace PayRoll.Reports
 {
@@ -32,6 +33,8 @@ namespace PayRoll.Reports
 
                 divFilter.Visible = false;
             }
+
+            hdnOrgID.Value = Session["OrgId"].ToString();
 
         }
 
@@ -203,6 +206,7 @@ namespace PayRoll.Reports
                 ReportViewer1.LocalReport.Refresh();
 
                 ViewState["data"] = dv.ToTable();
+                Session["SalaryData"] = dv.ToTable();
             }
             catch (Exception ex)
             {
@@ -338,78 +342,20 @@ namespace PayRoll.Reports
             }
         }
 
-        protected void btnSendMail_Click(object sender, EventArgs e)
+        protected async void btnSendMail_Click(object sender, EventArgs e)
         {
             try
             {
                 DataTable dt = (DataTable)ViewState["data"];
 
-                ReportDS.M_AddHeadingDataTable tbl = new ReportDS.M_AddHeadingDataTable();
-                ReportDSTableAdapters.M_AddHeadingTableAdapter tbladpt = new ReportDSTableAdapters.M_AddHeadingTableAdapter();
-
-                tbladpt.Fill(tbl,Convert.ToInt16(Session["OrgID"]));
-
                 if (dt.Rows.Count == 0)
                 {
-                    ScriptManager.RegisterStartupScript(UpdatePanel1, UpdatePanel1.GetType(), "PayRoll", "alert('No data for found'); ", true);
+                    ScriptManager.RegisterStartupScript(UpdatePanel1, UpdatePanel1.GetType(), "PayRoll", "alert('No data found'); ", true);
                     return;
                 }
-
-                string fileName = "", path = "", Moncd = "", empcode = "";
-
-                //Generate PDFs
-                foreach (DataRow dr in dt.Rows)
-                {
-                    DataTable temp = new ReportDS.udfSalarySlip_NewDataTable();
-                    //DataTable temp = new DSSalarySlip.SalarySlipNewDataTable();
-                    temp.ImportRow(dr);
-
-                    //Generate PaySlip for each User 
-                    ReportViewer2.Reset();
-                    ReportViewer2.LocalReport.DataSources.Clear();
-                    ReportDataSource datasource = new ReportDataSource("SalarySlip", temp);
-                    ReportViewer2.LocalReport.DataSources.Add(datasource);
-                    ReportViewer2.LocalReport.ReportPath = Server.MapPath("~/Reports/Salary_Slip.rdlc");
-
-                    ReportParameter p1 = new ReportParameter("para1", tbl.Rows.Count > 0 ? tbl.Rows[0]["Add1Heading"].ToString() : "");
-                    ReportParameter p2 = new ReportParameter("para2", tbl.Rows.Count > 0 ? tbl.Rows[0]["Add2Heading"].ToString() : "");
-                    ReportParameter p3 = new ReportParameter("para3", tbl.Rows.Count > 0 ? tbl.Rows[0]["Add3Heading"].ToString() : "");
-                    ReportViewer2.LocalReport.SetParameters(new ReportParameter[] { p1, p2, p3 });
-
-
-                    Moncd = dr["MonYrcd"].ToString();
-                    empcode = dr["Employeecd"].ToString();
-                    path = Server.MapPath("~/SalarySlips/" + Moncd);
-
-                    //If directory not exists then create first
-                    DirectoryInfo di = new DirectoryInfo(path);
-                    if (!di.Exists)
-                    {
-                        di.Create();
-                    }
-
-                    //Create file Name 
-                    fileName = empcode + "-" + Moncd + ".pdf";
-
-                    //If file already exists for monthyecd then delete first
-                    FileInfo fi = new System.IO.FileInfo(Server.MapPath("~/SalarySlips/" + Moncd + "/" + fileName));
-                    if (fi.Exists) fi.Delete();
-
-                    Warning[] warnings;
-                    string[] streams;
-                    string mimeType, encoding, filenameExtension;
-
-                    byte[] bytes = ReportViewer2.LocalReport.Render("PDF", null, out mimeType, out encoding, out filenameExtension, out streams, out warnings);
-
-                    FileStream fs = System.IO.File.Create(Server.MapPath("~/SalarySlips/" + Moncd + "/" + fileName));
-                    fs.Write(bytes, 0, bytes.Length);
-
-                    fs.Close();
-
-                }
-
+                                
                 //Send Email
-                SendEmails();
+                await SendEmailsAsync();
             }
             catch (Exception ex)
             {
@@ -417,6 +363,68 @@ namespace PayRoll.Reports
                 //ScriptManager.RegisterStartupScript(UpdatePanel1, UpdatePanel1.GetType(), "PayRoll", "alert('"+ ex.ToString() +"!'); ", true);
             }
         }
+
+        private async Task SendEmailsAsync()
+        {
+            DataTable dt = (DataTable)ViewState["data"];
+            DataTable objDT = SqlHelper.ExecuteDataTable(
+                "SELECT * FROM M_EmailInfo WHERE OrgId=" + Convert.ToInt32(Session["OrgId"]),
+                AppGlobal.strConnString
+            );
+
+            if (objDT.Rows.Count == 0)
+            {
+                ScriptManager.RegisterStartupScript(UpdatePanel1, UpdatePanel1.GetType(), "PayRoll", "alert('SMTP Client Information Not Found');", true);
+                return;
+            }
+
+            var emailClient = new SmtpClient(objDT.Rows[0]["smtpClient"].ToString(), (int)objDT.Rows[0]["port"])
+            {
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential(objDT.Rows[0]["username"].ToString(), objDT.Rows[0]["password"].ToString()),
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                EnableSsl = Convert.ToBoolean(objDT.Rows[0]["ssl"])
+            };
+
+            foreach (DataRow dr in dt.Rows)
+            {
+                try
+                {
+                    string strTo = dr["EmailId"].ToString();
+
+                    if (strTo != "")
+                    {
+                        string moncd = dr["MonYrcd"].ToString();
+                        string empcode = dr["Employeecd"].ToString();
+                        string fileName = $"{empcode}-{moncd}.pdf";
+                        string strMoncd = moncd.Substring(0, 2);
+                        string strMonth = MonthName(strMoncd);
+
+                        string strSubject = $"Salary Slip for {strMonth} {moncd.Substring(2)}";
+                        string strBody = $"Please find the attachment of Salary Slip for {strMonth} {moncd.Substring(2)}";
+
+                        var insMail = new MailMessage(objDT.Rows[0]["fromAddr"].ToString(), strTo, strSubject, strBody);
+                        insMail.Attachments.Add(new Attachment(Server.MapPath($"~/SalarySlips/{moncd}/{fileName}")));
+
+                        await emailClient.SendMailAsync(insMail);  // 🔁 Asynchronous Send
+
+                        insMail.Dispose();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    string strQry = $"update M_EmailInfo set error='{ex}' where Id=1";
+                    SqlHelper.ExecuteNonQuery(strQry, AppGlobal.strConnString);
+
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "HideLoader", "alert('Mails not sent. Error!');", true);
+                }
+            }
+
+            emailClient.Dispose();
+
+            //Display completion message
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "HideLoader", "alert('Mails sent successfully!');", true);
+         }
 
         private void SendEmails()
         {
@@ -542,6 +550,97 @@ namespace PayRoll.Reports
             return strName;
         }
 
+        protected void btnGeneratePDF_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DataTable dt = (DataTable)ViewState["data"];
+
+                ReportDS.M_AddHeadingDataTable tbl = new ReportDS.M_AddHeadingDataTable();
+                ReportDSTableAdapters.M_AddHeadingTableAdapter tbladpt = new ReportDSTableAdapters.M_AddHeadingTableAdapter();
+
+                tbladpt.Fill(tbl, Convert.ToInt16(Session["OrgID"]));
+
+                if (dt.Rows.Count == 0)
+                {
+                    ScriptManager.RegisterStartupScript(UpdatePanel1, UpdatePanel1.GetType(), "PayRoll", "alert('No data for found'); ", true);
+                    return;
+                }
+
+                string fileName = "", path = "", Moncd = "", empcode = "";
+
+                //Generate PDFs
+                foreach (DataRow dr in dt.Rows)
+                {
+                    DataTable temp = new ReportDS.udfSalarySlip_NewDataTable();
+                    //DataTable temp = new DSSalarySlip.SalarySlipNewDataTable();
+                    temp.ImportRow(dr);
+
+                    //Generate PaySlip for each User 
+                    ReportViewer2.Reset();
+                    ReportViewer2.LocalReport.DataSources.Clear();
+                    ReportDataSource datasource = new ReportDataSource("SalarySlip", temp);
+                    ReportViewer2.LocalReport.DataSources.Add(datasource);
+                    ReportViewer2.LocalReport.ReportPath = Server.MapPath("~/Reports/Salary_Slip.rdlc");
+
+                    ReportParameter p1 = new ReportParameter("para1", tbl.Rows.Count > 0 ? tbl.Rows[0]["Add1Heading"].ToString() : "");
+                    ReportParameter p2 = new ReportParameter("para2", tbl.Rows.Count > 0 ? tbl.Rows[0]["Add2Heading"].ToString() : "");
+                    ReportParameter p3 = new ReportParameter("para3", tbl.Rows.Count > 0 ? tbl.Rows[0]["Add3Heading"].ToString() : "");
+                    ReportViewer2.LocalReport.SetParameters(new ReportParameter[] { p1, p2, p3 });
+
+
+                    Moncd = dr["MonYrcd"].ToString();
+                    empcode = dr["Employeecd"].ToString();
+                    path = Server.MapPath("~/SalarySlips/" + Moncd);
+
+                    //If directory not exists then create first
+                    DirectoryInfo di = new DirectoryInfo(path);
+                    if (!di.Exists)
+                    {
+                        di.Create();
+                    }
+
+                    //Create file Name 
+                    fileName = empcode + "-" + Moncd + ".pdf";
+
+                    //If file already exists for monthyecd then delete first
+                    FileInfo fi = new System.IO.FileInfo(Server.MapPath("~/SalarySlips/" + Moncd + "/" + fileName));
+                    if (fi.Exists) fi.Delete();
+
+                    Warning[] warnings;
+                    string[] streams;
+                    string mimeType, encoding, filenameExtension;
+
+                    byte[] bytes = ReportViewer2.LocalReport.Render("PDF", null, out mimeType, out encoding, out filenameExtension, out streams, out warnings);
+
+                    FileStream fs = System.IO.File.Create(Server.MapPath("~/SalarySlips/" + Moncd + "/" + fileName));
+                    fs.Write(bytes, 0, bytes.Length);
+
+                    fs.Close();
+
+                    //string fullPath = Server.MapPath($"~/SalarySlips/{Moncd}/{fileName}");
+
+                    //using (FileStream fs = new FileStream(fullPath, FileMode.Create, FileAccess.Write, FileShare.None, 4096, useAsync: true))
+                    //{
+                    //    await fs.WriteAsync(bytes, 0, bytes.Length);
+                    //}
+
+                }
+
+                //ScriptManager.RegisterStartupScript(this, this.GetType(), "HideLoader", "updateProgress.set_visible(false); ", true);
+                ScriptManager.RegisterStartupScript(UpdatePanel1, UpdatePanel1.GetType(), "PayRoll", "alert('PDF Generated. Click Send Mail Button.'); ", true);
+
+                //Send Email
+                //await SendEmailsAsync();
+            }
+            catch (Exception ex)
+            {
+                ScriptManager.RegisterStartupScript(UpdatePanel1, UpdatePanel1.GetType(), "PayRoll", "alert('Error!'); ", true);
+                //ScriptManager.RegisterStartupScript(UpdatePanel1, UpdatePanel1.GetType(), "PayRoll", "alert('"+ ex.ToString() +"!'); ", true);
+            }
+        }
+
+       
 
     }
 }

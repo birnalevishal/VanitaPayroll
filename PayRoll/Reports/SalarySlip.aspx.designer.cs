@@ -22,6 +22,15 @@ namespace PayRoll.Reports {
         protected global::System.Web.UI.UpdatePanel UpdatePanel1;
         
         /// <summary>
+        /// hdnOrgID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnOrgID;
+        
+        /// <summary>
         /// ddlMnth control.
         /// </summary>
         /// <remarks>
@@ -173,6 +182,15 @@ namespace PayRoll.Reports {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlHOD;
+        
+        /// <summary>
+        /// btnGeneratePDF control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnGeneratePDF;
         
         /// <summary>
         /// btnSendMail control.

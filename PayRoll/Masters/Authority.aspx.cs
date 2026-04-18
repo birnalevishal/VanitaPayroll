@@ -36,7 +36,7 @@ namespace PayRoll.Masters
             //ddlYear.DataBind();
             //ddlYear.Items.Insert(0, "Select");
             
-            strQry = "SELECT MenuId,Title FROM M_Menu where title in('Salary Config','Allowance Config')";
+            strQry = "SELECT MenuId,Title FROM M_Menu where title in('Salary Config','Allowance Config','Employee Advance')";
             objDT = SqlHelper.ExecuteDataTable(strQry, AppGlobal.strConnString);
             ddlformname.DataSource = objDT;
             ddlformname.DataTextField = "Title";

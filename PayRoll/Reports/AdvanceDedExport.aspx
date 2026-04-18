@@ -1,8 +1,9 @@
 ﻿<%@ Page Title="Advance Deduction Export" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="AdvanceDedExport.aspx.cs" Inherits="PayRoll.Reports.AdvanceDedExport" %>
 
+<%@ Register Assembly="Microsoft.ReportViewer.WebForms" Namespace="Microsoft.Reporting.WebForms" TagPrefix="rsweb" %>
+
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="Ajax" %>
 
-<%@ Register Assembly="Microsoft.ReportViewer.WebForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" Namespace="Microsoft.Reporting.WebForms" TagPrefix="rsweb" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
 
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
@@ -81,6 +82,7 @@
                             <div class="col-lg-12">
                                 <rsweb:ReportViewer ID="ReportViewer1" runat="server" Width="100%" class="table table-bordered table-striped" Height="400px">
                                 </rsweb:ReportViewer>
+                               
                             </div>
                         </div>
                     </div>

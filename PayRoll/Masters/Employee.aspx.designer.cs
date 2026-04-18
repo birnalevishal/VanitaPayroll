@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PayRoll.Masters {
-    
-    
-    public partial class Employee {
-        
+namespace PayRoll.Masters
+{
+
+
+    public partial class Employee
+    {
+
         /// <summary>
         /// UpdatePanel1 control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel1;
-        
+
         /// <summary>
         /// txtEmpCode control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtEmpCode;
-        
+
         /// <summary>
         /// RFVtxtEmpCode control.
         /// </summary>
@@ -38,7 +40,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RFVtxtEmpCode;
-        
+
         /// <summary>
         /// txtAadharNo control.
         /// </summary>
@@ -47,7 +49,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtAadharNo;
-        
+
         /// <summary>
         /// RFVtxtAadharNo control.
         /// </summary>
@@ -56,7 +58,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RFVtxtAadharNo;
-        
+
         /// <summary>
         /// REVtxtAadharNo control.
         /// </summary>
@@ -65,7 +67,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RegularExpressionValidator REVtxtAadharNo;
-        
+
         /// <summary>
         /// txtDOJ control.
         /// </summary>
@@ -74,7 +76,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtDOJ;
-        
+
         /// <summary>
         /// CEtxtDOJ control.
         /// </summary>
@@ -83,7 +85,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.CalendarExtender CEtxtDOJ;
-        
+
         /// <summary>
         /// RFVtxtDOJ control.
         /// </summary>
@@ -92,7 +94,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RFVtxtDOJ;
-        
+
         /// <summary>
         /// txtJoinTrf1 control.
         /// </summary>
@@ -101,7 +103,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtJoinTrf1;
-        
+
         /// <summary>
         /// CalendarExtender3 control.
         /// </summary>
@@ -110,7 +112,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.CalendarExtender CalendarExtender3;
-        
+
         /// <summary>
         /// RFVtxtJoinTrf1 control.
         /// </summary>
@@ -119,7 +121,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RFVtxtJoinTrf1;
-        
+
         /// <summary>
         /// btnGetData control.
         /// </summary>
@@ -128,7 +130,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnGetData;
-        
+
         /// <summary>
         /// btnUpdate control.
         /// </summary>
@@ -137,7 +139,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnUpdate;
-        
+
         /// <summary>
         /// txtFName control.
         /// </summary>
@@ -146,7 +148,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtFName;
-        
+
         /// <summary>
         /// RFVtxtFName control.
         /// </summary>
@@ -155,7 +157,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RFVtxtFName;
-        
+
         /// <summary>
         /// txtMName control.
         /// </summary>
@@ -164,7 +166,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtMName;
-        
+
         /// <summary>
         /// RFVtxtMName control.
         /// </summary>
@@ -173,7 +175,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RFVtxtMName;
-        
+
         /// <summary>
         /// txtLName control.
         /// </summary>
@@ -182,7 +184,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtLName;
-        
+
         /// <summary>
         /// RFVtxtLName control.
         /// </summary>
@@ -191,16 +193,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RFVtxtLName;
-        
-        /// <summary>
-        /// txtEmpName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtEmpName;
-        
+
         /// <summary>
         /// txtBirthdate control.
         /// </summary>
@@ -209,7 +202,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtBirthdate;
-        
+
         /// <summary>
         /// Calendar1 control.
         /// </summary>
@@ -218,7 +211,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.CalendarExtender Calendar1;
-        
+
         /// <summary>
         /// RFVtxtBirthdate control.
         /// </summary>
@@ -227,79 +220,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RFVtxtBirthdate;
-        
-        /// <summary>
-        /// ddlGender control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlGender;
-        
-        /// <summary>
-        /// ddlBloodGroup control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlBloodGroup;
-        
-        /// <summary>
-        /// ddlMaritalStatus control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlMaritalStatus;
-        
-        /// <summary>
-        /// txtEmailID control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtEmailID;
-        
-        /// <summary>
-        /// REVtxtEmailID control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator REVtxtEmailID;
-        
-        /// <summary>
-        /// txtMobileNo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtMobileNo;
-        
-        /// <summary>
-        /// REVtxtMobileNo control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator REVtxtMobileNo;
-        
-        /// <summary>
-        /// txtQualification control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtQualification;
-        
+
         /// <summary>
         /// txtPreviousExp control.
         /// </summary>
@@ -308,7 +229,106 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtPreviousExp;
-        
+
+        /// <summary>
+        /// txtEmpName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtEmpName;
+
+        /// <summary>
+        /// ddlGender control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlGender;
+
+        /// <summary>
+        /// ddlBloodGroup control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlBloodGroup;
+
+        /// <summary>
+        /// ddlMaritalStatus control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlMaritalStatus;
+
+        /// <summary>
+        /// txtEmailID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtEmailID;
+
+        /// <summary>
+        /// REVtxtEmailID control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator REVtxtEmailID;
+
+        /// <summary>
+        /// txtMobileNo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtMobileNo;
+
+        /// <summary>
+        /// REVtxtMobileNo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator REVtxtMobileNo;
+
+        /// <summary>
+        /// txtQualification control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtQualification;
+
+        /// <summary>
+        /// txtPrevExpYr control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPrevExpYr;
+
+        /// <summary>
+        /// txtPrevExpMnth control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtPrevExpMnth;
+
         /// <summary>
         /// txtDesignation control.
         /// </summary>
@@ -317,7 +337,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtDesignation;
-        
+
         /// <summary>
         /// txtPAddress control.
         /// </summary>
@@ -326,7 +346,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtPAddress;
-        
+
         /// <summary>
         /// txtWAddress control.
         /// </summary>
@@ -335,7 +355,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtWAddress;
-        
+
         /// <summary>
         /// ddlPState control.
         /// </summary>
@@ -344,7 +364,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlPState;
-        
+
         /// <summary>
         /// ddlPDist control.
         /// </summary>
@@ -353,7 +373,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlPDist;
-        
+
         /// <summary>
         /// ddlWState control.
         /// </summary>
@@ -362,7 +382,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlWState;
-        
+
         /// <summary>
         /// RFVddlWState control.
         /// </summary>
@@ -371,7 +391,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RFVddlWState;
-        
+
         /// <summary>
         /// ddlWDist control.
         /// </summary>
@@ -380,7 +400,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlWDist;
-        
+
         /// <summary>
         /// ddlPTaluka control.
         /// </summary>
@@ -389,7 +409,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlPTaluka;
-        
+
         /// <summary>
         /// ddlPCity control.
         /// </summary>
@@ -398,7 +418,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlPCity;
-        
+
         /// <summary>
         /// txtPPinCode control.
         /// </summary>
@@ -407,7 +427,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtPPinCode;
-        
+
         /// <summary>
         /// ddlWTaluka control.
         /// </summary>
@@ -416,7 +436,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlWTaluka;
-        
+
         /// <summary>
         /// ddlWCity control.
         /// </summary>
@@ -425,7 +445,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlWCity;
-        
+
         /// <summary>
         /// txtWPinCode control.
         /// </summary>
@@ -434,7 +454,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtWPinCode;
-        
+
         /// <summary>
         /// ddlBank control.
         /// </summary>
@@ -443,7 +463,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlBank;
-        
+
         /// <summary>
         /// ddlBankBranch control.
         /// </summary>
@@ -452,7 +472,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlBankBranch;
-        
+
         /// <summary>
         /// txtBankAcNo control.
         /// </summary>
@@ -461,7 +481,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtBankAcNo;
-        
+
         /// <summary>
         /// txtpanNo control.
         /// </summary>
@@ -470,7 +490,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtpanNo;
-        
+
         /// <summary>
         /// ddlPFApplicable control.
         /// </summary>
@@ -479,7 +499,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlPFApplicable;
-        
+
         /// <summary>
         /// txtPFJoindDt control.
         /// </summary>
@@ -488,7 +508,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtPFJoindDt;
-        
+
         /// <summary>
         /// CEtxtPFJoindDt control.
         /// </summary>
@@ -497,7 +517,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.CalendarExtender CEtxtPFJoindDt;
-        
+
         /// <summary>
         /// txtPFNo control.
         /// </summary>
@@ -506,7 +526,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtPFNo;
-        
+
         /// <summary>
         /// REVtxtPFNo control.
         /// </summary>
@@ -515,7 +535,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RegularExpressionValidator REVtxtPFNo;
-        
+
         /// <summary>
         /// txtUANNo control.
         /// </summary>
@@ -524,7 +544,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtUANNo;
-        
+
         /// <summary>
         /// REVtxtUANNo control.
         /// </summary>
@@ -533,7 +553,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RegularExpressionValidator REVtxtUANNo;
-        
+
         /// <summary>
         /// ddlESI control.
         /// </summary>
@@ -542,7 +562,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlESI;
-        
+
         /// <summary>
         /// txtESIEffectDt control.
         /// </summary>
@@ -551,7 +571,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtESIEffectDt;
-        
+
         /// <summary>
         /// CalendarExtender4 control.
         /// </summary>
@@ -560,7 +580,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.CalendarExtender CalendarExtender4;
-        
+
         /// <summary>
         /// txtESINo control.
         /// </summary>
@@ -569,7 +589,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtESINo;
-        
+
         /// <summary>
         /// REVtxtESINo control.
         /// </summary>
@@ -578,7 +598,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RegularExpressionValidator REVtxtESINo;
-        
+
         /// <summary>
         /// rblESICal control.
         /// </summary>
@@ -587,7 +607,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RadioButtonList rblESICal;
-        
+
         /// <summary>
         /// ddlRegional control.
         /// </summary>
@@ -596,7 +616,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlRegional;
-        
+
         /// <summary>
         /// ddlSubRegional control.
         /// </summary>
@@ -605,7 +625,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlSubRegional;
-        
+
         /// <summary>
         /// ddlHRAApplicable control.
         /// </summary>
@@ -614,7 +634,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlHRAApplicable;
-        
+
         /// <summary>
         /// ddlProfessionalTax control.
         /// </summary>
@@ -623,7 +643,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlProfessionalTax;
-        
+
         /// <summary>
         /// ddlLabourWalfare control.
         /// </summary>
@@ -632,7 +652,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlLabourWalfare;
-        
+
         /// <summary>
         /// txtLINNo control.
         /// </summary>
@@ -641,7 +661,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtLINNo;
-        
+
         /// <summary>
         /// ddlHODApplicable control.
         /// </summary>
@@ -650,7 +670,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlHODApplicable;
-        
+
         /// <summary>
         /// txtGratuityDate control.
         /// </summary>
@@ -659,7 +679,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtGratuityDate;
-        
+
         /// <summary>
         /// CalendarExtender1 control.
         /// </summary>
@@ -668,7 +688,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.CalendarExtender CalendarExtender1;
-        
+
         /// <summary>
         /// txtDrivingLicence control.
         /// </summary>
@@ -677,7 +697,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtDrivingLicence;
-        
+
         /// <summary>
         /// ddlDI control.
         /// </summary>
@@ -686,7 +706,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlDI;
-        
+
         /// <summary>
         /// txtLICID control.
         /// </summary>
@@ -695,7 +715,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtLICID;
-        
+
         /// <summary>
         /// txtLICPolicyNo control.
         /// </summary>
@@ -704,7 +724,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtLICPolicyNo;
-        
+
         /// <summary>
         /// ddlCast control.
         /// </summary>
@@ -713,7 +733,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlCast;
-        
+
         /// <summary>
         /// ddlRole control.
         /// </summary>
@@ -722,7 +742,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlRole;
-        
+
         /// <summary>
         /// txtResignation control.
         /// </summary>
@@ -731,7 +751,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtResignation;
-        
+
         /// <summary>
         /// CR control.
         /// </summary>
@@ -740,7 +760,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.CalendarExtender CR;
-        
+
         /// <summary>
         /// txtLeaveDate control.
         /// </summary>
@@ -749,7 +769,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtLeaveDate;
-        
+
         /// <summary>
         /// CalendarExtender2 control.
         /// </summary>
@@ -758,7 +778,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.CalendarExtender CalendarExtender2;
-        
+
         /// <summary>
         /// ddlLeaveReason control.
         /// </summary>
@@ -767,7 +787,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlLeaveReason;
-        
+
         /// <summary>
         /// chkIsActive control.
         /// </summary>
@@ -776,7 +796,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox chkIsActive;
-        
+
         /// <summary>
         /// btnCancel control.
         /// </summary>
@@ -785,7 +805,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnCancel;
-        
+
         /// <summary>
         /// btnSave control.
         /// </summary>
@@ -794,7 +814,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSave;
-        
+
         /// <summary>
         /// HFEmployee control.
         /// </summary>
@@ -803,7 +823,7 @@ namespace PayRoll.Masters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HiddenField HFEmployee;
-        
+
         /// <summary>
         /// UpdateProgress1 control.
         /// </summary>

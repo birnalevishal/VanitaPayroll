@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="Increment Export-Import" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="IncrementImpExp.aspx.cs" Inherits="PayRoll.Masters.IncrementImpExp" %>
+
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="Ajax" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
@@ -36,16 +37,15 @@
                             </div>
                             <div class="panel-body">
                                 <div class="col-lg-12">
-
                                     <div class="form-group col-lg-2">
                                         <label for="username">Date</label>
-                                        <asp:TextBox ID="txtDate" runat="server" type="textarea" MaxLength="80" placeholder="Enter Date" class="form-control" name="name"   ValidationGroup="OK" TabIndex="2"></asp:TextBox>
+                                        <asp:TextBox ID="txtDate" runat="server" type="textarea" MaxLength="80" placeholder="Enter Date" class="form-control" name="name" ValidationGroup="OK" TabIndex="2"></asp:TextBox>
                                         <Ajax:CalendarExtender ID="Calendar1" PopupButtonID="imgPopup" runat="server" TargetControlID="txtDate" Format="dd/MM/yyyy"></Ajax:CalendarExtender>
                                         <asp:RequiredFieldValidator ID="RFVtxtDate" runat="server" ControlToValidate="txtDate" ErrorMessage="As On Date Required" Display="Dynamic" ForeColor="Red" ValidationGroup="OK"></asp:RequiredFieldValidator>
                                     </div>
                                     <div class="form-group col-lg-3">
                                         <label for="username">Month Name</label>
-                                        <asp:DropDownList ID="ddlMon" runat="server" class="form-control" name="account"   TabIndex="1">
+                                        <asp:DropDownList ID="ddlMon" runat="server" class="form-control" name="account" TabIndex="1">
                                             <asp:ListItem Text="select" Value="00" Selected="True"></asp:ListItem>
                                             <asp:ListItem Text="January" Value="01"></asp:ListItem>
                                             <asp:ListItem Text="February" Value="02"></asp:ListItem>
@@ -64,24 +64,26 @@
                                     </div>
                                     <div class="form-group col-lg-3">
                                         <label for="username">Year</label>
-                                        <asp:DropDownList ID="ddlYear" runat="server" class="form-control" name="account"   TabIndex="2"></asp:DropDownList>
+                                        <asp:DropDownList ID="ddlYear" runat="server" class="form-control" name="account" TabIndex="2"></asp:DropDownList>
                                         <asp:RequiredFieldValidator ID="RFVddlYear" runat="server" ControlToValidate="ddlYear" InitialValue="00" ErrorMessage="Required" Display="Dynamic" ForeColor="Red" ValidationGroup="OK"></asp:RequiredFieldValidator>
+                                    </div>
+                                    <div class="form-group col-lg-4" style="padding-top: 10px; float: right">
+                                        <a href="DownloadFile.ashx?file=~/ImportFormatFiles/IncrementImportFormat.xlsx" class="btn btn-outline btn-warning" style="float: right" tabindex="6">Download Import Format</a>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
-                                    <div class="form-group col-lg-3">
-                                        <label for="username">Select File</label>
+                                    <div class="form-group col-lg-4">
+                                        <label for="username">Select File to Upload</label>
                                         <asp:FileUpload ID="FUExcel" runat="server" TabIndex="3" />
                                     </div>
-
-                                    <div class="form-group col-lg-3" style="padding-top:10px; float:right">
-                                        <a href="DownloadFile.ashx?file=~/ImportFormatFiles/IncrementImportFormat.xlsx" class="btn btn-outline btn-warning" TabIndex="6">Download Import Format</a>
-                                    </div>
+                                </div>
+                                <div class="col-sm-8 col-sm-offset-0">
+                                    <asp:Button ID="btnUpload" runat="server" Text="Upload" class="btn btn-outline btn-success" ValidationGroup="OK" TabIndex="4" OnClick="btnUpload_Click" />
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="hr-line-dashed"></div>
                                 </div>
-                                <asp:Panel ID="pnlGVList" runat="server" Enabled="false" Visible="false">
+                                <asp:Panel ID="pnlGVList" runat="server" Enabled="false" Visible="true">
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="hpanel">
@@ -90,107 +92,38 @@
                                                         <a class="showhide"><i class="fa fa-chevron-up"></i></a>
                                                         <a class="closebox"><i class="fa fa-times"></i></a>
                                                     </div>
-                                                    <asp:Label ID="lblAttHeading" runat="server" Text="Attendence Not Found List" Font-Bold="true"></asp:Label>
+                                                    <asp:Label ID="lblUploadHeading" runat="server" Text="Upload List" Font-Bold="true"></asp:Label>
                                                 </div>
                                                 <div class="panel-body">
-                                                    <asp:GridView ID="gvEmployee" runat="server" class="table table-striped table-bordered table-hover" AutoGenerateColumns="False" Width="100%" DataKeyNames="Employeecd">
+                                                    <asp:GridView ID="gvUploadList" runat="server" class="table table-striped table-bordered table-hover" AutoGenerateColumns="False" Width="100%" DataKeyNames="EmpCode" OnRowDataBound="gvUploadList_RowDataBound">
                                                         <Columns>
-                                                            <asp:BoundField DataField="SrNo" HeaderText="Sr.No." HeaderStyle-CssClass="col-lg-6">
+                                                            <asp:BoundField DataField="EmpCode" HeaderText="Emp Code">
                                                                 <HeaderStyle CssClass="col-lg-1"></HeaderStyle>
                                                             </asp:BoundField>
-                                                            <asp:BoundField DataField="Employeecd" HeaderText="Employee Code" HeaderStyle-CssClass="col-lg-6">
-                                                                <HeaderStyle CssClass="col-lg-1"></HeaderStyle>
-                                                            </asp:BoundField>
-                                                            <asp:BoundField DataField="Employeename" HeaderText="Name" HeaderStyle-CssClass="col-lg-4">
-                                                                <HeaderStyle CssClass="col-lg-3"></HeaderStyle>
-                                                            </asp:BoundField>
-                                                            <asp:BoundField DataField="OrgJoinDate" HeaderText="Orignal Joining Date" HeaderStyle-CssClass="col-lg-4">
-                                                                <HeaderStyle CssClass="col-lg-1"></HeaderStyle>
-                                                            </asp:BoundField>
-                                                            <asp:BoundField DataField="PrvGross" HeaderText="Previous Gross" HeaderStyle-CssClass="col-lg-4">
-                                                                <HeaderStyle CssClass="col-lg-1"></HeaderStyle>
-                                                            </asp:BoundField>
-                                                            <asp:BoundField DataField="IncrementAmt" HeaderText="Increment Amount" HeaderStyle-CssClass="col-lg-4">
-                                                                <HeaderStyle CssClass="col-lg-1"></HeaderStyle>
-                                                            </asp:BoundField>
-                                                            <asp:BoundField DataField="wef" HeaderText="W.E.F." HeaderStyle-CssClass="col-lg-4">
-                                                                <HeaderStyle CssClass="col-lg-1"></HeaderStyle>
-                                                            </asp:BoundField>
-                                                            <asp:BoundField DataField="RevisedGross" HeaderText="Revised Gross" HeaderStyle-CssClass="col-lg-4">
-                                                                <HeaderStyle CssClass="col-lg-1"></HeaderStyle>
-                                                            </asp:BoundField>
-                                                            <asp:BoundField DataField="Arrears" HeaderText="Arrears" HeaderStyle-CssClass="col-lg-4">
-                                                                <HeaderStyle CssClass="col-lg-1"></HeaderStyle>
-                                                            </asp:BoundField>
-                                                            <asp:BoundField DataField="Remark1" HeaderText="Remark1" HeaderStyle-CssClass="col-lg-4">
-                                                                <HeaderStyle CssClass="col-lg-1"></HeaderStyle>
-                                                            </asp:BoundField>
-                                                            <asp:BoundField DataField="Remark2" HeaderText="Remark2" HeaderStyle-CssClass="col-lg-4">
-                                                                <HeaderStyle CssClass="col-lg-1"></HeaderStyle>
-                                                            </asp:BoundField>
-                                                            <asp:BoundField DataField="RevisedGross1" HeaderText="Revised Gross" HeaderStyle-CssClass="col-lg-4">
-                                                                <HeaderStyle CssClass="col-lg-1"></HeaderStyle>
-                                                            </asp:BoundField>
-                                                            <asp:BoundField DataField="H" HeaderText="" HeaderStyle-CssClass="col-lg-4">
-                                                                <HeaderStyle CssClass="col-lg-1"></HeaderStyle>
-                                                            </asp:BoundField>
-
-                                                            <asp:BoundField DataField="BasicDA" HeaderText="Basic+DA" HeaderStyle-CssClass="col-lg-4">
-                                                                <HeaderStyle CssClass="col-lg-1"></HeaderStyle>
-                                                            </asp:BoundField>
-                                                            <asp:BoundField DataField="HRA" HeaderText="HRA" HeaderStyle-CssClass="col-lg-4">
-                                                                <HeaderStyle CssClass="col-lg-1"></HeaderStyle>
-                                                            </asp:BoundField>
-                                                            <asp:BoundField DataField="Medical" HeaderText="Medical Allowance" HeaderStyle-CssClass="col-lg-4">
-                                                                <HeaderStyle CssClass="col-lg-1"></HeaderStyle>
-                                                            </asp:BoundField>
-                                                            <asp:BoundField DataField="Educatonal" HeaderText="Educatonal Allowance" HeaderStyle-CssClass="col-lg-4">
-                                                                <HeaderStyle CssClass="col-lg-1"></HeaderStyle>
-                                                            </asp:BoundField>
-                                                             <asp:BoundField DataField="Conveyance" HeaderText="Conveyance/Travelling Allowance" HeaderStyle-CssClass="col-lg-4">
-                                                                <HeaderStyle CssClass="col-lg-1"></HeaderStyle>
-                                                            </asp:BoundField>
-                                                            <asp:BoundField DataField="Canteen" HeaderText="Tea & Tiffin Allowance" HeaderStyle-CssClass="col-lg-4">
-                                                                <HeaderStyle CssClass="col-lg-1"></HeaderStyle>
-                                                            </asp:BoundField>
-
-                                                            <asp:BoundField DataField="Uniform" HeaderText="Uniform & Shoes Allowance" HeaderStyle-CssClass="col-lg-4">
-                                                                <HeaderStyle CssClass="col-lg-1"></HeaderStyle>
-                                                            </asp:BoundField>
-                                                             <asp:BoundField DataField="Washing" HeaderText="Washing Allowance" HeaderStyle-CssClass="col-lg-4">
-                                                                <HeaderStyle CssClass="col-lg-1"></HeaderStyle>
-                                                            </asp:BoundField>
-                                                            <asp:BoundField DataField="GrossEarning" HeaderText="Gross Earning" HeaderStyle-CssClass="col-lg-4">
-                                                                <HeaderStyle CssClass="col-lg-1"></HeaderStyle>
-                                                            </asp:BoundField>
-                                                        </Columns>
-                                                        <PagerStyle CssClass="GridPager" />
-                                                    </asp:GridView>
-                                                </div>
-                                            </div>
-                                        </div>
-                                       <div class="col-lg-6">
-                                            <div class="hpanel">
-                                                <div class="panel-heading">
-                                                    <div class="panel-tools">
-                                                        <a class="showhide"><i class="fa fa-chevron-up"></i></a>
-                                                        <a class="closebox"><i class="fa fa-times"></i></a>
-                                                    </div>
-                                                    Salary Not Found Or Not Approved List
-                                                </div>
-                                                <div class="panel-body">
-                                                    <asp:GridView ID="gvSalary" runat="server" class="table table-striped table-bordered table-hover" AllowPaging="True" AutoGenerateColumns="False" PageSize="20" Width="100%" DataKeyNames="Employeecd">
-                                                        <Columns>
-                                                            <asp:BoundField DataField="Employeecd" HeaderText="Employee Code" HeaderStyle-CssClass="col-lg-6">
-                                                                <HeaderStyle CssClass="col-lg-2"></HeaderStyle>
-                                                            </asp:BoundField>
-                                                            <asp:BoundField DataField="Employeename" HeaderText="Name" HeaderStyle-CssClass="col-lg-4">
-                                                                <HeaderStyle CssClass="col-lg-6"></HeaderStyle>
-                                                            </asp:BoundField>
-                                                            <asp:BoundField DataField="Attendence" HeaderText="Salary" HeaderStyle-CssClass="col-lg-4">
+                                                            <asp:BoundField DataField="Name" HeaderText="Employee Name">
                                                                 <HeaderStyle CssClass="col-lg-4"></HeaderStyle>
                                                             </asp:BoundField>
-
+                                                            <asp:BoundField DataField="wef" HeaderText="wef" DataFormatString="{0:dd/MM/yyyy}" />
+                                                            <asp:BoundField DataField="Arrears" HeaderText="Arrears"></asp:BoundField>
+                                                            <asp:BoundField DataField="BASICDA" HeaderText="BASIC+DA"></asp:BoundField>
+                                                            <asp:BoundField DataField="HRA" HeaderText="HRA"></asp:BoundField>
+                                                            <asp:BoundField DataField="MedicalAllowance" HeaderText="Medical"></asp:BoundField>
+                                                            <asp:BoundField DataField="EducationalAllowance" HeaderText="Education"></asp:BoundField>
+                                                            <asp:BoundField DataField="ConveyanceTravellingAllowance" HeaderText="Conveyance"></asp:BoundField>
+                                                            <asp:BoundField DataField="TeaTiffinAllowance" HeaderText="TeaTiffin"></asp:BoundField>
+                                                            <asp:BoundField DataField="UniformShoesAllowance" HeaderText="UniformShoes"></asp:BoundField>
+                                                            <asp:BoundField DataField="WashingAllowance" HeaderText="Washing"></asp:BoundField>
+                                                            <asp:BoundField DataField="Add1" HeaderText="Add1"></asp:BoundField>
+                                                            <asp:BoundField DataField="Add2" HeaderText="Add2"></asp:BoundField>
+                                                            <asp:BoundField DataField="Add3" HeaderText="Add3"></asp:BoundField>
+                                                            <asp:BoundField DataField="GrossEarning" HeaderText="Gross"></asp:BoundField>
+                                                            <%--<asp:BoundField DataField="Uploaded" HeaderText="Uploaded" Visible="false" ></asp:BoundField>--%>
+                                                            <asp:TemplateField HeaderText="Status" HeaderStyle-CssClass="col-lg-1" Visible="false">
+                                                                <ItemTemplate>
+                                                                    <asp:Label ID="lblStatus" runat="server" Text='<%# Bind("Uploaded") %>'></asp:Label>
+                                                                </ItemTemplate>
+                                                                <HeaderStyle CssClass="col-lg-1" />
+                                                            </asp:TemplateField>
                                                         </Columns>
                                                         <PagerStyle CssClass="GridPager" />
                                                     </asp:GridView>
@@ -200,10 +133,10 @@
                                     </div>
                                 </asp:Panel>
                                 <div class="form-group">
-                                    <div class="col-sm-8 col-sm-offset-0">
-                                        <asp:Button ID="btnCancel" runat="server" Text="Cancel" class="btn btn-outline btn-warning" OnClick="btnCancel_Click" TabIndex="5" />
-                                        <asp:Button ID="btnSave" runat="server" Text="Save" class="btn btn-outline btn-success" OnClick="btnSave_Click" ValidationGroup="OK" TabIndex="4" />
-                                        
+                                    <div class="col-sm-12 col-sm-offset-0 pull-right">
+                                        <asp:Button ID="btnCancel" runat="server" Text="Cancel" class="btn btn-outline btn-warning " OnClick="btnCancel_Click" TabIndex="5" />
+                                        <asp:Button ID="btnSave" runat="server" Text="Save" class="btn btn-outline btn-success " OnClick="btnSave_Click" ValidationGroup="OK" TabIndex="4" />
+
                                     </div>
                                 </div>
                             </div>
@@ -227,13 +160,13 @@
             </div>
         </ContentTemplate>
         <Triggers>
-            <asp:PostBackTrigger ControlID="btnSave" />
+            <asp:PostBackTrigger ControlID="btnUpload" />
         </Triggers>
     </asp:UpdatePanel>
 
 
 
- <script type="text/javascript">
+    <script type="text/javascript">
         var updateProgress = null;
         function postbackButtonClick() {
             updateProgress = $find("<%= UpdateProgress1.ClientID %>");

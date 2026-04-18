@@ -40,13 +40,22 @@ namespace PayRoll.Masters {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
         
         /// <summary>
-        /// txtLWFReportType control.
+        /// ddlLWFReportType control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtLWFReportType;
+        protected global::System.Web.UI.WebControls.DropDownList ddlLWFReportType;
+        
+        /// <summary>
+        /// ddlList control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlList;
         
         /// <summary>
         /// chkIsActive control.

@@ -59,6 +59,11 @@ namespace PayRoll.Reports
                             return;
                         }
                     }
+                    else
+                    {
+                        ScriptManager.RegisterStartupScript(UpdatePanel1, UpdatePanel1.GetType(), "PayRoll", "alert('Leave date not set'); ", true);
+                        return;
+                    }
                 }
                 else
                 {
@@ -131,6 +136,7 @@ namespace PayRoll.Reports
                 string PendingSalMonth = "", PresentDays="";
                 double Basic = 0, HRA = 0, Conveyance = 0, Educational = 0, Medical = 0, Washing = 0, Uniform = 0, Canteen = 0, insentive=0, EarTotal = 0;
                 double PF = 0, ProfTax = 0, LWF = 0, Advance = 0, Patsanstha = 0, CompAsset = 0, TDS = 0, ESI = 0, Entertainment=0, DedTotal = 0;
+                double TravellingAllowance = 0, TravellingExpenses = 0;
                 string leaveMonthYr = Convert.ToInt16(Convert.ToDateTime(leaveDate).Year).ToString("0000") + Convert.ToInt16(Convert.ToDateTime(leaveDate).Month).ToString("00");
 
                 dt.Columns.Add("OrgID", typeof(string));
@@ -194,6 +200,9 @@ namespace PayRoll.Reports
                 dt.Columns.Add("Head4", typeof(string));
                 dt.Columns.Add("Head5", typeof(string));
 
+                dt.Columns.Add("TravellingAllowance", typeof(double));
+                dt.Columns.Add("TravellingExpenses", typeof(double));
+
                 //string strQrySal = "SELECT dbo.M_Emp.Employeename, dbo.M_Emp.Employeecd, dbo.M_Emp.OrigJoindate, dbo.M_Emp.PFJoindate, dbo.M_Emp.Leavedate, dbo.T_MonthlySalary.MonYrcd, ";
                 //strQrySal += " dbo.T_MonthlySalary.PresentDay, isnull(dbo.T_MonthlySalary.BasicDA,0) as BasicDA, isnull(dbo.T_MonthlySalary.HRA,0) as HRA, isnull(dbo.T_MonthlySalary.Conveyance,0) as Conveyance, isnull(dbo.T_MonthlySalary.Education,0) as Education, ";
                 //strQrySal += " isnull(dbo.T_MonthlySalary.Medical,0) as Medical, isnull(dbo.T_MonthlySalary.Washing,0) as Washing, isnull(dbo.T_MonthlySalary.Uniform,0) as Uniform, isnull(dbo.T_MonthlySalary.Canteen,0) as Canteen,isnull(dbo.T_MonthlySalary.Incentive,0) as Incentive, ";
@@ -218,7 +227,8 @@ namespace PayRoll.Reports
                 strQrySal += " (SELECT years FROM dbo.udfTimeSpan(dbo.M_Emp.OrigJoindate, dbo.M_Emp.Leavedate) AS udfTimeSpan_3) AS Years,";
                 strQrySal += " (SELECT months FROM dbo.udfTimeSpan(dbo.M_Emp.OrigJoindate, dbo.M_Emp.Leavedate) AS udfTimeSpan_2) AS months,";
                 strQrySal += " (SELECT days FROM dbo.udfTimeSpan(dbo.M_Emp.OrigJoindate, dbo.M_Emp.Leavedate) AS udfTimeSpan_1) AS days, ISNULL(dbo.T_Gratuity.Amount, 0) AS GratuityImpAmount,";
-                strQrySal += " udfEmployeesalarymax_1.BasicDA AS stdBasicDA ";
+                strQrySal += " udfEmployeesalarymax_1.BasicDA AS stdBasicDA, ";
+                strQrySal += " ISNULL(dbo.T_MonthlySalary.Add2, 0) AS TravellingAllowance, ISNULL(dbo.T_MonthlySalary.Ded2, 0) AS TravellingExpenses ";
                 strQrySal += " FROM dbo.T_MonthlySalary LEFT OUTER JOIN ";
                 strQrySal += " dbo.udfEmployeesalarymax("+  Convert.ToInt32(Session["OrgID"]) +"," + leaveMonthYr + ") AS udfEmployeesalarymax_1 ON dbo.T_MonthlySalary.OrgId = udfEmployeesalarymax_1.OrgId AND";
                 strQrySal += " dbo.T_MonthlySalary.Employeecd = udfEmployeesalarymax_1.Employeecd LEFT OUTER JOIN ";
@@ -290,6 +300,9 @@ namespace PayRoll.Reports
                         ESI = ESI + Convert.ToDouble(objDTSal.Rows[i]["ESIEmpContribution"]);
                         Entertainment = Entertainment + Convert.ToDouble(objDTSal.Rows[i]["Entertainment"]);
                         DedTotal = DedTotal + Convert.ToDouble(objDTSal.Rows[i]["Deduction"]);
+
+                        TravellingAllowance = TravellingAllowance + Convert.ToDouble(objDTSal.Rows[i]["TravellingAllowance"]);
+                        TravellingExpenses = TravellingExpenses + Convert.ToDouble(objDTSal.Rows[i]["TravellingExpenses"]);
                     }
 
 
@@ -316,6 +329,9 @@ namespace PayRoll.Reports
                     dr["ESI"] = Convert.ToDouble(ESI).ToString();
                     dr["Entertainment"] = Convert.ToDouble(Entertainment).ToString();
                     dr["DedTotal"] = Convert.ToDouble(DedTotal).ToString();
+
+                    dr["TravellingAllowance"] = Convert.ToDouble(TravellingAllowance).ToString();
+                    dr["TravellingExpenses"] = Convert.ToDouble(TravellingExpenses).ToString();
 
 
                     dr["ServicePeriod"] = objDTSal.Rows[0]["Years"].ToString() + " Years " + objDTSal.Rows[0]["Months"].ToString() + " Months " + objDTSal.Rows[0]["days"].ToString() + " Days " ;
@@ -415,7 +431,8 @@ namespace PayRoll.Reports
                     //qryBonus += " ON dbo.T_MonthlySalary.OrgId = desi.OrgId AND dbo.T_MonthlySalary.Employeecd = desi.Employeecd ";
                     //qryBonus += " WHERE(dbo.T_MonthlySalary.OrgId =" + Convert.ToInt32(Session["OrgID"]) + ") AND(dbo.T_MonthlySalary.Employeecd = '"+ txtEmpCode.Text+ "') AND(dbo.T_MonthlySalary.Docdate > '" + Convert.ToDateTime("01-10-" + year).ToString("dd MMM yyyy") + "')";
 
-                    string qryBonus = " SELECT dbo.T_MonthlySalary.Gross, isnull(dbo.T_MonthlySalary.Incentive,0) as Incentive, isnull(desi.conId,0) as desiCD FROM dbo.T_MonthlySalary LEFT OUTER JOIN dbo.udfEmpConfigurationmax1(" + Convert.ToInt32(Session["OrgID"]) + ",'" + Convert.ToDateTime(DateTime.Now).ToString("dd MMM yyyy") + "', 'desg') AS desi ";
+                    string qryBonus = " SELECT Round(dbo.T_MonthlySalary.gross - isnull(T_MonthlySalary.Add1, 0) - isnull(T_MonthlySalary.Add2, 0), 0) AS Gross, ";
+                    qryBonus += " isnull(dbo.T_MonthlySalary.Incentive,0) as Incentive, isnull(desi.conId,0) as desiCD FROM dbo.T_MonthlySalary LEFT OUTER JOIN dbo.udfEmpConfigurationmax1(" + Convert.ToInt32(Session["OrgID"]) + ",'" + Convert.ToDateTime(DateTime.Now).ToString("dd MMM yyyy") + "', 'desg') AS desi ";
                     qryBonus += " ON dbo.T_MonthlySalary.OrgId = desi.OrgId AND dbo.T_MonthlySalary.Employeecd = desi.Employeecd ";
                     qryBonus += " WHERE(dbo.T_MonthlySalary.OrgId =" + Convert.ToInt32(Session["OrgID"]) + ") AND(dbo.T_MonthlySalary.Employeecd = '" + txtEmpCode.Text + "') AND ( right(dbo.T_MonthlySalary.MonYrCd,4) +  left(dbo.T_MonthlySalary.MonYrCd,2) between '" + salaryFrom + "' and '" + salaryTo + "')";
 
