@@ -129,8 +129,12 @@
     <Reference Include="Microsoft.ReportViewer.WebForms, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.WebForms.150.1652.0\lib\net40\Microsoft.ReportViewer.WebForms.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.SqlServer.Server, Version=1.0.0.0, Culture=neutral, PublicKeyToken=23ec7fc2d6eaa4a5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Server.1.0.0\lib\net46\Microsoft.SqlServer.Server.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.314.76\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="SqlClient">
       <HintPath>..\..\..\..\IT_Projects\IT_Projects\bin\SqlClient.dll</HintPath>
@@ -251,12 +255,7 @@
     <Content Include="bin\Antlr3.Runtime.dll" />
     <Content Include="bin\AspNet.ScriptManager.bootstrap.dll" />
     <Content Include="bin\AspNet.ScriptManager.jQuery.dll" />
-    <Content Include="bin\de\Microsoft.SqlServer.Types.resources.dll" />
-    <Content Include="bin\es\Microsoft.SqlServer.Types.resources.dll" />
-    <Content Include="bin\fr\Microsoft.SqlServer.Types.resources.dll" />
-    <Content Include="bin\it\Microsoft.SqlServer.Types.resources.dll" />
-    <Content Include="bin\ja\Microsoft.SqlServer.Types.resources.dll" />
-    <Content Include="bin\ko\Microsoft.SqlServer.Types.resources.dll" />
+    
     <Content Include="bin\Microsoft.AspNet.FriendlyUrls.dll" />
     <Content Include="bin\Microsoft.AspNet.Web.Optimization.WebForms.dll" />
     <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll" />
@@ -268,7 +267,6 @@
     <Content Include="bin\Newtonsoft.Json.dll" />
     <Content Include="bin\PayRoll.dll" />
     <Content Include="bin\PayRoll.pdb" />
-    <Content Include="bin\pt\Microsoft.SqlServer.Types.resources.dll" />
     <Content Include="bin\roslyn\csc.exe" />
     <Content Include="bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll" />
     <Content Include="bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll" />
@@ -278,12 +276,9 @@
     <Content Include="bin\roslyn\System.Reflection.Metadata.dll" />
     <Content Include="bin\roslyn\vbc.exe" />
     <Content Include="bin\roslyn\VBCSCompiler.exe" />
-    <Content Include="bin\ru\Microsoft.SqlServer.Types.resources.dll" />
     <Content Include="bin\SqlClient.dll" />
     <Content Include="bin\System.Web.Optimization.dll" />
     <Content Include="bin\WebGrease.dll" />
-    <Content Include="bin\zh-Hans\Microsoft.SqlServer.Types.resources.dll" />
-    <Content Include="bin\zh-Hant\Microsoft.SqlServer.Types.resources.dll" />
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -543,6 +538,7 @@
     <Content Include="Reports\DesignationSalRegSumm.aspx" />
     <Content Include="Reports\CategorySalRegSumm.aspx" />
     <Content Include="Reports\AdvanceRegister.aspx" />
+    <Content Include="Reports\EmployeeAttendance.aspx" />
     <Content Include="Reports\EmployeeJoinLeft.aspx" />
     <Content Include="Reports\LeaveBalanceRegister.aspx" />
     <Content Include="Reports\LeaveRegister.aspx" />
@@ -3281,9 +3277,7 @@
       <DependentUpon>Taluka.aspx</DependentUpon>
     </Compile>
     <Compile Include="Models\CountryModel.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+
     <Compile Include="PayRollDS.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -3385,6 +3379,13 @@
     </Compile>
     <Compile Include="Reports\AdvanceRegister.aspx.designer.cs">
       <DependentUpon>AdvanceRegister.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\EmployeeAttendance.aspx.cs">
+      <DependentUpon>EmployeeAttendance.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\EmployeeAttendance.aspx.designer.cs">
+      <DependentUpon>EmployeeAttendance.aspx</DependentUpon>
     </Compile>
     <Compile Include="Reports\EmployeeJoinLeft.aspx.cs">
       <DependentUpon>EmployeeJoinLeft.aspx</DependentUpon>
@@ -3741,13 +3742,14 @@
     <EmbeddedResource Include="Reports\EarningDeductionStatementSumm.rdlc" />
     <EmbeddedResource Include="Reports\EmpBonusInfo.rdlc" />
     <EmbeddedResource Include="Reports\EmpEncentiveInfo.rdlc" />
+    <EmbeddedResource Include="Reports\EmployeeJoinLeftReport.rdlc" />
     <EmbeddedResource Include="Reports\Form16.rdlc" />
     <EmbeddedResource Include="Reports\Form16Old.rdlc" />
     <EmbeddedResource Include="Reports\LeaveBalanceRegister.rdlc" />
     <EmbeddedResource Include="Reports\LeaveRegister.rdlc" />
     <EmbeddedResource Include="Reports\M7Report.rdlc" />
     <EmbeddedResource Include="Reports\ProfTaxSummary.rdlc" />
-    <EmbeddedResource Include="Reports\EmployeeJoinLeftReport.rdlc" />
+    <EmbeddedResource Include="Reports\EmployeeAttendance.rdlc" />
     <EmbeddedResource Include="Reports\rptAccBalOutInfo.rdlc" />
     <EmbeddedResource Include="Reports\rptAdvanceDedExport.rdlc" />
     <EmbeddedResource Include="Reports\rptAdvanceRegisterDet.rdlc" />

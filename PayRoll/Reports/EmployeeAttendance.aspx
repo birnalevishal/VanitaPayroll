@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Employee Left/Join" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EmployeeJoinLeft.aspx.cs" Inherits="PayRoll.Reports.EmployeeJoinLeft" %>
+﻿<%@ Page Title="Employee Attendance" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EmployeeAttendance.aspx.cs" Inherits="PayRoll.Reports.EmployeeAttendance" %>
 
 <%@ Register Assembly="Microsoft.ReportViewer.WebForms" Namespace="Microsoft.Reporting.WebForms" TagPrefix="rsweb" %>
 
@@ -22,7 +22,7 @@
                                 </li>
                             </ol>
                         </div>
-                        <h2 class="font-light m-b-xs">Employee Left + Join
+                        <h2 class="font-light m-b-xs">Employee Attendance
                         </h2>
 
                     </div>
@@ -37,21 +37,13 @@
                                 <a class="showhide"><i class="fa fa-chevron-up"></i></a>
                                 <a class="closebox"><i class="fa fa-times"></i></a>
                             </div>
-                            Employee Left + Join
+                            Employee Attendance
                         </div>
                         <div class="panel-body">
                             <div class="col-lg-12">
-                                 <div class="form-group col-lg-2">
-                                    <label for="username">Type </label>
-                                    <asp:DropDownList ID="ddlType" runat="server" class="form-control m-b" name="account" CausesValidation="True" TabIndex="9" >
-                                        <asp:ListItem Text="Joined Employees" Value="3"></asp:ListItem>
-                                        <asp:ListItem Text="Left Employees" Value="4"></asp:ListItem>
-                                    </asp:DropDownList>
-                                </div>
-
                                 <div class="form-group col-lg-2">
                                     <label for="username">From Month</label>
-                                    <asp:DropDownList ID="ddlFrMon" runat="server" class="form-control" name="account" CausesValidation="True"  TabIndex="1">
+                                    <asp:DropDownList ID="ddlFrMon" runat="server" class="form-control" name="account" CausesValidation="True" TabIndex="1">
                                         <asp:ListItem Text="select" Value="00" Selected="True"></asp:ListItem>
                                         <asp:ListItem Text="January" Value="01"></asp:ListItem>
                                         <asp:ListItem Text="February" Value="02"></asp:ListItem>
@@ -70,7 +62,7 @@
                                 </div>
                                 <div class="form-group col-lg-2">
                                     <label for="username">From Year</label>
-                                    <asp:DropDownList ID="ddlFrYear" runat="server" class="form-control" name="account" CausesValidation="True"  TabIndex="2">
+                                    <asp:DropDownList ID="ddlFrYear" runat="server" class="form-control" name="account" CausesValidation="True" TabIndex="2">
                                     </asp:DropDownList>
                                     <asp:RequiredFieldValidator ID="RFVddlYear" InitialValue="0000" runat="server" ControlToValidate="ddlFrYear" ErrorMessage="Select Year" Display="Dynamic" ForeColor="Red" ValidationGroup="OK"></asp:RequiredFieldValidator>
                                 </div>
@@ -96,20 +88,17 @@
                                 </div>
                                 <div class="form-group col-lg-2">
                                     <label for="username">To Year</label>
-                                    <asp:DropDownList ID="ddlToYear" runat="server" class="form-control" name="account"  TabIndex="2">
+                                    <asp:DropDownList ID="ddlToYear" runat="server" class="form-control" name="account" TabIndex="2">
                                     </asp:DropDownList>
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator2" InitialValue="0000" runat="server" ControlToValidate="ddlToYear" ErrorMessage="Select Year" Display="Dynamic" ForeColor="Red" ValidationGroup="OK"></asp:RequiredFieldValidator>
                                 </div>
-
-                            </div>
-                            <div class="col-lg-12">
-                                 <div class="form-group col-lg-6">
+                                <div class="form-group col-lg-4">
                                     <label for="username">Organization </label>
-                                    <asp:DropDownList ID="ddlOrg" runat="server" class="form-control m-b" name="account"  TabIndex="8"></asp:DropDownList>
+                                    <asp:DropDownList ID="ddlOrg" runat="server" class="form-control m-b" name="account" TabIndex="8"></asp:DropDownList>
                                 </div>
-                                
                             </div>
-                             <div class="col-lg-12">
+                           
+                            <div class="col-lg-12">
                                 <div class="form-group">
                                     <div class="col-sm-4 col-sm-offset-0">
                                         <asp:Button ID="btnCancel" runat="server" Text="Cancel" class="btn btn-outline btn-warning" TabIndex="13" OnClick="btnCancel_Click" />
@@ -117,14 +106,14 @@
                                     </div>
                                 </div>
                             </div>
-                             <div class="col-lg-12">
+                            <div class="col-lg-12">
                                 <div class="hr-line-dashed"></div>
                             </div>
                             <div class="col-lg-12">
                                 <rsweb:ReportViewer ID="ReportViewer1" runat="server" Width="100%" class="table table-bordered table-striped">
                                 </rsweb:ReportViewer>
-                                
-                                
+
+
                             </div>
 
                         </div>
