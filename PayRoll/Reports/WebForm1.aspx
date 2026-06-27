@@ -66,10 +66,10 @@
                 document.getElementById('<%= txt2.ClientID %>').placeholder = 'DD/MM/YYYY';
             }
 
-}
-window.onload = function () {
-    txtVisible();
-}
+        }
+        window.onload = function () {
+            txtVisible();
+        }
     </script>
 
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
@@ -203,6 +203,11 @@ window.onload = function () {
                                         <label for="Isactive">All Organisations</label>
                                         <asp:CheckBox ID="chkAll" runat="server" type="checkbox" class="i-checks" TabIndex="14" />
                                     </div>
+
+                                    <div class="form-group col-lg-2">
+                                        <label for="username">Head Quarter </label>
+                                        <asp:DropDownList ID="ddlHQ" runat="server" class="form-control m-b" name="hq" TabIndex="9"></asp:DropDownList>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-lg-12">
@@ -211,7 +216,7 @@ window.onload = function () {
                             <div class="col-lg-12">
                                 <rsweb:ReportViewer ID="ReportViewer1" runat="server" Width="100%" class="table table-bordered table-striped">
                                 </rsweb:ReportViewer>
-                                
+
                             </div>
                         </div>
                     </div>

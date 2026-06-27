@@ -573,6 +573,20 @@ namespace PayRoll.Masters
                 ScriptManager.RegisterStartupScript(UpdatePanel1, UpdatePanel1.GetType(), "PayRoll", "alert('Enter Valid Basic Salary'); ", true);
                 return false;
             }
+
+            //Added to perform check in Allowance Configuration w.r.t Travelling Allowance mismatch
+            string dateNow = Convert.ToDateTime("01-" + ddlMon.SelectedValue + "-" + ddlYear.SelectedValue).ToString("dd MMM yyyy");
+            string strQry = "SELECT * FROM dbo.udf_AllowanceMaxByEmpcode("+ Convert.ToInt32(Session["OrgID"]) + ", '"+ dateNow +"', '" + txtEmpCode.Text.Trim()  + "')";
+            DataTable dt = SqlHelper.ExecuteDataTable(strQry, AppGlobal.strConnString);
+            if (dt.Rows.Count > 0)
+            {
+                if (Convert.ToDecimal(dt.Rows[0]["TravelAllowance"]) != Convert.ToDecimal(txtAdd2.Text))
+                {
+                    ScriptManager.RegisterStartupScript(UpdatePanel1, UpdatePanel1.GetType(), "PayRoll", "alert('Travelling allowance mismatch, please check allowance configuration'); ", true);
+                    return false;
+                }
+            }
+
             return true;
         }
 

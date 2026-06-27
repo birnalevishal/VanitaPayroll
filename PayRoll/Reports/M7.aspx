@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="M7 Report" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="M7.aspx.cs" Inherits="PayRoll.Reports.M7" %>
+
 <%@ Register Assembly="Microsoft.ReportViewer.WebForms" Namespace="Microsoft.Reporting.WebForms" TagPrefix="rsweb" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
@@ -93,17 +94,23 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="col-sm-1 control-label">Loc/Dept. </label>
-                                            <div class="col-sm-3">
+                                            <%-- <div class="col-sm-3">
                                                 <asp:DropDownList ID="ddlDepartment" runat="server" class="form-control" TabIndex="5" >
                                                 </asp:DropDownList>
+                                            </div>--%>
+                                            <div class="col-sm-3">
+                                                <asp:ListBox ID="ddlDepartment" runat="server"
+                                                    CssClass="form-control"
+                                                    SelectionMode="Multiple"
+                                                    TabIndex="5"></asp:ListBox>
                                             </div>
 
                                             <%--<div class="col-sm-3">
                                                 <asp:ListBox ID="ddlDepartment1" runat="server" class="form-control" SelectionMode="Multiple"></asp:ListBox>
                                             </div>
                                             <asp:HiddenField ID="ddlDepts" runat="server" />--%>
-                                            
-                                            <label class="col-sm-1 control-label" >Division </label>
+
+                                            <label class="col-sm-1 control-label">Division </label>
                                             <div class="col-sm-3">
                                                 <asp:DropDownList ID="ddlDivision" runat="server" class="form-control" TabIndex="5">
                                                 </asp:DropDownList>
@@ -158,10 +165,10 @@
             window.setTimeout("updateProgress.set_visible(true)", updateProgress.get_displayAfter());
             return true;
         }
-       
+
     </script>
 
-    
+
 
 
 

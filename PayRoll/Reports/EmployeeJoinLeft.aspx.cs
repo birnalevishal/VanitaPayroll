@@ -47,6 +47,7 @@ namespace PayRoll.Reports
             ddlOrg.DataValueField = "OrgId";
             ddlOrg.DataBind();
             ddlOrg.Items.Insert(0, new ListItem("All Organizations", "0"));
+            ddlOrg.SelectedValue = Session["OrgId"].ToString();
 
         }
 

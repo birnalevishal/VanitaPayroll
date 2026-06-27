@@ -301,7 +301,7 @@ First(Fields!City.Value, "dsRelievingLetter") + " Tal. " + First(Fields!Taluka.V
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>Subject :- Relieving Letter.</Value>
+                    <Value>Subject :- </Value>
                     <Style>
                       <FontStyle>Normal</FontStyle>
                       <FontFamily>Times New Roman</FontFamily>
@@ -309,6 +309,16 @@ First(Fields!City.Value, "dsRelievingLetter") + " Tal. " + First(Fields!Taluka.V
                       <FontWeight>Bold</FontWeight>
                       <TextDecoration>None</TextDecoration>
                       <Color>#000000</Color>
+                    </Style>
+                  </TextRun>
+                  <TextRun>
+                    <Value>Resignation Acceptance Letter</Value>
+                    <Style>
+                      <FontStyle>Normal</FontStyle>
+                      <FontFamily>Times New Roman</FontFamily>
+                      <FontSize>12pt</FontSize>
+                      <FontWeight>Bold</FontWeight>
+                      <TextDecoration>None</TextDecoration>
                     </Style>
                   </TextRun>
                 </TextRuns>
@@ -423,7 +433,7 @@ First(Fields!City.Value, "dsRelievingLetter") + " Tal. " + First(Fields!Taluka.V
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>VAPL/HR/F/16-00</Value>
+                    <Value />
                     <Style>
                       <FontStyle>Normal</FontStyle>
                       <FontFamily>Times New Roman</FontFamily>
@@ -465,7 +475,7 @@ First(Fields!City.Value, "dsRelievingLetter") + " Tal. " + First(Fields!Taluka.V
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>You were working in our  </Value>
+                    <Value>You are working in our  </Value>
                     <MarkupType>HTML</MarkupType>
                     <Style>
                       <FontStyle>Normal</FontStyle>
@@ -555,7 +565,7 @@ First(Fields!City.Value, "dsRelievingLetter") + " Tal. " + First(Fields!Taluka.V
                   <TextRun>
                     <Value>=Code.AddOrdinal(Day(Parameters!PfOrOrigjdate.Value)) &amp; " " &amp; 
 Format(Parameters!PfOrOrigjdate.Value,"MMM") &amp; "., " &amp;
-Format(Parameters!PfOrOrigjdate.Value,"yyyy") &amp; " "</Value>
+Format(Parameters!PfOrOrigjdate.Value,"yyyy") &amp; ". "</Value>
                     <MarkupType>HTML</MarkupType>
                     <Style>
                       <FontStyle>Normal</FontStyle>
@@ -567,7 +577,7 @@ Format(Parameters!PfOrOrigjdate.Value,"yyyy") &amp; " "</Value>
                     </Style>
                   </TextRun>
                   <TextRun>
-                    <Value>  to  </Value>
+                    <Value xml:space="preserve">  </Value>
                     <MarkupType>HTML</MarkupType>
                     <Style>
                       <FontStyle>Normal</FontStyle>
@@ -579,33 +589,7 @@ Format(Parameters!PfOrOrigjdate.Value,"yyyy") &amp; " "</Value>
                     </Style>
                   </TextRun>
                   <TextRun>
-                    <Value>=Code.AddOrdinal(Day(First(Fields!Leavedate.Value, "dsRelievingLetter"))) &amp; " " &amp;
-Format(First(Fields!Leavedate.Value, "dsRelievingLetter"),"MMM") &amp; "., " &amp;
-Format(First(Fields!Leavedate.Value, "dsRelievingLetter"),"yyyy") &amp; ". "</Value>
-                    <MarkupType>HTML</MarkupType>
-                    <Style>
-                      <FontStyle>Normal</FontStyle>
-                      <FontFamily>Times New Roman</FontFamily>
-                      <FontSize>12pt</FontSize>
-                      <FontWeight>Normal</FontWeight>
-                      <TextDecoration>None</TextDecoration>
-                      <Color>#000000</Color>
-                    </Style>
-                  </TextRun>
-                  <TextRun>
-                    <Value xml:space="preserve"> </Value>
-                    <MarkupType>HTML</MarkupType>
-                    <Style>
-                      <FontStyle>Normal</FontStyle>
-                      <FontFamily>Times New Roman</FontFamily>
-                      <FontSize>12pt</FontSize>
-                      <FontWeight>Normal</FontWeight>
-                      <TextDecoration>None</TextDecoration>
-                      <Color>#000000</Color>
-                    </Style>
-                  </TextRun>
-                  <TextRun>
-                    <Value>Further to your resignation letter dated </Value>
+                    <Value>You have now submitted your resignation letter dated </Value>
                     <Style>
                       <FontStyle>Normal</FontStyle>
                       <FontFamily>Times New Roman</FontFamily>
@@ -629,7 +613,7 @@ Format(First(Fields!RegignationDate.Value, "dsRelievingLetter"),"yyyy")</Value>
                     </Style>
                   </TextRun>
                   <TextRun>
-                    <Value>, we hereby accept your resignation and you are relieved from the services w.e.f. </Value>
+                    <Value>, we hereby accept your resignation and you will be relieved from the services w.e.f. </Value>
                     <Style>
                       <FontStyle>Normal</FontStyle>
                       <FontFamily>Times New Roman</FontFamily>
@@ -671,23 +655,6 @@ Format(First(Fields!Leavedate.Value, "dsRelievingLetter"),"yyyy")</Value>
                 <TextRuns>
                   <TextRun>
                     <Value />
-                    <Style>
-                      <FontStyle>Normal</FontStyle>
-                      <FontFamily>Times New Roman</FontFamily>
-                      <FontSize>12pt</FontSize>
-                      <FontWeight>Normal</FontWeight>
-                      <TextDecoration>None</TextDecoration>
-                    </Style>
-                  </TextRun>
-                </TextRuns>
-                <Style>
-                  <LineHeight>20pt</LineHeight>
-                </Style>
-              </Paragraph>
-              <Paragraph>
-                <TextRuns>
-                  <TextRun>
-                    <Value>We wish you all the best for your future endeavours.</Value>
                     <Style>
                       <FontStyle>Normal</FontStyle>
                       <FontFamily>Times New Roman</FontFamily>

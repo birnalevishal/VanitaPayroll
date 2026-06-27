@@ -252,16 +252,16 @@ namespace PayRoll.Masters
                      " PAddre,pPincode, PCitycd, PTalcd, PDistCd, PStateCd, WAddre,wPincode, WCitycd, WTalcd, WDistCd, WStateCd ," +
                      " MobNo, EmailId, Birthdate, Password, OrigJoindate,DatofJoin,HODInchAppl,PANNo,UANNO,PFApplicable,PFJoindate,PFNo," +
                      " HRAApplicable,ProfTaxApplicable,LabWelApplicable,ESIApplicable,ESIIP,ESICalculate,BankCd, BankActNo, BankBranchId,Gratuitydate,DrivingLicence,RegignationDate, " +
-                     " Leavedate,RasonLeavingjob,LIC_Id,LIC_PolicyNo, IsActive, castID,Regid, SubRegid,DiIncode, ESINotApplicableDt, LINNo, PrevExpInYears, PrevExpInMnths) " +
+                     " Leavedate,RasonLeavingjob,LIC_Id,LIC_PolicyNo, IsActive, castID,Regid, SubRegid,DiIncode, ESINotApplicableDt, LINNo, PrevExpInYears, PrevExpInMnths, PensionApplicable) " +
 
                      " VALUES(@OrgId, @Employeecd, @CommCodeAdhno, @FName, @MName, @LName, @Employeename, @Gendercd, @BloodGroup, @Marital,@Qual,@PrevExper,@UserRolecd, " +
                      " @PAddre,@pPincode, @PCitycd, @PTalcd, @PDistCd,@PStateCd, @WAddre,@wPincode, @WCitycd, @WTalcd, @WDistCd, @WStateCd, " +
                      " @MobNo, @EmailId, @Birthdate,@Password, @OrigJoindate,@DatofJoin,@HODInchAppl,@PANNo,@UANNO,@PFApplicable,@PFJoindate,@PFNo," +
                      " @HRAApplicable,@ProfTaxApplicable,@LabWelApplicable,@ESIApplicable,@ESIIP,@ESICalculate, @BankCd,@BankActNo, @BankBranchId,@Gratuitydate,@DrivingLicence,@RegignationDate, " +
-                     " @Leavedate,@RasonLeavingjob,@LIC_Id, @LIC_PolicyNo, @IsActive, @castID,@Regid, @SubRegid,@DiIncode, @ESINotApplicableDt, @LINNo, @PrevExpInYears, @PrevExpInMnths)";
+                     " @Leavedate,@RasonLeavingjob,@LIC_Id, @LIC_PolicyNo, @IsActive, @castID,@Regid, @SubRegid,@DiIncode, @ESINotApplicableDt, @LINNo, @PrevExpInYears, @PrevExpInMnths, @PensionApplicable)";
 
 
-                SqlParameter[] para = new SqlParameter[62];
+                SqlParameter[] para = new SqlParameter[63];
                 para[0] = new SqlParameter("@OrgId", Convert.ToInt32(Session["OrgID"]));
                 para[1] = new SqlParameter("@Employeecd", txtEmpCode.Text.Trim());
                 para[2] = new SqlParameter("@CommCodeAdhno", txtAadharNo.Text.Trim());
@@ -367,6 +367,7 @@ namespace PayRoll.Masters
                 para[59] = new SqlParameter("@LINNo", txtLINNo.Text);
                 para[60] = new SqlParameter("@PrevExpInYears", txtPrevExpYr.Text);
                 para[61] = new SqlParameter("@PrevExpInMnths", txtPrevExpMnth.Text);
+                para[62] = new SqlParameter("@PensionApplicable", ddlPensionApplicable.SelectedValue);
 
                 //result = SqlHelper.ExecuteNonQuery(strQry, para, AppGlobal.strConnString);
                 //-----Check Employee already exists in all organisation-23/11/2020-------------
@@ -492,10 +493,10 @@ namespace PayRoll.Masters
                             MobNo=@MobNo, EmailId=@EmailId, Birthdate=@Birthdate, password=@password, OrigJoindate=@OrigJoindate, DatofJoin=@DatofJoin, HODInchAppl=@HODInchAppl,PANNo=@PANNo,UANNO=@UANNO,PFApplicable=@PFApplicable,PFJoindate=@PFJoindate,PFNo=@PFNo,
                             HRAApplicable=@HRAApplicable,ProfTaxApplicable=@ProfTaxApplicable,LabWelApplicable=@LabWelApplicable,ESIApplicable=@ESIApplicable,ESIIP=@ESIIP, ESICalculate=@ESICalculate, BankCd=@BankCd, BankActNo=@BankActNo, BankBranchId=@BankBranchId,
                             Gratuitydate=@Gratuitydate, DrivingLicence=@DrivingLicence,RegignationDate=@RegignationDate, Leavedate=@Leavedate,RasonLeavingjob=@RasonLeavingjob,IsActive=@IsActive,UserRolecd=@UserRolecd,LIC_Id=@LIC_Id,LIC_PolicyNo=@LIC_PolicyNo, 
-                            castID=@castID,Regid=@Regid, SubRegid=@SubRegid,DiIncode=@DiIncode, ESINotApplicableDt=@ESINotApplicableDt, LINNo=@LINNo, PrevExpInYears=@PrevExpInYears, PrevExpInMnths=@PrevExpInMnths   
+                            castID=@castID,Regid=@Regid, SubRegid=@SubRegid,DiIncode=@DiIncode, ESINotApplicableDt=@ESINotApplicableDt, LINNo=@LINNo, PrevExpInYears=@PrevExpInYears, PrevExpInMnths=@PrevExpInMnths, PensionApplicable=@PensionApplicable    
                        WHERE OrgId=@OrgId and Employeecd=@Employeecd";
 
-                SqlParameter[] para = new SqlParameter[62];
+                SqlParameter[] para = new SqlParameter[63];
                 para[0] = new SqlParameter("@OrgId", Convert.ToInt32(Session["OrgID"]));
                 para[1] = new SqlParameter("@Employeecd", txtEmpCode.Text.Trim());
                 para[2] = new SqlParameter("@CommCodeAdhno", txtAadharNo.Text.Trim());
@@ -601,6 +602,7 @@ namespace PayRoll.Masters
                 para[59] = new SqlParameter("@LINNo", txtLINNo.Text);
                 para[60] = new SqlParameter("@PrevExpInYears", txtPrevExpYr.Text);
                 para[61] = new SqlParameter("@PrevExpInMnths", txtPrevExpMnth.Text);
+                para[62] = new SqlParameter("@PensionApplicable", ddlPensionApplicable.SelectedValue);
 
                 result = SqlHelper.ExecuteNonQuery(strQry, para, AppGlobal.strConnString);
 
@@ -685,6 +687,7 @@ namespace PayRoll.Masters
             txtPFJoindDt.ReadOnly = false;
             txtPFNo.ReadOnly = false;
             txtUANNo.ReadOnly = false;
+            ddlPensionApplicable.SelectedIndex = 0;
             txtPFNo.Text = "";
             txtPFJoindDt.Text = "";
             txtUANNo.Text = "";
@@ -818,7 +821,10 @@ namespace PayRoll.Masters
                 txtPFJoindDt.Text = objDT.Rows[0]["PFJoindate"] != DBNull.Value ? Convert.ToDateTime(objDT.Rows[0]["PFJoindate"]).ToString("dd/MM/yyyy") : "";
                 txtPFNo.Text = objDT.Rows[0]["PFNo"].ToString();
                 txtUANNo.Text = objDT.Rows[0]["UANNO"].ToString();
-                if(objDT.Rows[0]["PFApplicable"].ToString() == "N")
+                if (objDT.Rows[0]["PensionApplicable"] != DBNull.Value)
+                    ddlPensionApplicable.SelectedValue = objDT.Rows[0]["PensionApplicable"].ToString();
+
+                if (objDT.Rows[0]["PFApplicable"].ToString() == "N")
                 {
                     txtPFJoindDt.ReadOnly = true;
                     txtPFNo.ReadOnly = true;

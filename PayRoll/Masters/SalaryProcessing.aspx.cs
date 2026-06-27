@@ -344,7 +344,7 @@ namespace PayRoll.Masters
                 strQry += " 0 AS canteenRate,";
                 strQry += " isnull(udf_EmpSalMaster_1.BasicDA, 0) as BasicDA, isnull(udf_EmpSalMaster_1.HRA, 0) as HRA, isnull(udf_EmpSalMaster_1.Conveyance, 0) as Conveyance,isnull(udf_EmpSalMaster_1.Education, 0) as Education,isnull(udf_EmpSalMaster_1.Medical, 0) as Medical,";
                 strQry += "	isnull(udf_EmpSalMaster_1.Canteen, 0) as Canteen, isnull(udf_EmpSalMaster_1.Washing, 0) as Washing, isnull(udf_EmpSalMaster_1.Uniform, 0) as Uniform, isnull(udf_EmpSalMaster_1.Add1, 0) Add1, isnull(udf_EmpSalMaster_1.Add2, 0) Add2, isnull(udf_EmpSalMaster_1.Add3, 0) Add3,";
-                strQry += " 0 as Lwf, 0 as LWFCompContri, ISNULL(udf_EmpConfigMax_1.conId, 0)  AS empDesignation, isnull(dbo.T_MonthlyHamaliSalary.Wages, 0) +isnull(dbo.T_MonthlyHamaliSalary.VehicleHamali, 0) AS TotalHamali, null as witheffect ";
+                strQry += " 0 as Lwf, 0 as LWFCompContri, ISNULL(udf_EmpConfigMax_1.conId, 0)  AS empDesignation, isnull(dbo.T_MonthlyHamaliSalary.Wages, 0) +isnull(dbo.T_MonthlyHamaliSalary.VehicleHamali, 0) AS TotalHamali, null as witheffect, dbo.M_Emp.PensionApplicable ";
                 strQry += " FROM dbo.M_Emp ";
                 strQry += " INNER JOIN dbo.udf_EmpConfigMax('" + Convert.ToDateTime(dt).ToString("dd MMM yyyy") + "', 'desg') AS udf_EmpConfigMax_1 ON dbo.M_Emp.OrgId = udf_EmpConfigMax_1.OrgId AND dbo.M_Emp.Employeecd = udf_EmpConfigMax_1.Employeecd";
                 strQry += " INNER JOIN dbo.T_MonthlyHamaliSalary ON dbo.M_Emp.OrgId = dbo.T_MonthlyHamaliSalary.OrgId AND dbo.M_Emp.Employeecd = dbo.T_MonthlyHamaliSalary.Employeecd";
@@ -390,7 +390,7 @@ namespace PayRoll.Masters
                             strQryHamaliSal += " dbo.T_MonthlyHamaliSalary.Wages, dbo.T_MonthlyHamaliSalary.VehicleHamali, isnull(udf_EmpSalMaster_1.BasicDA,0) as BasicDA, ";
                             strQryHamaliSal += " isnull(udf_EmpSalMaster_1.HRA,0) as HRA, isnull(udf_EmpSalMaster_1.Conveyance,0) as Conveyance, isnull(udf_EmpSalMaster_1.Education,0) as Education, isnull(udf_EmpSalMaster_1.Medical,0) as Medical, isnull(udf_EmpSalMaster_1.Canteen,0) as Canteen, isnull(udf_EmpSalMaster_1.Uniform,0) as Uniform,";
                             strQryHamaliSal += " isnull(udf_EmpSalMaster_1.Add1,0) Add1, isnull(udf_EmpSalMaster_1.Add2,0) as Add2, isnull(udf_EmpSalMaster_1.Washing,0) as Washing, isnull(udf_EmpSalMaster_1.Add3,0) as Add3, isnull(dbo.T_MonthlyHamaliSalary.Wages,0) + isnull(dbo.T_MonthlyHamaliSalary.VehicleHamali,0) AS TotalHamali, ";
-                            strQryHamaliSal += " isnull(udf_EmpSalMaster_1.Gross,0) as Gross ";
+                            strQryHamaliSal += " isnull(udf_EmpSalMaster_1.Gross,0) as Gross, dbo.M_Emp.PensionApplicable ";
                             strQryHamaliSal += " FROM dbo.M_Emp INNER JOIN dbo.T_MonthlyHamaliSalary ON dbo.M_Emp.OrgId = dbo.T_MonthlyHamaliSalary.OrgId AND dbo.M_Emp.Employeecd = dbo.T_MonthlyHamaliSalary.Employeecd ";
                             //strQryHamaliSal += " INNER JOIN dbo.udf_EmpSalMaster(" + Convert.ToInt16(Session["OrgID"]) + ",'" + Convert.ToDateTime(dt).ToString("dd MMM yyyy") + "') AS udf_EmpSalMaster_1 ON dbo.M_Emp.OrgId = udf_EmpSalMaster_1.OrgId AND dbo.M_Emp.Employeecd = udf_EmpSalMaster_1.Employeecd ";
                             strQryHamaliSal += " INNER JOIN dbo.udfEmployeesalarymax(" + Convert.ToInt16(Session["OrgID"]) + ",'" + ddlYear.SelectedValue + ddlMon.SelectedValue + "') AS udf_EmpSalMaster_1 ON dbo.M_Emp.OrgId = udf_EmpSalMaster_1.OrgId AND dbo.M_Emp.Employeecd = udf_EmpSalMaster_1.Employeecd ";
@@ -655,6 +655,16 @@ namespace PayRoll.Masters
                                                                     pfPension = Math.Round(15000 * (Math.Round(Convert.ToDouble(objPFConfig.Rows[0]["EPS"]), 2) / 100), 0);
                                                                     pfAmount = pfAmt - pfPension;
                                                                 }
+
+                                                                //If Pension is not applicable for Employee
+                                                                if(objDTHamaliSal.Rows[j]["PensionApplicable"].ToString() == "N")
+                                                                {
+                                                                    pfPension = 0;
+                                                                    pfAmount = pfAmt;
+                                                                    epf = Convert.ToDouble(objPFConfig.Rows[0]["PF"]);
+                                                                    eps = 0;
+                                                                }
+
                                                             }
          
                                                         }
@@ -1009,6 +1019,16 @@ namespace PayRoll.Masters
                                                                     pfPension = Math.Round(15000 * (Math.Round(Convert.ToDouble(objPFConfig.Rows[0]["EPS"]), 2) / 100), 0);
                                                                     pfAmount = pfAmt - pfPension;
                                                                 }
+
+                                                                //If Pension is not applicable for Employee
+                                                                if (objDTHamaliSal.Rows[j]["PensionApplicable"].ToString() == "N")
+                                                                {
+                                                                    pfPension = 0;
+                                                                    pfAmount = pfAmt;
+                                                                    epf = Convert.ToDouble(objPFConfig.Rows[0]["PF"]);
+                                                                    eps = 0;
+                                                                }
+
                                                             }
                                                                 
                                                         }
@@ -1377,6 +1397,15 @@ namespace PayRoll.Masters
                                                             {
                                                                 pfPension = Math.Round(15000 * (Math.Round(Convert.ToDouble(objPFConfig.Rows[0]["EPS"]), 2) / 100), 0);
                                                                 pfAmount = pfAmt - pfPension;
+                                                            }
+
+                                                            //If Pension is not applicable for Employee
+                                                            if (objDTHamaliSal.Rows[j]["PensionApplicable"].ToString() == "N")
+                                                            {
+                                                                pfPension = 0;
+                                                                pfAmount = pfAmt;
+                                                                epf = Convert.ToDouble(objPFConfig.Rows[0]["PF"]);
+                                                                eps = 0;
                                                             }
 
                                                         }
@@ -1877,7 +1906,16 @@ namespace PayRoll.Masters
                                                         pfPension = Math.Round(15000 * (Math.Round(Convert.ToDouble(objPFConfig.Rows[0]["EPS"]),2) / 100), 0);
                                                         pfAmount = pfAmt - pfPension;
                                                     }
-                                                                                                      
+
+                                                    //If Pension is not applicable for Employee
+                                                    if (objDT.Rows[i]["PensionApplicable"].ToString() == "N")
+                                                    {
+                                                        pfPension = 0;
+                                                        pfAmount = pfAmt;
+                                                        epf = Convert.ToDouble(objPFConfig.Rows[0]["PF"]);
+                                                        eps = 0;
+                                                    }
+
                                                 }
                                             }
                                             else

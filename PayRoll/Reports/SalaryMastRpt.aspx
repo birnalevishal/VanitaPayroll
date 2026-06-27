@@ -54,10 +54,10 @@
                 document.getElementById('<%= txt2.ClientID %>').value = '';
             }
 
-}
-window.onload = function () {
-    txtVisible();
-}
+        }
+        window.onload = function () {
+            txtVisible();
+        }
     </script>
 
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
@@ -87,7 +87,7 @@ window.onload = function () {
             <div class="content">
                 <div class="row">
 
-                     <div class="hpanel hblue">
+                    <div class="hpanel hblue">
                         <div class="panel-heading hbuilt">
                             <div class="panel-tools">
                                 <a class="showhide"><i class="fa fa-chevron-up"></i></a>
@@ -141,6 +141,10 @@ window.onload = function () {
                                     <asp:DropDownList ID="ddlStatus" runat="server" class="form-control m-b" name="account" CausesValidation="True" TabIndex="8"></asp:DropDownList>
                                 </div>
                                 <div class="form-group col-lg-2">
+                                    <label for="username">Head Quarter </label>
+                                    <asp:DropDownList ID="ddlHQ" runat="server" class="form-control m-b" name="hq" TabIndex="9"></asp:DropDownList>
+                                </div>
+                                <div class="form-group col-lg-2">
                                     <label for="username">Type </label>
                                     <asp:DropDownList ID="ddlType" runat="server" class="form-control m-b" name="account" CausesValidation="True" TabIndex="9" onchange="txtVisible()">
                                         <asp:ListItem Text="select" Value="0" Selected="True"></asp:ListItem>
@@ -156,7 +160,7 @@ window.onload = function () {
                                 </div>
                                 <div class="form-group col-lg-2">
                                     <asp:Label ID="lbl2" runat="server" Text=""></asp:Label>
-                                    <asp:TextBox ID="txt2" runat="server"  MaxLength="80" placeholder="" class="form-control" name="name" CausesValidation="True" ValidationGroup="OK" TabIndex="11" Visible="false"></asp:TextBox>
+                                    <asp:TextBox ID="txt2" runat="server" MaxLength="80" placeholder="" class="form-control" name="name" CausesValidation="True" ValidationGroup="OK" TabIndex="11" Visible="false"></asp:TextBox>
                                 </div>
                             </div>
                             <div class="col-lg-12">
@@ -165,15 +169,15 @@ window.onload = function () {
                                         <asp:Button ID="btnCancel" runat="server" Text="Cancel" class="btn btn-outline btn-warning" TabIndex="13" OnClick="btnCancel_Click" />
                                         <asp:Button ID="btnSave" runat="server" Text="Show" class="btn btn-outline btn-success" ValidationGroup="OK" TabIndex="12" OnClick="btnSave_Click" />
                                     </div>
-                                     <div class="form-group col-lg-2">
+                                    <div class="form-group col-lg-2">
                                         <label for="Isactive">All Organisations</label>
                                         <asp:CheckBox ID="chkAll" runat="server" type="checkbox" class="i-checks" TabIndex="14" />
                                     </div>
                                 </div>
                             </div>
-                              <div class="col-lg-12">
-                                        <div class="hr-line-dashed"></div>
-                                    </div>
+                            <div class="col-lg-12">
+                                <div class="hr-line-dashed"></div>
+                            </div>
                             <div class="col-lg-12">
                                 <rsweb:ReportViewer ID="ReportViewer1" runat="server" Width="100%" class="table table-bordered table-striped" Height="400px">
                                 </rsweb:ReportViewer>

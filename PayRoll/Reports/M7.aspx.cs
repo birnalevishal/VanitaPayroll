@@ -45,6 +45,7 @@ namespace PayRoll.Reports
             ddlDepartment.DataValueField = "LocDepCd";
             ddlDepartment.DataBind();
             ddlDepartment.Items.Insert(0, new ListItem("All", "0"));
+            ddlDepartment.SelectedIndex = 0;
 
             //ddlDepartment1.DataSource = objDT;
             //ddlDepartment1.DataTextField = "LocationDep";
@@ -66,20 +67,20 @@ namespace PayRoll.Reports
             try
             {
                 string depts = "";
-                //foreach (ListItem item in ddlDepartment1.Items)
-                //{
-                //    if(item.Selected)
-                //    {
-                //        if(depts=="")
-                //        {
-                //            depts += item.Value;
-                //        }
-                //        else
-                //        {
-                //            depts += "," + item.Value;
-                //        }
-                //    }
-                //}
+                foreach (ListItem item in ddlDepartment.Items)
+                {
+                    if (item.Selected)
+                    {
+                        if (depts == "")
+                        {
+                            depts += item.Value;
+                        }
+                        else
+                        {
+                            depts += "," + item.Value;
+                        }
+                    }
+                }
 
 
                 if (ddlMnth.SelectedIndex == 0)
@@ -179,7 +180,8 @@ namespace PayRoll.Reports
                         else 
                         {
                             sCateg = "dept";
-                            sCategcd = ddlDepartment.SelectedValue;
+                            //sCategcd = ddlDepartment.SelectedValue;
+                            sCategcd = depts;
                         }
                         obj.Fill(objdt, Convert.ToInt32(Session["OrgId"]), monthcd, dt, sCateg, sCategcd);
 
@@ -234,7 +236,7 @@ namespace PayRoll.Reports
                         int Days = DateTime.DaysInMonth(Convert.ToInt32(ddlToYear.Text), Convert.ToInt32(ddlToMnth.SelectedValue));
                         DateTime dt = Convert.ToDateTime(ddlToYear.Text + "-" + ddlToMnth.SelectedValue + "-" + Days);
 
-                        obj.Fill(objdt, Convert.ToInt32(Session["OrgId"]), monthcd, dt , "div",ddlDivision.SelectedValue, "dept", ddlDepartment.SelectedValue);
+                        obj.Fill(objdt, Convert.ToInt32(Session["OrgId"]), monthcd, dt , "div",ddlDivision.SelectedValue, "dept", depts);
 
                         if (objdt.Rows.Count > 0)
                         {
@@ -256,7 +258,7 @@ namespace PayRoll.Reports
                     ReportDS.udfM7divLocDataTable dt1 = new ReportDS.udfM7divLocDataTable();
                     ReportDSTableAdapters.udfM7divLocTableAdapter obj1 = new ReportDSTableAdapters.udfM7divLocTableAdapter();
 
-                    obj1.Fill(dt1, Convert.ToInt32(Session["OrgId"]), Moncd, dt11, "div", ddlDivision.SelectedValue, "dept", ddlDepartment.SelectedValue);
+                    obj1.Fill(dt1, Convert.ToInt32(Session["OrgId"]), Moncd, dt11, "div", ddlDivision.SelectedValue, "dept", depts);
 
                     DataTable dtt = objdt;
                     //Filters
@@ -274,18 +276,7 @@ namespace PayRoll.Reports
 
                 }
 
-
-
-               
-
-             
-
-              
-               
-
-                             
-               
-
+            
 
 
 

@@ -255,7 +255,6 @@
     <Content Include="bin\Antlr3.Runtime.dll" />
     <Content Include="bin\AspNet.ScriptManager.bootstrap.dll" />
     <Content Include="bin\AspNet.ScriptManager.jQuery.dll" />
-    
     <Content Include="bin\Microsoft.AspNet.FriendlyUrls.dll" />
     <Content Include="bin\Microsoft.AspNet.Web.Optimization.WebForms.dll" />
     <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll" />
@@ -308,6 +307,7 @@
     <Content Include="Masters\F16StdDedRebate.aspx" />
     <Content Include="Masters\F16TaxSlab.aspx" />
     <Content Include="Masters\HamaliSalaryImpExcel.aspx" />
+    <Content Include="Masters\HQ.aspx" />
     <Content Include="Masters\LeaveBalImpExcel.aspx" />
     <Content Include="Masters\GratuityImpExcel.aspx" />
     <Content Include="Masters\IncrementImpExp.aspx" />
@@ -554,6 +554,7 @@
     <Content Include="Reports\PaidLeavesReport.aspx" />
     <Content Include="Reports\PerformanceEvaluationForm.aspx" />
     <Content Include="Reports\PfECREmployeerRegister.aspx" />
+    <Content Include="Reports\RegAcceptLetter.aspx" />
     <Content Include="Reports\RelievingLetter.aspx" />
     <Content Include="Reports\SalaryIncrementDiff.aspx" />
     <Content Include="Reports\EmpBonus.aspx" />
@@ -2936,6 +2937,13 @@
     <Compile Include="Masters\HamaliSalaryImpExcel.aspx.designer.cs">
       <DependentUpon>HamaliSalaryImpExcel.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Masters\HQ.aspx.cs">
+      <DependentUpon>HQ.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Masters\HQ.aspx.designer.cs">
+      <DependentUpon>HQ.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Masters\LeaveBalImpExcel.aspx.cs">
       <DependentUpon>LeaveBalImpExcel.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -3277,7 +3285,6 @@
       <DependentUpon>Taluka.aspx</DependentUpon>
     </Compile>
     <Compile Include="Models\CountryModel.cs" />
-
     <Compile Include="PayRollDS.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -3491,6 +3498,13 @@
     </Compile>
     <Compile Include="Reports\PfECREmployeerRegister.aspx.designer.cs">
       <DependentUpon>PfECREmployeerRegister.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\RegAcceptLetter.aspx.cs">
+      <DependentUpon>RegAcceptLetter.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reports\RegAcceptLetter.aspx.designer.cs">
+      <DependentUpon>RegAcceptLetter.aspx</DependentUpon>
     </Compile>
     <Compile Include="Reports\RelievingLetter.aspx.cs">
       <DependentUpon>RelievingLetter.aspx</DependentUpon>
@@ -3778,6 +3792,7 @@
     <EmbeddedResource Include="Reports\rptNoDues.rdlc" />
     <EmbeddedResource Include="Reports\rptPerformanceEvaluationForm.rdlc" />
     <EmbeddedResource Include="Reports\rptPFECEmployeeRegister.rdlc" />
+    <EmbeddedResource Include="Reports\RegAcceptLetter.rdlc" />
     <EmbeddedResource Include="Reports\rptRelievingLetter.rdlc" />
     <EmbeddedResource Include="Reports\rptSalaryIncrementDiff.rdlc" />
     <EmbeddedResource Include="Reports\rptPFRegisterDet.rdlc" />

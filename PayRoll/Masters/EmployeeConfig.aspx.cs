@@ -88,11 +88,20 @@ namespace PayRoll.Masters
             ddlStatus.DataBind();
 
             ddlStatus.Items.Insert(0, new ListItem("Select", "0"));
+
+            strQry1 = "SELECT HQId, HQName FROM M_HQ Where IsActive='Y' ORDER BY HQName";
+            objDT1 = SqlHelper.ExecuteDataTable(strQry1, AppGlobal.strConnString);
+            ddlHQ.DataSource = objDT1;
+            ddlHQ.DataTextField = "HQName";
+            ddlHQ.DataValueField = "HQId";
+            ddlHQ.DataBind();
+
+            ddlHQ.Items.Insert(0, new ListItem("Select", "0"));
         }
 
         private void BindGrid()
         {
-             string strQry = @"select empCon.Employeecd as Employeecd, Docdate, div.Division as Divcd, loc.LocationDep as LocDepCd,  desi.Designation as Desigcd , emp.Employeename as HodInchEmpcd , cat.Category as Categcd, skill.Skill as Skillcd, sts.Status as Stacd 
+             string strQry = @"select empCon.Employeecd as Employeecd, Docdate, div.Division as Divcd, loc.LocationDep as LocDepCd,  desi.Designation as Desigcd , emp.Employeename as HodInchEmpcd , cat.Category as Categcd, skill.Skill as Skillcd, sts.Status as Stacd, hq.HQName as HQId 
                                 from M_EmpConfiguration empCon
                                 left outer join M_Division div   on empCon.Divcd = div.Divcd
                                 left outer join M_LocationDep loc   on empCon.LocDepCd = loc.LocDepCd
@@ -101,6 +110,7 @@ namespace PayRoll.Masters
                                 left outer join M_Category cat   on empCon.Categcd = cat.Categcd
                                 left outer join M_Skill skill on empCon.Skillcd = skill.Skillcd
                                 left outer join M_Status sts   on empCon.Stacd = sts.Stacd
+                                left outer join M_HQ hq   on empCon.HQId = hq.HQId
                                 where empCon.Employeecd ='" + txtEmpCode.Text + "' and empCon.OrgId=" + Convert.ToInt32(Session["OrgID"]) + " order by Docdate desc";
 
             DataTable objDT = SqlHelper.ExecuteDataTable(strQry, AppGlobal.strConnString);
@@ -229,10 +239,10 @@ namespace PayRoll.Masters
                 //    return;
                 //}
 
-                strQry = @"INSERT INTO M_EmpConfiguration(OrgId, Employeecd, Docdate, MonYrcd, Divcd, LocDepCd, Desigcd, HodInchEmpcd, Categcd, Skillcd, Stacd) 
-                                             VALUES(@OrgId, @Employeecd, @Docdate, @MonYrcd, @Divcd, @LocDepCd, @Desigcd, @HodInchEmpcd, @Categcd, @Skillcd, @Stacd)";
+                strQry = @"INSERT INTO M_EmpConfiguration(OrgId, Employeecd, Docdate, MonYrcd, Divcd, LocDepCd, Desigcd, HodInchEmpcd, Categcd, Skillcd, Stacd, HQId) 
+                                             VALUES(@OrgId, @Employeecd, @Docdate, @MonYrcd, @Divcd, @LocDepCd, @Desigcd, @HodInchEmpcd, @Categcd, @Skillcd, @Stacd, @HQId)";
 
-                SqlParameter[] para = new SqlParameter[11];
+                SqlParameter[] para = new SqlParameter[12];
                 para[0] = new SqlParameter("@OrgId", Convert.ToInt32(Session["OrgID"]));
                 para[1] = new SqlParameter("@Employeecd", txtEmpCode.Text);
 
@@ -252,6 +262,7 @@ namespace PayRoll.Masters
                 para[8] = new SqlParameter("@Categcd", ddlCategory.SelectedValue);
                 para[9] = new SqlParameter("@Skillcd", ddlSkill.SelectedValue);
                 para[10] = new SqlParameter("@Stacd", ddlStatus.SelectedValue);
+                para[11] = new SqlParameter("@HQId", ddlHQ.SelectedValue);
 
                 result = SqlHelper.ExecuteNonQuery(strQry, para, AppGlobal.strConnString);
 
@@ -332,8 +343,8 @@ namespace PayRoll.Masters
 
                 monthYear = month.ToString("00") + year;
 
-                strQry = "UPDATE M_EmpConfiguration SET Docdate=@Docdate, MonYrcd=@MonYrcd, Divcd=@Divcd, LocDepCd=@LocDepCd, Desigcd=@Desigcd, HodInchEmpcd=@HodInchEmpcd, Categcd=@Categcd, Skillcd=@Skillcd, Stacd=@Stacd WHERE OrgId=" + Convert.ToInt32(Session["orgID"]) + " and Employeecd='" + txtEmpCode.Text + "' and docDate = '" + Convert.ToDateTime(ViewState["DocDate"].ToString()).ToString("dd MMM yyyy") + "'";
-                SqlParameter[] para = new SqlParameter[11];
+                strQry = "UPDATE M_EmpConfiguration SET Docdate=@Docdate, MonYrcd=@MonYrcd, Divcd=@Divcd, LocDepCd=@LocDepCd, Desigcd=@Desigcd, HodInchEmpcd=@HodInchEmpcd, Categcd=@Categcd, Skillcd=@Skillcd, Stacd=@Stacd, HQId=@HQId WHERE OrgId=" + Convert.ToInt32(Session["orgID"]) + " and Employeecd='" + txtEmpCode.Text + "' and docDate = '" + Convert.ToDateTime(ViewState["DocDate"].ToString()).ToString("dd MMM yyyy") + "'";
+                SqlParameter[] para = new SqlParameter[12];
                 //para[0] = new SqlParameter("@OrgId", nId);
                 //para[1] = new SqlParameter("@Employeecd", txtEmpCode.Text);
                 //para[2] = new SqlParameter("@Docdate", Convert.ToDateTime(txtDocDate.Text));
@@ -357,6 +368,7 @@ namespace PayRoll.Masters
                 para[8] = new SqlParameter("@Categcd", ddlCategory.SelectedValue);
                 para[9] = new SqlParameter("@Skillcd", ddlSkill.SelectedValue);
                 para[10] = new SqlParameter("@Stacd", ddlStatus.SelectedValue);
+                para[11] = new SqlParameter("@HQId", ddlHQ.SelectedValue);
 
                 result = SqlHelper.ExecuteNonQuery(strQry, para, AppGlobal.strConnString);
 
@@ -404,6 +416,7 @@ namespace PayRoll.Masters
             ddlCategory.SelectedIndex = 0;
             ddlSkill.SelectedIndex = 0;
             ddlStatus.SelectedIndex = 0;
+            ddlHQ.SelectedIndex = 0;
 
             btnSave.Text = "Save";
             txtEmpCode.ReadOnly = false;
@@ -457,6 +470,7 @@ namespace PayRoll.Masters
                 ddlCategory.SelectedValue = objDT.Rows[0]["Categcd"] != DBNull.Value ? objDT.Rows[0]["Categcd"].ToString() : "0";
                 ddlSkill.SelectedValue = objDT.Rows[0]["Skillcd"] != DBNull.Value ? objDT.Rows[0]["Skillcd"].ToString() : "0";
                 ddlStatus.SelectedValue = objDT.Rows[0]["Stacd"] != DBNull.Value ? objDT.Rows[0]["Stacd"].ToString() : "0";
+                ddlHQ.SelectedValue = objDT.Rows[0]["HQId"] != DBNull.Value ? objDT.Rows[0]["HQId"].ToString() : "0";
 
             }
             txtEmpCode.ReadOnly = true;

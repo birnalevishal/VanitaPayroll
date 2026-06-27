@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PayRoll.Reports {
-    
-    
-    public partial class M7 {
-        
+namespace PayRoll.Reports
+{
+
+
+    public partial class M7
+    {
+
         /// <summary>
         /// UpdatePanel1 control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace PayRoll.Reports {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel1;
-        
+
         /// <summary>
         /// ddlMnth control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace PayRoll.Reports {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlMnth;
-        
+
         /// <summary>
         /// RFVddlMon control.
         /// </summary>
@@ -38,7 +40,7 @@ namespace PayRoll.Reports {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RFVddlMon;
-        
+
         /// <summary>
         /// ddlYear control.
         /// </summary>
@@ -47,7 +49,7 @@ namespace PayRoll.Reports {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlYear;
-        
+
         /// <summary>
         /// RFVddlYear control.
         /// </summary>
@@ -56,7 +58,7 @@ namespace PayRoll.Reports {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RFVddlYear;
-        
+
         /// <summary>
         /// ddlToMnth control.
         /// </summary>
@@ -65,7 +67,7 @@ namespace PayRoll.Reports {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlToMnth;
-        
+
         /// <summary>
         /// RequiredFieldValidator1 control.
         /// </summary>
@@ -74,7 +76,7 @@ namespace PayRoll.Reports {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
-        
+
         /// <summary>
         /// ddlToYear control.
         /// </summary>
@@ -83,7 +85,7 @@ namespace PayRoll.Reports {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlToYear;
-        
+
         /// <summary>
         /// RequiredFieldValidator2 control.
         /// </summary>
@@ -92,7 +94,7 @@ namespace PayRoll.Reports {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
-        
+
         /// <summary>
         /// ddlDepartment control.
         /// </summary>
@@ -100,8 +102,8 @@ namespace PayRoll.Reports {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlDepartment;
-        
+        protected global::System.Web.UI.WebControls.ListBox ddlDepartment;
+
         /// <summary>
         /// ddlDivision control.
         /// </summary>
@@ -110,7 +112,7 @@ namespace PayRoll.Reports {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlDivision;
-        
+
         /// <summary>
         /// btnSearch control.
         /// </summary>
@@ -119,7 +121,7 @@ namespace PayRoll.Reports {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSearch;
-        
+
         /// <summary>
         /// btnCancel control.
         /// </summary>
@@ -128,7 +130,7 @@ namespace PayRoll.Reports {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnCancel;
-        
+
         /// <summary>
         /// ReportViewer1 control.
         /// </summary>
@@ -137,7 +139,7 @@ namespace PayRoll.Reports {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::Microsoft.Reporting.WebForms.ReportViewer ReportViewer1;
-        
+
         /// <summary>
         /// UpdateProgress1 control.
         /// </summary>

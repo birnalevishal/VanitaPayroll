@@ -180,9 +180,9 @@
                                         <label for="username">Previous Exp(Year/Month)</label>
                                         <div class="col-lg-6" style="padding-left: 0">
                                             <asp:TextBox ID="txtPrevExpYr" runat="server" type="number" MaxLength="2" placeholder="Year" class="form-control" name="name" ValidationGroup="OK" TabIndex="16"></asp:TextBox>
-                                            
+
                                         </div>
-                                        <div class="col-lg-6" style="padding-left: 0; padding-right:0">
+                                        <div class="col-lg-6" style="padding-left: 0; padding-right: 0">
                                             <asp:TextBox ID="txtPrevExpMnth" runat="server" type="number" MaxLength="2" placeholder="Month" class="form-control" name="name" ValidationGroup="OK" TabIndex="16"></asp:TextBox>
                                         </div>
                                     </div>
@@ -293,21 +293,29 @@
 
                                         </asp:DropDownList>
                                     </div>
-                                    <div class="form-group col-lg-3" id="divPFJoinDt">
+                                    <div class="form-group col-lg-2" id="divPFJoinDt">
                                         <label for="username">PF Joining Date</label>
                                         <asp:TextBox ID="txtPFJoindDt" runat="server" type="text" placeholder="DD/MM/YYYY" class="form-control" name="name" ValidationGroup="OK" TabIndex="34"></asp:TextBox>
                                         <Ajax:CalendarExtender ID="CEtxtPFJoindDt" PopupButtonID="imgPopup" runat="server" TargetControlID="txtPFJoindDt" Format="dd/MM/yyyy"></Ajax:CalendarExtender>
                                     </div>
-                                    <div class="form-group col-lg-3" id="divPF">
+                                    <div class="form-group col-lg-2" id="divPF">
                                         <label for="username">PF No.</label>
                                         <asp:TextBox ID="txtPFNo" runat="server" type="text" MaxLength="22" placeholder="Enter PF No." class="form-control" name="name" ValidationGroup="OK" TabIndex="35"></asp:TextBox>
                                         <asp:RegularExpressionValidator ID="REVtxtPFNo" Display="Dynamic" ControlToValidate="txtPFNo" ValidationExpression="^[\S\d]{22,22}$" runat="server" ErrorMessage="22 Digits Required." ForeColor="Red" ValidationGroup="OK"></asp:RegularExpressionValidator>
                                     </div>
 
-                                    <div class="form-group col-lg-3" id="divUAN">
+                                    <div class="form-group col-lg-2" id="divUAN">
                                         <label for="username">UAN No.</label>
                                         <asp:TextBox ID="txtUANNo" runat="server" type="text" MaxLength="12" placeholder="Enter UAN No." class="form-control" name="name" ValidationGroup="OK" TabIndex="36" onkeypress="return onlyNumbers(event,this);"></asp:TextBox>
                                         <asp:RegularExpressionValidator ID="REVtxtUANNo" Display="Dynamic" ControlToValidate="txtUANNo" ValidationExpression="^[\d]{12,12}$" runat="server" ErrorMessage="12 Digits Required." ForeColor="Red" ValidationGroup="OK"></asp:RegularExpressionValidator>
+                                    </div>
+
+                                    <div class="form-group col-lg-3">
+                                        <label for="username">Pension Applicable </label>
+                                        <asp:DropDownList ID="ddlPensionApplicable" runat="server" class="form-control" name="account" TabIndex="37">
+                                            <asp:ListItem Text="Applicable" Value="Y"></asp:ListItem>
+                                            <asp:ListItem Text="Not Applicable" Value="N"></asp:ListItem>
+                                        </asp:DropDownList>
                                     </div>
                                 </div>
 

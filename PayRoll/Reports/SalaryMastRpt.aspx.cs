@@ -84,6 +84,15 @@ namespace PayRoll.Reports
             ddlStatus.DataBind();
 
             ddlStatus.Items.Insert(0, new ListItem("Select", "0"));
+
+            strQry1 = "SELECT HQId, HQName FROM M_HQ Where IsActive='Y' ORDER BY HQName";
+            objDT1 = SqlHelper.ExecuteDataTable(strQry1, AppGlobal.strConnString);
+            ddlHQ.DataSource = objDT1;
+            ddlHQ.DataTextField = "HQName";
+            ddlHQ.DataValueField = "HQId";
+            ddlHQ.DataBind();
+
+            ddlHQ.Items.Insert(0, new ListItem("Select", "0"));
         }
 
         protected void btnSave_Click(object sender, EventArgs e)
@@ -158,6 +167,10 @@ namespace PayRoll.Reports
                 if (ddlStatus.SelectedIndex != 0)
                 {
                     filter += " staid=" + ddlStatus.SelectedValue + " and ";
+                }
+                if (ddlHQ.SelectedIndex != 0)
+                {
+                    filter += " HQId=" + ddlHQ.SelectedValue + " and ";
                 }
                 if (ddlType.SelectedIndex != 0)
                 {

@@ -122,11 +122,16 @@
                                     <div class="form-group col-lg-2">
                                         <label for="username">HOD Employee Code </label>
                                         <asp:TextBox ID="txtHODEmpCode" runat="server" type="text" placeholder="HOD Employee Code" class="form-control" name="name" ValidationGroup="OK" AutoPostBack="True" OnTextChanged="txtHODEmpCode_TextChanged" TabIndex="10" onkeypress="return onlyNumbers(event,this);"></asp:TextBox>
-                                        
+
                                     </div>
                                     <div class="form-group col-lg-4">
                                         <label for="username">HOD Employee Name </label>
                                         <asp:TextBox ID="txtHODEmpName" runat="server" ReadOnly="true" type="text" placeholder="HOD Name" class="form-control" name="name" TabIndex="11"></asp:TextBox>
+                                    </div>
+                                    <div class="form-group col-lg-2">
+                                        <label for="username">Head Quarter </label>
+                                        <asp:DropDownList ID="ddlHQ" runat="server" class="form-control m-b" name="hq" TabIndex="9"></asp:DropDownList>
+                                        <%--<asp:RequiredFieldValidator ID="RFVddlStatus" runat="server" ControlToValidate="ddlStatus" ErrorMessage="Status Name Required" Display="Dynamic" ForeColor="Red" ValidationGroup="OK"></asp:RequiredFieldValidator>--%>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
@@ -167,10 +172,11 @@
                                         <asp:BoundField DataField="Divcd" HeaderText="Division" HeaderStyle-CssClass="col-lg-1" />
                                         <asp:BoundField DataField="LocDepCd" HeaderText="Department" HeaderStyle-CssClass="col-lg-1" />
                                         <asp:BoundField DataField="Desigcd" HeaderText="Designation" HeaderStyle-CssClass="col-lg-1" />
-                                        <asp:BoundField DataField="HodInchEmpcd" HeaderText="HOD" HeaderStyle-CssClass="col-lg-2" />
-                                        <asp:BoundField DataField="Categcd" HeaderText="Category" HeaderStyle-CssClass="col-lg-2" />
-                                        <asp:BoundField DataField="Skillcd" HeaderText="Skill" HeaderStyle-CssClass="col-lg-2" />
-                                        <asp:BoundField DataField="Stacd" HeaderText="Status" HeaderStyle-CssClass="col-lg-2" />
+                                        <asp:BoundField DataField="HodInchEmpcd" HeaderText="HOD" HeaderStyle-CssClass="col-lg-3" />
+                                        <asp:BoundField DataField="Categcd" HeaderText="Category" HeaderStyle-CssClass="col-lg-1" />
+                                        <asp:BoundField DataField="Skillcd" HeaderText="Skill" HeaderStyle-CssClass="col-lg-1" />
+                                        <asp:BoundField DataField="Stacd" HeaderText="Status" HeaderStyle-CssClass="col-lg-1" />
+                                        <asp:BoundField DataField="HQId" HeaderText="Head Quarter" HeaderStyle-CssClass="col-lg-2" />
                                     </Columns>
                                     <PagerStyle CssClass="GridPager" />
                                 </asp:GridView>
